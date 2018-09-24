@@ -106,20 +106,20 @@
             this.panel1.Controls.Add(this.Type_ComboBox);
             this.panel1.Controls.Add(this.button_Select);
             this.panel1.Controls.Add(this.SeachText);
-            this.panel1.Location = new System.Drawing.Point(11, 43);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Location = new System.Drawing.Point(14, 51);
+            this.panel1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(307, 150);
+            this.panel1.Size = new System.Drawing.Size(394, 178);
             this.panel1.TabIndex = 212;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label2.Location = new System.Drawing.Point(9, 62);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(12, 74);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 20);
+            this.label2.Size = new System.Drawing.Size(91, 25);
             this.label2.TabIndex = 211;
             this.label2.Text = "รายละเอียด";
             // 
@@ -127,10 +127,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label1.Location = new System.Drawing.Point(16, 22);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(21, 26);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 20);
+            this.label1.Size = new System.Drawing.Size(83, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "ค้นหาจาก";
             // 
@@ -138,18 +138,18 @@
             // 
             this.Type_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Type_ComboBox.FormattingEnabled = true;
-            this.Type_ComboBox.Location = new System.Drawing.Point(87, 20);
-            this.Type_ComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Type_ComboBox.Location = new System.Drawing.Point(112, 24);
+            this.Type_ComboBox.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.Type_ComboBox.Name = "Type_ComboBox";
-            this.Type_ComboBox.Size = new System.Drawing.Size(168, 24);
+            this.Type_ComboBox.Size = new System.Drawing.Size(215, 27);
             this.Type_ComboBox.TabIndex = 210;
             // 
             // button_Select
             // 
-            this.button_Select.Location = new System.Drawing.Point(87, 104);
-            this.button_Select.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_Select.Location = new System.Drawing.Point(112, 124);
+            this.button_Select.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.button_Select.Name = "button_Select";
-            this.button_Select.Size = new System.Drawing.Size(114, 28);
+            this.button_Select.Size = new System.Drawing.Size(147, 33);
             this.button_Select.TabIndex = 209;
             this.button_Select.Text = "ค้นหา";
             this.button_Select.UseVisualStyleBackColor = true;
@@ -157,10 +157,10 @@
             // 
             // SeachText
             // 
-            this.SeachText.Location = new System.Drawing.Point(87, 63);
-            this.SeachText.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SeachText.Location = new System.Drawing.Point(112, 75);
+            this.SeachText.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.SeachText.Name = "SeachText";
-            this.SeachText.Size = new System.Drawing.Size(168, 23);
+            this.SeachText.Size = new System.Drawing.Size(215, 27);
             this.SeachText.TabIndex = 0;
             this.SeachText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
@@ -203,10 +203,10 @@
             this.panel2.Controls.Add(this.FULLNAME);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.TITLE);
-            this.panel2.Location = new System.Drawing.Point(320, 43);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Location = new System.Drawing.Point(411, 51);
+            this.panel2.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(617, 517);
+            this.panel2.Size = new System.Drawing.Size(793, 614);
             this.panel2.TabIndex = 214;
             // 
             // groupBox3
@@ -214,21 +214,21 @@
             this.groupBox3.Controls.Add(this.btnProV8);
             this.groupBox3.Controls.Add(this.radProV8);
             this.groupBox3.Controls.Add(this.radProGen);
-            this.groupBox3.Location = new System.Drawing.Point(15, 412);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.groupBox3.Location = new System.Drawing.Point(19, 489);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.groupBox3.Size = new System.Drawing.Size(261, 85);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox3.Size = new System.Drawing.Size(336, 101);
             this.groupBox3.TabIndex = 246;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "โปรโมชั่น";
             // 
             // btnProV8
             // 
-            this.btnProV8.Location = new System.Drawing.Point(164, 49);
-            this.btnProV8.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.btnProV8.Location = new System.Drawing.Point(211, 58);
+            this.btnProV8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnProV8.Name = "btnProV8";
-            this.btnProV8.Size = new System.Drawing.Size(82, 29);
+            this.btnProV8.Size = new System.Drawing.Size(105, 34);
             this.btnProV8.TabIndex = 2;
             this.btnProV8.Text = "แก้ไขโปร";
             this.btnProV8.UseVisualStyleBackColor = true;
@@ -237,10 +237,10 @@
             // radProV8
             // 
             this.radProV8.AutoSize = true;
-            this.radProV8.Location = new System.Drawing.Point(27, 53);
-            this.radProV8.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.radProV8.Location = new System.Drawing.Point(35, 63);
+            this.radProV8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radProV8.Name = "radProV8";
-            this.radProV8.Size = new System.Drawing.Size(120, 20);
+            this.radProV8.Size = new System.Drawing.Size(151, 25);
             this.radProV8.TabIndex = 1;
             this.radProV8.Text = "ซื้อ 1000 ลด 300";
             this.radProV8.UseVisualStyleBackColor = true;
@@ -249,10 +249,10 @@
             // 
             this.radProGen.AutoSize = true;
             this.radProGen.Checked = true;
-            this.radProGen.Location = new System.Drawing.Point(27, 22);
-            this.radProGen.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.radProGen.Location = new System.Drawing.Point(35, 26);
+            this.radProGen.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radProGen.Name = "radProGen";
-            this.radProGen.Size = new System.Drawing.Size(106, 20);
+            this.radProGen.Size = new System.Drawing.Size(136, 25);
             this.radProGen.TabIndex = 0;
             this.radProGen.TabStop = true;
             this.radProGen.Text = "โปรโมชั่นทั่วไป";
@@ -263,21 +263,21 @@
             this.gbMem.Controls.Add(this.btnVIP);
             this.gbMem.Controls.Add(this.radVIP);
             this.gbMem.Controls.Add(this.radMem);
-            this.gbMem.Location = new System.Drawing.Point(15, 322);
-            this.gbMem.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.gbMem.Location = new System.Drawing.Point(19, 382);
+            this.gbMem.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbMem.Name = "gbMem";
-            this.gbMem.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.gbMem.Size = new System.Drawing.Size(261, 85);
+            this.gbMem.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.gbMem.Size = new System.Drawing.Size(336, 101);
             this.gbMem.TabIndex = 245;
             this.gbMem.TabStop = false;
             this.gbMem.Text = "สมาชิก";
             // 
             // btnVIP
             // 
-            this.btnVIP.Location = new System.Drawing.Point(164, 49);
-            this.btnVIP.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.btnVIP.Location = new System.Drawing.Point(211, 58);
+            this.btnVIP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnVIP.Name = "btnVIP";
-            this.btnVIP.Size = new System.Drawing.Size(82, 29);
+            this.btnVIP.Size = new System.Drawing.Size(105, 34);
             this.btnVIP.TabIndex = 2;
             this.btnVIP.Text = "แก้ไขสิทธิ์";
             this.btnVIP.UseVisualStyleBackColor = true;
@@ -286,10 +286,10 @@
             // radVIP
             // 
             this.radVIP.AutoSize = true;
-            this.radVIP.Location = new System.Drawing.Point(27, 53);
-            this.radVIP.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.radVIP.Location = new System.Drawing.Point(35, 63);
+            this.radVIP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radVIP.Name = "radVIP";
-            this.radVIP.Size = new System.Drawing.Size(57, 20);
+            this.radVIP.Size = new System.Drawing.Size(71, 25);
             this.radVIP.TabIndex = 1;
             this.radVIP.TabStop = true;
             this.radVIP.Text = "V.I.P.";
@@ -298,10 +298,10 @@
             // radMem
             // 
             this.radMem.AutoSize = true;
-            this.radMem.Location = new System.Drawing.Point(27, 22);
-            this.radMem.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.radMem.Location = new System.Drawing.Point(35, 26);
+            this.radMem.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radMem.Name = "radMem";
-            this.radMem.Size = new System.Drawing.Size(64, 20);
+            this.radMem.Size = new System.Drawing.Size(80, 25);
             this.radMem.TabIndex = 0;
             this.radMem.TabStop = true;
             this.radMem.Text = "สมาชิก";
@@ -311,11 +311,11 @@
             // 
             this.groupBox2.Controls.Add(this.lblPointExpire);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.groupBox2.Location = new System.Drawing.Point(298, 254);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.groupBox2.Location = new System.Drawing.Point(383, 302);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.groupBox2.Size = new System.Drawing.Size(275, 55);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox2.Size = new System.Drawing.Size(354, 65);
             this.groupBox2.TabIndex = 244;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "แต้มที่จะหมดอายุสิ้นปี";
@@ -325,10 +325,9 @@
             this.lblPointExpire.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblPointExpire.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.lblPointExpire.ForeColor = System.Drawing.Color.Red;
-            this.lblPointExpire.Location = new System.Drawing.Point(2, 22);
-            this.lblPointExpire.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPointExpire.Location = new System.Drawing.Point(3, 27);
             this.lblPointExpire.Name = "lblPointExpire";
-            this.lblPointExpire.Size = new System.Drawing.Size(271, 30);
+            this.lblPointExpire.Size = new System.Drawing.Size(348, 34);
             this.lblPointExpire.TabIndex = 0;
             this.lblPointExpire.Text = "0";
             this.lblPointExpire.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -337,11 +336,11 @@
             // 
             this.groupBox1.Controls.Add(this.lblPoint);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.groupBox1.Location = new System.Drawing.Point(298, 195);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.groupBox1.Location = new System.Drawing.Point(383, 232);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.groupBox1.Size = new System.Drawing.Size(275, 55);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox1.Size = new System.Drawing.Size(354, 65);
             this.groupBox1.TabIndex = 243;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "แต้มคงเหลือ";
@@ -351,10 +350,9 @@
             this.lblPoint.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblPoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 21F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.lblPoint.ForeColor = System.Drawing.Color.Green;
-            this.lblPoint.Location = new System.Drawing.Point(2, 22);
-            this.lblPoint.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPoint.Location = new System.Drawing.Point(3, 27);
             this.lblPoint.Name = "lblPoint";
-            this.lblPoint.Size = new System.Drawing.Size(271, 30);
+            this.lblPoint.Size = new System.Drawing.Size(348, 34);
             this.lblPoint.TabIndex = 0;
             this.lblPoint.Text = "0";
             this.lblPoint.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -363,10 +361,10 @@
             // 
             this.SaveTo.BackColor = System.Drawing.Color.Blue;
             this.SaveTo.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.SaveTo.Location = new System.Drawing.Point(485, 409);
-            this.SaveTo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SaveTo.Location = new System.Drawing.Point(624, 486);
+            this.SaveTo.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.SaveTo.Name = "SaveTo";
-            this.SaveTo.Size = new System.Drawing.Size(88, 47);
+            this.SaveTo.Size = new System.Drawing.Size(113, 56);
             this.SaveTo.TabIndex = 242;
             this.SaveTo.Text = "ดึงสมาชิก";
             this.SaveTo.UseVisualStyleBackColor = false;
@@ -376,9 +374,10 @@
             // 
             this.LbShow.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.LbShow.ForeColor = System.Drawing.Color.Red;
-            this.LbShow.Location = new System.Drawing.Point(301, 322);
+            this.LbShow.Location = new System.Drawing.Point(387, 382);
+            this.LbShow.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LbShow.Name = "LbShow";
-            this.LbShow.Size = new System.Drawing.Size(275, 70);
+            this.LbShow.Size = new System.Drawing.Size(354, 83);
             this.LbShow.TabIndex = 241;
             this.LbShow.Text = "*กดดึงสมาชิกเพื่อรับส่งข้อมูลจากสำนักงานมายังหน้าร้าน";
             // 
@@ -386,35 +385,37 @@
             // 
             this.SEX_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.SEX_comboBox.FormattingEnabled = true;
-            this.SEX_comboBox.Location = new System.Drawing.Point(402, 108);
-            this.SEX_comboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SEX_comboBox.Location = new System.Drawing.Point(517, 128);
+            this.SEX_comboBox.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.SEX_comboBox.Name = "SEX_comboBox";
-            this.SEX_comboBox.Size = new System.Drawing.Size(168, 24);
+            this.SEX_comboBox.Size = new System.Drawing.Size(215, 27);
             this.SEX_comboBox.TabIndex = 212;
             this.SEX_comboBox.SelectedIndexChanged += new System.EventHandler(this.SEX_comboBox_SelectedIndexChanged);
             // 
             // ENTRYDATE
             // 
-            this.ENTRYDATE.Location = new System.Drawing.Point(402, 166);
+            this.ENTRYDATE.Location = new System.Drawing.Point(517, 197);
+            this.ENTRYDATE.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ENTRYDATE.Name = "ENTRYDATE";
-            this.ENTRYDATE.Size = new System.Drawing.Size(168, 23);
+            this.ENTRYDATE.Size = new System.Drawing.Size(215, 27);
             this.ENTRYDATE.TabIndex = 240;
             // 
             // BIRTHDATE
             // 
-            this.BIRTHDATE.Location = new System.Drawing.Point(402, 137);
+            this.BIRTHDATE.Location = new System.Drawing.Point(517, 163);
+            this.BIRTHDATE.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.BIRTHDATE.Name = "BIRTHDATE";
-            this.BIRTHDATE.Size = new System.Drawing.Size(168, 23);
+            this.BIRTHDATE.Size = new System.Drawing.Size(215, 27);
             this.BIRTHDATE.TabIndex = 239;
             // 
             // SaveData
             // 
             this.SaveData.BackColor = System.Drawing.Color.ForestGreen;
             this.SaveData.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.SaveData.Location = new System.Drawing.Point(388, 409);
-            this.SaveData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SaveData.Location = new System.Drawing.Point(499, 486);
+            this.SaveData.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.SaveData.Name = "SaveData";
-            this.SaveData.Size = new System.Drawing.Size(88, 47);
+            this.SaveData.Size = new System.Drawing.Size(113, 56);
             this.SaveData.TabIndex = 238;
             this.SaveData.Text = "บันทึก";
             this.SaveData.UseVisualStyleBackColor = false;
@@ -424,10 +425,10 @@
             // 
             this.Cancel.BackColor = System.Drawing.Color.Red;
             this.Cancel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.Cancel.Location = new System.Drawing.Point(292, 409);
-            this.Cancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Cancel.Location = new System.Drawing.Point(375, 486);
+            this.Cancel.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.Cancel.Name = "Cancel";
-            this.Cancel.Size = new System.Drawing.Size(88, 47);
+            this.Cancel.Size = new System.Drawing.Size(113, 56);
             this.Cancel.TabIndex = 212;
             this.Cancel.Text = "ยกเลิกบัตรสมาชิก";
             this.Cancel.UseVisualStyleBackColor = false;
@@ -437,10 +438,10 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label15.Location = new System.Drawing.Point(294, 168);
-            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label15.Location = new System.Drawing.Point(378, 200);
+            this.label15.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(69, 20);
+            this.label15.Size = new System.Drawing.Size(84, 25);
             this.label15.TabIndex = 237;
             this.label15.Text = "วันที่สมัคร";
             // 
@@ -448,10 +449,10 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label14.Location = new System.Drawing.Point(294, 139);
-            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Location = new System.Drawing.Point(378, 165);
+            this.label14.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(49, 20);
+            this.label14.Size = new System.Drawing.Size(59, 25);
             this.label14.TabIndex = 235;
             this.label14.Text = "วันเกิด";
             // 
@@ -459,10 +460,10 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label13.Location = new System.Drawing.Point(296, 107);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Location = new System.Drawing.Point(381, 127);
+            this.label13.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(34, 20);
+            this.label13.Size = new System.Drawing.Size(40, 25);
             this.label13.TabIndex = 233;
             this.label13.Text = "เพศ";
             // 
@@ -470,38 +471,38 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label12.Location = new System.Drawing.Point(299, 51);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Location = new System.Drawing.Point(384, 61);
+            this.label12.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(32, 20);
+            this.label12.Size = new System.Drawing.Size(39, 25);
             this.label12.TabIndex = 231;
             this.label12.Text = "อายุ";
             // 
             // AGE
             // 
-            this.AGE.Location = new System.Drawing.Point(402, 51);
-            this.AGE.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.AGE.Location = new System.Drawing.Point(517, 61);
+            this.AGE.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.AGE.Name = "AGE";
-            this.AGE.Size = new System.Drawing.Size(168, 23);
+            this.AGE.Size = new System.Drawing.Size(215, 27);
             this.AGE.TabIndex = 230;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label11.Location = new System.Drawing.Point(294, 25);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Location = new System.Drawing.Point(378, 30);
+            this.label11.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(101, 20);
+            this.label11.Size = new System.Drawing.Size(120, 25);
             this.label11.TabIndex = 229;
             this.label11.Text = "รหัสบัตรสมาชิก";
             // 
             // CARDID
             // 
-            this.CARDID.Location = new System.Drawing.Point(402, 23);
-            this.CARDID.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CARDID.Location = new System.Drawing.Point(517, 27);
+            this.CARDID.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.CARDID.Name = "CARDID";
-            this.CARDID.Size = new System.Drawing.Size(168, 23);
+            this.CARDID.Size = new System.Drawing.Size(215, 27);
             this.CARDID.TabIndex = 228;
             this.CARDID.TextChanged += new System.EventHandler(this.CARDID_TextChanged);
             // 
@@ -509,153 +510,153 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label10.Location = new System.Drawing.Point(11, 289);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Location = new System.Drawing.Point(14, 343);
+            this.label10.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(90, 20);
+            this.label10.Size = new System.Drawing.Size(112, 25);
             this.label10.TabIndex = 227;
             this.label10.Text = "รหัสประชาชน";
             // 
             // PEOPLEID
             // 
-            this.PEOPLEID.Location = new System.Drawing.Point(108, 290);
-            this.PEOPLEID.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PEOPLEID.Location = new System.Drawing.Point(139, 344);
+            this.PEOPLEID.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.PEOPLEID.Name = "PEOPLEID";
-            this.PEOPLEID.Size = new System.Drawing.Size(168, 23);
+            this.PEOPLEID.Size = new System.Drawing.Size(215, 27);
             this.PEOPLEID.TabIndex = 226;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label9.Location = new System.Drawing.Point(11, 259);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Location = new System.Drawing.Point(14, 308);
+            this.label9.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(41, 20);
+            this.label9.Size = new System.Drawing.Size(46, 25);
             this.label9.TabIndex = 225;
             this.label9.Text = "อีเมล";
             // 
             // ADDR_EMAIL
             // 
-            this.ADDR_EMAIL.Location = new System.Drawing.Point(108, 260);
-            this.ADDR_EMAIL.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ADDR_EMAIL.Location = new System.Drawing.Point(139, 309);
+            this.ADDR_EMAIL.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.ADDR_EMAIL.Name = "ADDR_EMAIL";
-            this.ADDR_EMAIL.Size = new System.Drawing.Size(168, 23);
+            this.ADDR_EMAIL.Size = new System.Drawing.Size(215, 27);
             this.ADDR_EMAIL.TabIndex = 224;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label8.Location = new System.Drawing.Point(11, 201);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Location = new System.Drawing.Point(14, 239);
+            this.label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(49, 20);
+            this.label8.Size = new System.Drawing.Size(59, 25);
             this.label8.TabIndex = 223;
             this.label8.Text = "จังหวัด";
             // 
             // ADDR_PROVINCE
             // 
-            this.ADDR_PROVINCE.Location = new System.Drawing.Point(108, 202);
-            this.ADDR_PROVINCE.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ADDR_PROVINCE.Location = new System.Drawing.Point(139, 240);
+            this.ADDR_PROVINCE.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.ADDR_PROVINCE.Name = "ADDR_PROVINCE";
-            this.ADDR_PROVINCE.Size = new System.Drawing.Size(168, 23);
+            this.ADDR_PROVINCE.Size = new System.Drawing.Size(215, 27);
             this.ADDR_PROVINCE.TabIndex = 222;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label7.Location = new System.Drawing.Point(294, 79);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Location = new System.Drawing.Point(378, 94);
+            this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 20);
+            this.label7.Size = new System.Drawing.Size(43, 25);
             this.label7.TabIndex = 221;
             this.label7.Text = "ที่อยู่";
             // 
             // ADDR_ROW2
             // 
-            this.ADDR_ROW2.Location = new System.Drawing.Point(402, 80);
-            this.ADDR_ROW2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ADDR_ROW2.Location = new System.Drawing.Point(517, 95);
+            this.ADDR_ROW2.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.ADDR_ROW2.Name = "ADDR_ROW2";
-            this.ADDR_ROW2.Size = new System.Drawing.Size(168, 23);
+            this.ADDR_ROW2.Size = new System.Drawing.Size(215, 27);
             this.ADDR_ROW2.TabIndex = 220;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label6.Location = new System.Drawing.Point(11, 231);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(14, 274);
+            this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(92, 20);
+            this.label6.Size = new System.Drawing.Size(107, 25);
             this.label6.TabIndex = 219;
             this.label6.Text = "เบอร์โทรศัพท์";
             // 
             // ADDR_MOBILE
             // 
-            this.ADDR_MOBILE.Location = new System.Drawing.Point(108, 232);
-            this.ADDR_MOBILE.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ADDR_MOBILE.Location = new System.Drawing.Point(139, 276);
+            this.ADDR_MOBILE.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.ADDR_MOBILE.Name = "ADDR_MOBILE";
-            this.ADDR_MOBILE.Size = new System.Drawing.Size(168, 23);
+            this.ADDR_MOBILE.Size = new System.Drawing.Size(215, 27);
             this.ADDR_MOBILE.TabIndex = 218;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label5.Location = new System.Drawing.Point(11, 80);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(14, 95);
+            this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 20);
+            this.label5.Size = new System.Drawing.Size(43, 25);
             this.label5.TabIndex = 217;
             this.label5.Text = "ที่อยู่";
             // 
             // ADDR_ROW1
             // 
-            this.ADDR_ROW1.Location = new System.Drawing.Point(108, 81);
-            this.ADDR_ROW1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ADDR_ROW1.Location = new System.Drawing.Point(139, 96);
+            this.ADDR_ROW1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.ADDR_ROW1.Multiline = true;
             this.ADDR_ROW1.Name = "ADDR_ROW1";
-            this.ADDR_ROW1.Size = new System.Drawing.Size(168, 116);
+            this.ADDR_ROW1.Size = new System.Drawing.Size(215, 137);
             this.ADDR_ROW1.TabIndex = 216;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label4.Location = new System.Drawing.Point(11, 51);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(14, 61);
+            this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(82, 20);
+            this.label4.Size = new System.Drawing.Size(99, 25);
             this.label4.TabIndex = 215;
             this.label4.Text = "ชื่อ-นามสกุล";
             // 
             // FULLNAME
             // 
-            this.FULLNAME.Location = new System.Drawing.Point(108, 51);
-            this.FULLNAME.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FULLNAME.Location = new System.Drawing.Point(139, 61);
+            this.FULLNAME.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.FULLNAME.Name = "FULLNAME";
-            this.FULLNAME.Size = new System.Drawing.Size(168, 23);
+            this.FULLNAME.Size = new System.Drawing.Size(215, 27);
             this.FULLNAME.TabIndex = 214;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label3.Location = new System.Drawing.Point(11, 24);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(14, 28);
+            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 20);
+            this.label3.Size = new System.Drawing.Size(85, 25);
             this.label3.TabIndex = 213;
             this.label3.Text = "คำนำหน้า";
             // 
             // TITLE
             // 
-            this.TITLE.Location = new System.Drawing.Point(108, 22);
-            this.TITLE.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TITLE.Location = new System.Drawing.Point(139, 26);
+            this.TITLE.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.TITLE.Name = "TITLE";
-            this.TITLE.Size = new System.Drawing.Size(168, 23);
+            this.TITLE.Size = new System.Drawing.Size(215, 27);
             this.TITLE.TabIndex = 212;
             // 
             // lsvSearch
@@ -664,9 +665,10 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lsvSearch.FullRowSelect = true;
             this.lsvSearch.GridLines = true;
-            this.lsvSearch.Location = new System.Drawing.Point(11, 194);
+            this.lsvSearch.Location = new System.Drawing.Point(14, 230);
+            this.lsvSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lsvSearch.Name = "lsvSearch";
-            this.lsvSearch.Size = new System.Drawing.Size(307, 366);
+            this.lsvSearch.Size = new System.Drawing.Size(394, 434);
             this.lsvSearch.TabIndex = 215;
             this.lsvSearch.UseCompatibleStateImageBehavior = false;
             this.lsvSearch.View = System.Windows.Forms.View.Details;
@@ -681,7 +683,7 @@
             this.toolStripButton2});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1221, 42);
+            this.toolStrip1.Size = new System.Drawing.Size(1570, 42);
             this.toolStrip1.TabIndex = 216;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -690,7 +692,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(158, 39);
+            this.toolStripButton1.Size = new System.Drawing.Size(191, 39);
             this.toolStripButton1.Text = "โหลดข้อมูลบัตรประชาชน";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -704,7 +706,7 @@
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(96, 39);
+            this.toolStripButton2.Size = new System.Drawing.Size(113, 39);
             this.toolStripButton2.Text = "ปิดหน้าต่าง";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
@@ -715,10 +717,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.lsvPromotion);
-            this.panel3.Location = new System.Drawing.Point(939, 43);
-            this.panel3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.panel3.Location = new System.Drawing.Point(1207, 51);
+            this.panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(273, 517);
+            this.panel3.Size = new System.Drawing.Size(350, 614);
             this.panel3.TabIndex = 217;
             // 
             // lsvPromotion
@@ -730,9 +732,9 @@
             this.lsvPromotion.FullRowSelect = true;
             this.lsvPromotion.GridLines = true;
             this.lsvPromotion.Location = new System.Drawing.Point(0, 0);
-            this.lsvPromotion.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.lsvPromotion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lsvPromotion.Name = "lsvPromotion";
-            this.lsvPromotion.Size = new System.Drawing.Size(271, 515);
+            this.lsvPromotion.Size = new System.Drawing.Size(348, 612);
             this.lsvPromotion.TabIndex = 0;
             this.lsvPromotion.UseCompatibleStateImageBehavior = false;
             this.lsvPromotion.View = System.Windows.Forms.View.Details;
@@ -749,15 +751,15 @@
             // 
             // Save_Log
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1221, 567);
+            this.ClientSize = new System.Drawing.Size(1570, 673);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.lsvSearch);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 8, 4, 8);
+            this.Margin = new System.Windows.Forms.Padding(5, 10, 5, 10);
             this.Name = "Save_Log";
             this.Text = "ค้นหาข้อมูลสมาชิกลืมพกบัตร";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

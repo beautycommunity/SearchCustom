@@ -819,6 +819,8 @@ namespace Save_Log_CT
                     }
 
                     comm.ExecuteNonQuery();
+
+                    MessageBox.Show("แก้ไขสิทธิสำเร็จ");
                 }
 
             }
