@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="dbMona" Class="clsHBDDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=192.168.1.220,1433;Initial Catalog=dbMona;Persist Security Info=True;User ID=sa" SettingsObjectName="ค้นหาข้อมูลสมาชิกลืมพกบัตร.Properties.Settings" SettingsPropertyName="dbMonaConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.MK_DOC_HBD" Member="MK_DOC_HBDs">
+    <Type Name="MK_DOC_HBD">
+      <Column Name="whcode" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="abbno" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="workdate" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="cardno" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="cardtype" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="stcode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="qty" Type="System.Decimal" DbType="Decimal(15,2)" CanBeNull="true" />
+      <Column Name="amt" Type="System.Decimal" DbType="Decimal(15,2)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
