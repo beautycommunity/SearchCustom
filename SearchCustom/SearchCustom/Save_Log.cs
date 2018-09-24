@@ -57,7 +57,7 @@ namespace Save_Log_CT
         {
             InitializeComponent();
 
-            _STCODE = "2775";
+            _STCODE = "8063";
             _WHCODE = "1174";
 
             _Local_CMDFX = @"Data Source=192.168.1.55,1701;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
