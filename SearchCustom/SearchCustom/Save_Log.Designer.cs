@@ -107,7 +107,7 @@
             this.panel1.Controls.Add(this.button_Select);
             this.panel1.Controls.Add(this.SeachText);
             this.panel1.Location = new System.Drawing.Point(14, 51);
-            this.panel1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panel1.Margin = new System.Windows.Forms.Padding(5);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(394, 178);
             this.panel1.TabIndex = 212;
@@ -139,7 +139,7 @@
             this.Type_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Type_ComboBox.FormattingEnabled = true;
             this.Type_ComboBox.Location = new System.Drawing.Point(112, 24);
-            this.Type_ComboBox.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Type_ComboBox.Margin = new System.Windows.Forms.Padding(5);
             this.Type_ComboBox.Name = "Type_ComboBox";
             this.Type_ComboBox.Size = new System.Drawing.Size(215, 27);
             this.Type_ComboBox.TabIndex = 210;
@@ -147,7 +147,7 @@
             // button_Select
             // 
             this.button_Select.Location = new System.Drawing.Point(112, 124);
-            this.button_Select.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.button_Select.Margin = new System.Windows.Forms.Padding(5);
             this.button_Select.Name = "button_Select";
             this.button_Select.Size = new System.Drawing.Size(147, 33);
             this.button_Select.TabIndex = 209;
@@ -158,7 +158,7 @@
             // SeachText
             // 
             this.SeachText.Location = new System.Drawing.Point(112, 75);
-            this.SeachText.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.SeachText.Margin = new System.Windows.Forms.Padding(5);
             this.SeachText.Name = "SeachText";
             this.SeachText.Size = new System.Drawing.Size(215, 27);
             this.SeachText.TabIndex = 0;
@@ -204,10 +204,11 @@
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.TITLE);
             this.panel2.Location = new System.Drawing.Point(411, 51);
-            this.panel2.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panel2.Margin = new System.Windows.Forms.Padding(5);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(793, 614);
             this.panel2.TabIndex = 214;
+           
             // 
             // groupBox3
             // 
@@ -225,7 +226,7 @@
             // 
             // btnProV8
             // 
-            this.btnProV8.Location = new System.Drawing.Point(211, 58);
+            this.btnProV8.Location = new System.Drawing.Point(225, 54);
             this.btnProV8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnProV8.Name = "btnProV8";
             this.btnProV8.Size = new System.Drawing.Size(105, 34);
@@ -242,7 +243,7 @@
             this.radProV8.Name = "radProV8";
             this.radProV8.Size = new System.Drawing.Size(151, 25);
             this.radProV8.TabIndex = 1;
-            this.radProV8.Text = "ซื้อ 1000 ลด 300";
+            this.radProV8.Text = "ซื้อ 1000 ลด 500";
             this.radProV8.UseVisualStyleBackColor = true;
             // 
             // radProGen
@@ -362,7 +363,7 @@
             this.SaveTo.BackColor = System.Drawing.Color.Blue;
             this.SaveTo.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.SaveTo.Location = new System.Drawing.Point(624, 486);
-            this.SaveTo.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.SaveTo.Margin = new System.Windows.Forms.Padding(5);
             this.SaveTo.Name = "SaveTo";
             this.SaveTo.Size = new System.Drawing.Size(113, 56);
             this.SaveTo.TabIndex = 242;
@@ -386,7 +387,7 @@
             this.SEX_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.SEX_comboBox.FormattingEnabled = true;
             this.SEX_comboBox.Location = new System.Drawing.Point(517, 128);
-            this.SEX_comboBox.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.SEX_comboBox.Margin = new System.Windows.Forms.Padding(5);
             this.SEX_comboBox.Name = "SEX_comboBox";
             this.SEX_comboBox.Size = new System.Drawing.Size(215, 27);
             this.SEX_comboBox.TabIndex = 212;
@@ -395,7 +396,7 @@
             // ENTRYDATE
             // 
             this.ENTRYDATE.Location = new System.Drawing.Point(517, 197);
-            this.ENTRYDATE.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ENTRYDATE.Margin = new System.Windows.Forms.Padding(4);
             this.ENTRYDATE.Name = "ENTRYDATE";
             this.ENTRYDATE.Size = new System.Drawing.Size(215, 27);
             this.ENTRYDATE.TabIndex = 240;
@@ -403,7 +404,7 @@
             // BIRTHDATE
             // 
             this.BIRTHDATE.Location = new System.Drawing.Point(517, 163);
-            this.BIRTHDATE.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BIRTHDATE.Margin = new System.Windows.Forms.Padding(4);
             this.BIRTHDATE.Name = "BIRTHDATE";
             this.BIRTHDATE.Size = new System.Drawing.Size(215, 27);
             this.BIRTHDATE.TabIndex = 239;
@@ -413,7 +414,7 @@
             this.SaveData.BackColor = System.Drawing.Color.ForestGreen;
             this.SaveData.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.SaveData.Location = new System.Drawing.Point(499, 486);
-            this.SaveData.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.SaveData.Margin = new System.Windows.Forms.Padding(5);
             this.SaveData.Name = "SaveData";
             this.SaveData.Size = new System.Drawing.Size(113, 56);
             this.SaveData.TabIndex = 238;
@@ -426,7 +427,7 @@
             this.Cancel.BackColor = System.Drawing.Color.Red;
             this.Cancel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.Cancel.Location = new System.Drawing.Point(375, 486);
-            this.Cancel.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Cancel.Margin = new System.Windows.Forms.Padding(5);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(113, 56);
             this.Cancel.TabIndex = 212;
@@ -481,7 +482,7 @@
             // AGE
             // 
             this.AGE.Location = new System.Drawing.Point(517, 61);
-            this.AGE.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.AGE.Margin = new System.Windows.Forms.Padding(5);
             this.AGE.Name = "AGE";
             this.AGE.Size = new System.Drawing.Size(215, 27);
             this.AGE.TabIndex = 230;
@@ -500,7 +501,7 @@
             // CARDID
             // 
             this.CARDID.Location = new System.Drawing.Point(517, 27);
-            this.CARDID.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.CARDID.Margin = new System.Windows.Forms.Padding(5);
             this.CARDID.Name = "CARDID";
             this.CARDID.Size = new System.Drawing.Size(215, 27);
             this.CARDID.TabIndex = 228;
@@ -520,7 +521,7 @@
             // PEOPLEID
             // 
             this.PEOPLEID.Location = new System.Drawing.Point(139, 344);
-            this.PEOPLEID.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.PEOPLEID.Margin = new System.Windows.Forms.Padding(5);
             this.PEOPLEID.Name = "PEOPLEID";
             this.PEOPLEID.Size = new System.Drawing.Size(215, 27);
             this.PEOPLEID.TabIndex = 226;
@@ -539,7 +540,7 @@
             // ADDR_EMAIL
             // 
             this.ADDR_EMAIL.Location = new System.Drawing.Point(139, 309);
-            this.ADDR_EMAIL.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.ADDR_EMAIL.Margin = new System.Windows.Forms.Padding(5);
             this.ADDR_EMAIL.Name = "ADDR_EMAIL";
             this.ADDR_EMAIL.Size = new System.Drawing.Size(215, 27);
             this.ADDR_EMAIL.TabIndex = 224;
@@ -558,7 +559,7 @@
             // ADDR_PROVINCE
             // 
             this.ADDR_PROVINCE.Location = new System.Drawing.Point(139, 240);
-            this.ADDR_PROVINCE.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.ADDR_PROVINCE.Margin = new System.Windows.Forms.Padding(5);
             this.ADDR_PROVINCE.Name = "ADDR_PROVINCE";
             this.ADDR_PROVINCE.Size = new System.Drawing.Size(215, 27);
             this.ADDR_PROVINCE.TabIndex = 222;
@@ -577,7 +578,7 @@
             // ADDR_ROW2
             // 
             this.ADDR_ROW2.Location = new System.Drawing.Point(517, 95);
-            this.ADDR_ROW2.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.ADDR_ROW2.Margin = new System.Windows.Forms.Padding(5);
             this.ADDR_ROW2.Name = "ADDR_ROW2";
             this.ADDR_ROW2.Size = new System.Drawing.Size(215, 27);
             this.ADDR_ROW2.TabIndex = 220;
@@ -596,7 +597,7 @@
             // ADDR_MOBILE
             // 
             this.ADDR_MOBILE.Location = new System.Drawing.Point(139, 276);
-            this.ADDR_MOBILE.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.ADDR_MOBILE.Margin = new System.Windows.Forms.Padding(5);
             this.ADDR_MOBILE.Name = "ADDR_MOBILE";
             this.ADDR_MOBILE.Size = new System.Drawing.Size(215, 27);
             this.ADDR_MOBILE.TabIndex = 218;
@@ -615,7 +616,7 @@
             // ADDR_ROW1
             // 
             this.ADDR_ROW1.Location = new System.Drawing.Point(139, 96);
-            this.ADDR_ROW1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.ADDR_ROW1.Margin = new System.Windows.Forms.Padding(5);
             this.ADDR_ROW1.Multiline = true;
             this.ADDR_ROW1.Name = "ADDR_ROW1";
             this.ADDR_ROW1.Size = new System.Drawing.Size(215, 137);
@@ -635,7 +636,7 @@
             // FULLNAME
             // 
             this.FULLNAME.Location = new System.Drawing.Point(139, 61);
-            this.FULLNAME.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.FULLNAME.Margin = new System.Windows.Forms.Padding(5);
             this.FULLNAME.Name = "FULLNAME";
             this.FULLNAME.Size = new System.Drawing.Size(215, 27);
             this.FULLNAME.TabIndex = 214;
@@ -654,7 +655,7 @@
             // TITLE
             // 
             this.TITLE.Location = new System.Drawing.Point(139, 26);
-            this.TITLE.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.TITLE.Margin = new System.Windows.Forms.Padding(5);
             this.TITLE.Name = "TITLE";
             this.TITLE.Size = new System.Drawing.Size(215, 27);
             this.TITLE.TabIndex = 212;
@@ -666,7 +667,7 @@
             this.lsvSearch.FullRowSelect = true;
             this.lsvSearch.GridLines = true;
             this.lsvSearch.Location = new System.Drawing.Point(14, 230);
-            this.lsvSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lsvSearch.Margin = new System.Windows.Forms.Padding(4);
             this.lsvSearch.Name = "lsvSearch";
             this.lsvSearch.Size = new System.Drawing.Size(394, 434);
             this.lsvSearch.TabIndex = 215;

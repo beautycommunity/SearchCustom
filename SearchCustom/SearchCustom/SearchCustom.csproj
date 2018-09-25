@@ -32,6 +32,26 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="k.libary">
       <HintPath>..\..\..\..\..\..\..\project\DLL\k.libary.dll</HintPath>
@@ -69,6 +89,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmPromotion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPromotion.Designer.cs">
+      <DependentUpon>frmPromotion.cs</DependentUpon>
+    </Compile>
     <Compile Include="InsertToServer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +109,9 @@
     <Compile Include="Save_Log.Designer.cs">
       <DependentUpon>Save_Log.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="frmPromotion.resx">
+      <DependentUpon>frmPromotion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InsertToServer.resx">
       <DependentUpon>InsertToServer.cs</DependentUpon>
     </EmbeddedResource>

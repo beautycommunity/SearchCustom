@@ -44,6 +44,8 @@ namespace Save_Log_CT
         DataSet Table2;
         kListView _lsvSearch = new kListView();
 
+        bool pr1000_500 = false;
+
         BackgroundWorker bgWorker = new BackgroundWorker();
 
         public bool closedOK = false;
@@ -60,10 +62,10 @@ namespace Save_Log_CT
             _STCODE = "8063";
             _WHCODE = "1174";
 
-            _Local_CMDFX = @"Data Source=192.168.1.55,1701;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=192.168.1.55,1701;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
-            //_Local_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-            //_Local_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
+            //_Local_CMDFX = @"Data Source=(local)\sqlexpress,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            //_Local_COMSUP = @"Data Source=(local)\sqlexpress,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            _Local_CMDFX = @"Data Source=192.168.1.55,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=192.168.1.55,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
             //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
@@ -172,8 +174,30 @@ namespace Save_Log_CT
 
             Type_ComboBox.SelectedIndex = 0;
 
+           
+
+            string days = cDateTime.getDateTimeWithDayOnly();
+
+            if( int.Parse(days) > 25)
+            {
+                pr1000_500 = true;
+            }
+            setLabel(ref radProV8, pr1000_500);
             getProV8();
 
+        }
+
+        private void setLabel(ref RadioButton radProV8, bool pr1000_500)
+        {
+            //throw new NotImplementedException();
+            if (pr1000_500)
+            {
+                radProV8.Text = "ซื้อ 1000 ลด 500";
+            }
+            else
+            {
+                radProV8.Text = "ซื้อ 1000 ลด 300";
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -434,9 +458,9 @@ namespace Save_Log_CT
                                 //MessageBox.Show("กรุณาเลือกประเภท");
                             }
                         }
-                        catch
+                        catch(Exception ex)
                         {
-
+                            MessageBox.Show(ex.Message);
                         }
                     }
                 }
@@ -1338,7 +1362,10 @@ namespace Save_Log_CT
 
        private void getProV8()
         {
-            string sql = "select count(*) cnt from pr_std_us where prcode like 'V8%' and cflag = 0";
+            string sql;
+            
+            sql = "select count(*) cnt from pr_std_us where prcode Like 'V8%' and cflag = 0";
+           
 
             SqlConnection conn = new SqlConnection(_Local_CMDFX);
             SqlDataAdapter da = new SqlDataAdapter(sql, conn);
@@ -1349,6 +1376,10 @@ namespace Save_Log_CT
 
             if (Convert.ToInt32(ds.Tables["tbl"].Rows[0]["cnt"]) > 0)
             {
+                if(pr1000_500)
+                {
+                    ChangToPr1000_500();
+                }
                 radProV8.Checked = true;
             }
 
@@ -1357,6 +1388,43 @@ namespace Save_Log_CT
                 radProGen.Checked = true;
             }
 
+        }
+
+        private void ChangToPr1000_500()
+        {
+            string sql;
+
+            SqlConnection conn = new SqlConnection(_Local_CMDFX);
+           
+
+            try
+            {
+                sql = "update [cmd-fx]..pr_std_us set cflag = 1 where prcode = 'V818090001'; ";
+                sql = sql + " update [cmd-fx]..pr_std_us set cflag = 0 where prcode = 'V818090002';";
+
+                SqlCommand comm = new SqlCommand();
+
+                if (conn.State == ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
+
+                comm.Connection = conn;
+                comm.CommandTimeout = 100000;
+                comm.CommandText = sql;
+
+                comm.ExecuteNonQuery();
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(" ไม่สามารถแก้ไขโปรโมชั่นได้\n" + ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+           
         }
 
         private void setProV8()
@@ -1368,8 +1436,18 @@ namespace Save_Log_CT
             {
                 if (radProV8.Checked)
                 {
-                    sql = "update pr_std_us set  cflag = 0 where prcode like 'V8%'; ";
-                    sql = sql + "update pr_std_us set  cflag = 1 where prcode not like 'V8%';";
+                    if(pr1000_500)
+                    {
+                        sql = "update pr_std_us set  cflag = 0 where prcode = 'V818090002'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <>'V818090002';";
+                    }
+                    else
+                    {
+                        sql = "update pr_std_us set  cflag = 0 where prcode = 'V818090001'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <>'V818090001';";
+                    }
+
+                   
                 }
                 else
                 {
@@ -1401,6 +1479,6 @@ namespace Save_Log_CT
             
         }
 
-       
+        
     }
 }
