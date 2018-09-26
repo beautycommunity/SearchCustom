@@ -47,6 +47,8 @@ namespace Save_Log_CT
         DataSet DsSelect;
         kListView _lsvSearch = new kListView();
 
+        bool pr1000_500 = false;
+
         BackgroundWorker bgWorker = new BackgroundWorker();
 
         public bool closedOK = false;
@@ -175,8 +177,30 @@ namespace Save_Log_CT
 
             Type_ComboBox.SelectedIndex = 0;
 
+           
+
+            string days = cDateTime.getDateTimeWithDayOnly();
+
+            if( int.Parse(days) > 25)
+            {
+                pr1000_500 = true;
+            }
+            setLabel(ref radProV8, pr1000_500);
             getProV8();
 
+        }
+
+        private void setLabel(ref RadioButton radProV8, bool pr1000_500)
+        {
+            //throw new NotImplementedException();
+            if (pr1000_500)
+            {
+                radProV8.Text = "ซื้อ 1000 ลด 500";
+            }
+            else
+            {
+                radProV8.Text = "ซื้อ 1000 ลด 300";
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -450,9 +474,9 @@ namespace Save_Log_CT
                                 MessageBox.Show("กรุณาเลือกประเภท");
                             }
                         }
-                        catch (Exception ex)
+                        catch
                         {
-                            MessageBox.Show(ex.ToString());
+
                         }
                     }
                 }
@@ -1357,7 +1381,10 @@ namespace Save_Log_CT
 
        private void getProV8()
         {
-            string sql = "select count(*) cnt from pr_std_us where prcode like 'V8%' and cflag = 0";
+            string sql;
+            
+            sql = "select count(*) cnt from pr_std_us where prcode Like 'V8%' and cflag = 0";
+           
 
             SqlConnection conn = new SqlConnection(_Local_CMDFX);
             SqlDataAdapter da = new SqlDataAdapter(sql, conn);
@@ -1368,6 +1395,10 @@ namespace Save_Log_CT
 
             if (Convert.ToInt32(ds.Tables["tbl"].Rows[0]["cnt"]) > 0)
             {
+                if(pr1000_500)
+                {
+                    ChangToPr1000_500();
+                }
                 radProV8.Checked = true;
             }
 
@@ -1376,6 +1407,43 @@ namespace Save_Log_CT
                 radProGen.Checked = true;
             }
 
+        }
+
+        private void ChangToPr1000_500()
+        {
+            string sql;
+
+            SqlConnection conn = new SqlConnection(_Local_CMDFX);
+           
+
+            try
+            {
+                sql = "update [cmd-fx]..pr_std_us set cflag = 1 where prcode = 'V818090001'; ";
+                sql = sql + " update [cmd-fx]..pr_std_us set cflag = 0 where prcode = 'V818090002';";
+
+                SqlCommand comm = new SqlCommand();
+
+                if (conn.State == ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
+
+                comm.Connection = conn;
+                comm.CommandTimeout = 100000;
+                comm.CommandText = sql;
+
+                comm.ExecuteNonQuery();
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(" ไม่สามารถแก้ไขโปรโมชั่นได้\n" + ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+           
         }
 
         private void setProV8()
@@ -1387,8 +1455,18 @@ namespace Save_Log_CT
             {
                 if (radProV8.Checked)
                 {
-                    sql = "update pr_std_us set  cflag = 0 where prcode like 'V8%'; ";
-                    sql = sql + "update pr_std_us set  cflag = 1 where prcode not like 'V8%';";
+                    if(pr1000_500)
+                    {
+                        sql = "update pr_std_us set  cflag = 0 where prcode = 'V818090002'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <>'V818090002';";
+                    }
+                    else
+                    {
+                        sql = "update pr_std_us set  cflag = 0 where prcode = 'V818090001'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <>'V818090001';";
+                    }
+
+                   
                 }
                 else
                 {
@@ -1420,6 +1498,6 @@ namespace Save_Log_CT
             
         }
 
-       
+        
     }
 }

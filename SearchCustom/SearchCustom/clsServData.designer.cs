@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SearchCustom
+namespace ค้นหาข้อมูลสมาชิกลืมพกบัตร
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;
