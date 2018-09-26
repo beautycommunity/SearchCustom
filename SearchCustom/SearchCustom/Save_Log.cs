@@ -42,6 +42,9 @@ namespace Save_Log_CT
         string Type;
         DataSet Table;
         DataSet Table2;
+        DataSet DsShop;
+        DataSet DsServer;
+        DataSet DsSelect;
         kListView _lsvSearch = new kListView();
 
         BackgroundWorker bgWorker = new BackgroundWorker();
@@ -58,10 +61,10 @@ namespace Save_Log_CT
             InitializeComponent();
 
             _STCODE = "8063";
-            _WHCODE = "1174";
+            _WHCODE = "1139";
 
-            _Local_CMDFX = @"Data Source=192.168.1.55,1701;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=192.168.1.55,1701;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            _Local_CMDFX = @"Data Source=LTPY.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=LTPY.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
             //_Local_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             //_Local_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
 
@@ -162,9 +165,9 @@ namespace Save_Log_CT
             lsvSearch.Columns.Add("สถานะ", 70, HorizontalAlignment.Left);
             lsvSearch.Columns.Add("รหัสบัตรสมาชิก", 100, HorizontalAlignment.Left);
             lsvSearch.Columns.Add("ชื่อสมาชิก", 130, HorizontalAlignment.Left);
-            //lsvSearch.Columns.Add("เบอร์โทรศัพท์", 100, HorizontalAlignment.Left);
-            //lsvSearch.Columns.Add("บัตรประชาชน", 130, HorizontalAlignment.Left);
-            //lsvSearch.Columns.Add("ไอดี", 105, HorizontalAlignment.Left);
+            /****************************************************************************/
+            lsvSearch.Columns.Add("ไอดี", 120, HorizontalAlignment.Left);
+            lsvSearch.Columns.Add("อัพเดตล่าสุด", 130, HorizontalAlignment.Left);
 
             SaveData.Enabled = false;
             Cancel.Enabled = false;
@@ -259,37 +262,45 @@ namespace Save_Log_CT
                     {
                         //Thread.Sleep(50);
 
-                        string sql;
-                        string sql_local;
+                        string sql = "";
+                        string sql_local = "";
                         try
                         {
                             if (Type == "รหัสบัตรสมาชิก")
                             {
-                                sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ADDR_MOBILE,A.PEOPLEID,A.ID FROM MAS_CT A (NOLOCK) 
-                                    LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE CARDID = '" + Seach + @"' 
-                                    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
-                                DataSet ds = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
+                                sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID 
+                                ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE 
+                                FROM MAS_CT A (NOLOCK) 
+                                LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE CARDID = '" + Seach + @"' 
+                                AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
 
-                                sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ADDR_MOBILE,A.PEOPLEID,A.ID FROM MAS_CT A (NOLOCK) 
-                                    LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE CARDID = '" + Seach + @"' 
-                                    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
-                                DataSet ds2 = cData.getDataSetWithSqlCommand(_Sever_CMDFX, sql, 1000, true);
+                                sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID 
+                                ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE  
+                                FROM MAS_CT A (NOLOCK) 
+                                LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE CARDID = '" + Seach + @"' 
+                                AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
 
-                                DataTable dt = ds.Tables[0];
-                                DataTable dt2 = ds2.Tables[0];
+                                DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
 
-                                IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
-                                                              select qq)
-                                          .Union(from qq2 in dt2.AsEnumerable()
-                                                 where !(from o in dt.AsEnumerable()
-                                                         select o.ItemArray[1].ToString())
-                                                         .Contains(qq2.ItemArray[1].ToString())
-                                                 select qq2);
+                                DsServer = cData.getDataSetWithSqlCommand(_Sever_CMDFX, sql, 1000, true);
+
+                                DataTable dt = DsShop.Tables[0];
+                                DataTable dt2 = DsServer.Tables[0];
+
+                                IEnumerable<DataRow> query = (from qq in dt.AsEnumerable() select qq)
+                                .Union(from qq2 in dt2.AsEnumerable()
+                                       select qq2);
 
                                 DataTable boundTable = query.CopyToDataTable<DataRow>();
                                 boundTable.TableName = "Ans";
+
+                                IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
+                                                                   select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
+
+                                DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
+
                                 DataSet Ans = new DataSet();
-                                Ans.Tables.Add(boundTable);
+                                Ans.Tables.Add(AnsTable);
                                 Table = Ans;
 
                                 SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
@@ -306,40 +317,45 @@ namespace Save_Log_CT
                             }
                             else if (Type == "ชื่อลูกค้า")
                             {
-
-                                sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ADDR_MOBILE,A.PEOPLEID,A.ID FROM MAS_CT A (NOLOCK) 
+                                sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID 
+                                    ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE 
+                                    FROM MAS_CT A (NOLOCK) 
                                     LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE FULLNAME LIKE '%" + Seach + @"%' 
                                     AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
-                                DataSet ds = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
+                                DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
 
-                                sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ADDR_MOBILE,A.PEOPLEID,A.ID FROM MAS_CT A (NOLOCK) 
+
+                                sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID 
+                                    ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE  
+                                    FROM MAS_CT A (NOLOCK) 
                                     LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE FULLNAME LIKE '%" + Seach + @"%' 
                                     AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
-                                DataSet ds2 = cData.getDataSetWithSqlCommand(_Sever_CMDFX, sql, 1000, true);
+                                DsServer = cData.getDataSetWithSqlCommand(_Sever_CMDFX, sql, 1000, true);
 
-                                DataTable dt = ds.Tables[0];
-                                DataTable dt2 = ds2.Tables[0];
+                                DataTable dt = DsShop.Tables[0];
+                                DataTable dt2 = DsServer.Tables[0];
 
-                                IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()                                        
-                                          //where qq.ItemArray[5].ToString() == "Online"
-                                          select qq)
-                                          .Union(from qq2 in dt2.AsEnumerable()
-                                                 where !(from o in dt.AsEnumerable()
-                                                         select o.ItemArray[1].ToString())
-                                                         .Contains(qq2.ItemArray[1].ToString())
-                                                 select qq2);
+                                IEnumerable<DataRow> query = (from qq in dt.AsEnumerable() select qq)
+                                .Union(from qq2 in dt2.AsEnumerable()
+                                       select qq2);
 
                                 DataTable boundTable = query.CopyToDataTable<DataRow>();
                                 boundTable.TableName = "Ans";
+
+                                IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
+                                                                   select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
+
+                                DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
+
                                 DataSet Ans = new DataSet();
-                                Ans.Tables.Add(boundTable);
+                                Ans.Tables.Add(AnsTable);
                                 Table = Ans;
 
                                 SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
 
                                 SqlCommand cmd = new SqlCommand();
                                 cmd.CommandType = CommandType.Text;
-                                cmd.CommandText = "INSERT INTO LOG_CT (TYPE,LOG_DATA,SEARCH,WORKDATE,STCODE,WHCODE,FLAG) VALUES('1','SELECT FROM FULLNAME','" + Seach + "','" + thisDay.ToString("yyyy/MM/dd", CultureInfo.GetCultureInfo("en-US")) + "','" + _STCODE + "','" + _WHCODE + "','0')";
+                                cmd.CommandText = "INSERT INTO LOG_CT (TYPE,LOG_DATA,SEARCH,WORKDATE,STCODE,WHCODE,FLAG) VALUES('1','SELECT FROM CARDID','" + Seach + "','" + thisDay.ToString("yyyy/MM/dd", CultureInfo.GetCultureInfo("en-US")) + "','" + _STCODE + "','" + _WHCODE + "','0')";
                                 cmd.Connection = sqlConnection1;
 
                                 sqlConnection1.Open();
@@ -431,12 +447,12 @@ namespace Save_Log_CT
                             }
                             else
                             {
-                                //MessageBox.Show("กรุณาเลือกประเภท");
+                                MessageBox.Show("กรุณาเลือกประเภท");
                             }
                         }
-                        catch
+                        catch (Exception ex)
                         {
-
+                            MessageBox.Show(ex.ToString());
                         }
                     }
                 }
@@ -491,16 +507,18 @@ namespace Save_Log_CT
             string connect = "";
             if (Status == "สำนักงาน")
             {
-                connect = _Sever_CMDFX;
+                //connect = _Sever_CMDFX;
+                DsSelect = DsServer;
             }
             else if (Status == "หน้าร้าน")
             {
-                connect = _Local_CMDFX;
+                //connect = _Local_CMDFX;
+                DsSelect = DsShop;
             }
 
-            DataSet ds = k.libary.cData.getDataSetWithSqlCommand(connect, sql, 1000, true);
+            //DataSet ds = k.libary.cData.getDataSetWithSqlCommand(connect, sql, 1000, true);
 
-            if (ds.Tables[0].Rows.Count <= 0)
+            if (DsSelect.Tables[0].Rows.Count <= 0)
             {
                 TITLE.Text = " ";
                 FULLNAME.Text = " ";
@@ -516,31 +534,31 @@ namespace Save_Log_CT
 
             //cMessage.ErrorNoData();
 
-            TITLE.Text = ds.Tables[0].Rows[0]["TITLE"].ToString();
-            FULLNAME.Text = ds.Tables[0].Rows[0]["FULLNAME"].ToString();
-            ADDR_ROW1.Text = ds.Tables[0].Rows[0]["ADDR_ROW1"].ToString();
-            ADDR_MOBILE.Text = ds.Tables[0].Rows[0]["ADDR_MOBILE"].ToString();
-            ADDR_ROW2.Text = ds.Tables[0].Rows[0]["ADDR_ROW2"].ToString();
-            ADDR_PROVINCE.Text = ds.Tables[0].Rows[0]["ADDR_PROVINCE"].ToString();
-            ADDR_EMAIL.Text = ds.Tables[0].Rows[0]["ADDR_EMAIL"].ToString();
-            PEOPLEID.Text = ds.Tables[0].Rows[0]["PEOPLEID"].ToString();
+            TITLE.Text = DsSelect.Tables[0].Rows[0]["TITLE"].ToString();
+            FULLNAME.Text = DsSelect.Tables[0].Rows[0]["FULLNAME"].ToString();
+            ADDR_ROW1.Text = DsSelect.Tables[0].Rows[0]["ADDR_ROW1"].ToString();
+            ADDR_MOBILE.Text = DsSelect.Tables[0].Rows[0]["ADDR_MOBILE"].ToString();
+            ADDR_ROW2.Text = DsSelect.Tables[0].Rows[0]["ADDR_ROW2"].ToString();
+            ADDR_PROVINCE.Text = DsSelect.Tables[0].Rows[0]["ADDR_PROVINCE"].ToString();
+            ADDR_EMAIL.Text = DsSelect.Tables[0].Rows[0]["ADDR_EMAIL"].ToString();
+            PEOPLEID.Text = DsSelect.Tables[0].Rows[0]["PEOPLEID"].ToString();
 
-            CARDID.Text = ds.Tables[0].Rows[0]["CARDID"].ToString();
+            CARDID.Text = DsSelect.Tables[0].Rows[0]["CARDID"].ToString();
             CARDID.ReadOnly = true;
-            AGE.Text = ds.Tables[0].Rows[0]["AGE"].ToString();
+            AGE.Text = DsSelect.Tables[0].Rows[0]["AGE"].ToString();
             AGE.ReadOnly = true;
-            if (ds.Tables[0].Rows[0]["SEX"].ToString() == "M")
+            if (DsSelect.Tables[0].Rows[0]["SEX"].ToString() == "M")
             {
                 SEX_comboBox.Text = "ชาย";
             }
-            else if(ds.Tables[0].Rows[0]["SEX"].ToString() == "F")
+            else if(DsSelect.Tables[0].Rows[0]["SEX"].ToString() == "F")
             {
                 SEX_comboBox.Text = "หญิง";
             }
-            BIRTHDATE.Text = ds.Tables[0].Rows[0]["BIRTHDATE"].ToString();
+            BIRTHDATE.Text = DsSelect.Tables[0].Rows[0]["BIRTHDATE"].ToString();
            
             BIRTHDATE.Enabled = false;
-            ENTRYDATE.Text = ds.Tables[0].Rows[0]["ENTRYDATE"].ToString();
+            ENTRYDATE.Text = DsSelect.Tables[0].Rows[0]["ENTRYDATE"].ToString();
             ENTRYDATE.Enabled = false;
             //textBox13.Text = ds.Tables[0].Rows[0]["BIRTHDATE"].ToString();
             //textBox14.Text = ds.Tables[0].Rows[0]["ENTRYDATE"].ToString();
@@ -603,6 +621,7 @@ namespace Save_Log_CT
                     {
                         connect = _Local_CMDFX;
                     }
+
                     SqlConnection sqlConnection1 = new SqlConnection(connect);
                     SqlConnection sqlConnection2 = new SqlConnection(_Sever_COMSUP);
 
