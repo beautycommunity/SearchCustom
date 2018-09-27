@@ -60,12 +60,14 @@ namespace Save_Log_CT
             InitializeComponent();
 
             _STCODE = "8063";
-            _WHCODE = "1174";
+            _WHCODE = "1020";
 
-            _Local_CMDFX = @"Data Source=(local)\sqlexpress,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=(local)\sqlexpress,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            //_Local_CMDFX = @"Data Source=(local)\sqlexpress,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            //_Local_COMSUP = @"Data Source=(local)\sqlexpress,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
             //_Local_CMDFX = @"Data Source=192.168.1.55,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
             //_Local_COMSUP = @"Data Source=192.168.1.55,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            _Local_CMDFX = @"Data Source=ayud2.dyndns.info,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=ayud2.dyndns.info,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
             //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
@@ -112,7 +114,16 @@ namespace Save_Log_CT
             _Local_COMSUP = Local_COMSUP;
 
             string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-            string SELECT_WH = "WITH ANS AS( SELECT * FROM NV_MAS_WH UNION SELECT * FROM [192.168.1.24,1833].[CMD-BX].dbo.NV_MAS_WH UNION SELECT * FROM [192.168.1.53,1733].[CMD-BX].dbo.NV_MAS_WH) SELECT Brand FROM ANS WHERE WHCODE = '" + WHCODE + "'";
+            //string SELECT_WH = "WITH ANS AS( SELECT * FROM NV_MAS_WH UNION SELECT * FROM [192.168.1.24,1833].[CMD-BX].dbo.NV_MAS_WH UNION SELECT * FROM [192.168.1.53,1733].[CMD-BX].dbo.NV_MAS_WH) SELECT Brand FROM ANS WHERE WHCODE = '" + WHCODE + "'";
+
+            string SELECT_WH = @"select 
+                                case when substring(whcode,1,1) = 1 then 'BB'
+                                when substring(whcode,1,1) = 3 then 'BB'
+                                when substring(whcode,1,1) = 5 then 'BC'
+                                else 'BM' end as brand  
+                                from mas_wh where id = (select wh_id from def_local)";
+
+
             DataSet ds = k.libary.cData.getDataSetWithSqlCommand(strconn, SELECT_WH, 1000, true);
 
             string check = ds.Tables[0].Rows[0]["Brand"].ToString();
