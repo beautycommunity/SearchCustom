@@ -38,6 +38,7 @@
             this.SeachText = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.radHBD = new System.Windows.Forms.RadioButton();
             this.btnProV8 = new System.Windows.Forms.Button();
             this.radProV8 = new System.Windows.Forms.RadioButton();
             this.radProGen = new System.Windows.Forms.RadioButton();
@@ -208,25 +209,37 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(793, 614);
             this.panel2.TabIndex = 214;
-           
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.radHBD);
             this.groupBox3.Controls.Add(this.btnProV8);
             this.groupBox3.Controls.Add(this.radProV8);
             this.groupBox3.Controls.Add(this.radProGen);
-            this.groupBox3.Location = new System.Drawing.Point(19, 489);
+            this.groupBox3.Location = new System.Drawing.Point(19, 470);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(336, 101);
+            this.groupBox3.Size = new System.Drawing.Size(336, 138);
             this.groupBox3.TabIndex = 246;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "โปรโมชั่น";
             // 
+            // radHBD
+            // 
+            this.radHBD.AutoSize = true;
+            this.radHBD.Enabled = false;
+            this.radHBD.Location = new System.Drawing.Point(35, 59);
+            this.radHBD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.radHBD.Name = "radHBD";
+            this.radHBD.Size = new System.Drawing.Size(124, 25);
+            this.radHBD.TabIndex = 3;
+            this.radHBD.Text = "สิทธิ์เดือนเกิด";
+            this.radHBD.UseVisualStyleBackColor = true;
+            // 
             // btnProV8
             // 
-            this.btnProV8.Location = new System.Drawing.Point(225, 54);
+            this.btnProV8.Location = new System.Drawing.Point(211, 86);
             this.btnProV8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnProV8.Name = "btnProV8";
             this.btnProV8.Size = new System.Drawing.Size(105, 34);
@@ -238,13 +251,14 @@
             // radProV8
             // 
             this.radProV8.AutoSize = true;
-            this.radProV8.Location = new System.Drawing.Point(35, 63);
+            this.radProV8.Location = new System.Drawing.Point(35, 95);
             this.radProV8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radProV8.Name = "radProV8";
             this.radProV8.Size = new System.Drawing.Size(151, 25);
             this.radProV8.TabIndex = 1;
             this.radProV8.Text = "ซื้อ 1000 ลด 500";
             this.radProV8.UseVisualStyleBackColor = true;
+            this.radProV8.Visible = false;
             // 
             // radProGen
             // 
@@ -264,18 +278,19 @@
             this.gbMem.Controls.Add(this.btnVIP);
             this.gbMem.Controls.Add(this.radVIP);
             this.gbMem.Controls.Add(this.radMem);
+            this.gbMem.Enabled = false;
             this.gbMem.Location = new System.Drawing.Point(19, 382);
             this.gbMem.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbMem.Name = "gbMem";
             this.gbMem.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.gbMem.Size = new System.Drawing.Size(336, 101);
+            this.gbMem.Size = new System.Drawing.Size(336, 83);
             this.gbMem.TabIndex = 245;
             this.gbMem.TabStop = false;
             this.gbMem.Text = "สมาชิก";
             // 
             // btnVIP
             // 
-            this.btnVIP.Location = new System.Drawing.Point(211, 58);
+            this.btnVIP.Location = new System.Drawing.Point(211, 44);
             this.btnVIP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnVIP.Name = "btnVIP";
             this.btnVIP.Size = new System.Drawing.Size(105, 34);
@@ -287,7 +302,7 @@
             // radVIP
             // 
             this.radVIP.AutoSize = true;
-            this.radVIP.Location = new System.Drawing.Point(35, 63);
+            this.radVIP.Location = new System.Drawing.Point(35, 54);
             this.radVIP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radVIP.Name = "radVIP";
             this.radVIP.Size = new System.Drawing.Size(71, 25);
@@ -843,6 +858,7 @@
         private System.Windows.Forms.Button btnProV8;
         private System.Windows.Forms.RadioButton radProV8;
         private System.Windows.Forms.RadioButton radProGen;
+        private System.Windows.Forms.RadioButton radHBD;
     }
 }
 
