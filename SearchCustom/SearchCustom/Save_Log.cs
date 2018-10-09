@@ -66,10 +66,10 @@ namespace Save_Log_CT
 
             //_Local_CMDFX = @"Data Source=(local)\sqlexpress,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
             //_Local_COMSUP = @"Data Source=(local)\sqlexpress,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
-            _Local_CMDFX = @"Data Source=192.168.1.55,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=192.168.1.55,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
-            //_Local_CMDFX = @"Data Source=ayud2.dyndns.info,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            //_Local_COMSUP = @"Data Source=ayud2.dyndns.info,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            //_Local_CMDFX = @"Data Source=192.168.1.55,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            //_Local_COMSUP = @"Data Source=192.168.1.55,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            _Local_CMDFX = @"Data Source=LOTB.dyndns.info,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=LOTB.dyndns.info,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
             //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
@@ -194,7 +194,7 @@ namespace Save_Log_CT
             int dd = Convert.ToInt32( cDateTime.getDateTimeWithMonthOnly());
 
            
-            if (dd >= 10)
+            if (dd >= 1)
             {
                 prHBD = true;
             }
@@ -402,7 +402,20 @@ namespace Save_Log_CT
                                 }
                                 else
                                 {
+                                    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
+                                                                      //where qq.ItemArray[5].ToString() == "Online"
+                                                                  select qq)
+                                         .Union(from qq2 in dt2.AsEnumerable()
+                                                where !(from o in dt2.AsEnumerable()
+                                                        select o.ItemArray[1].ToString())
+                                                        .Contains(qq2.ItemArray[1].ToString())
+                                                select qq2);
 
+                                    DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                    boundTable.TableName = "Ans";
+                                    DataSet Ans = new DataSet();
+                                    Ans.Tables.Add(boundTable);
+                                    Table = Ans;
                                 }
                                 SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
 
