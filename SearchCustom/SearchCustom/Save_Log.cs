@@ -320,7 +320,7 @@ namespace Save_Log_CT
 
                                 DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
 
-                                if(dt.Rows.Count == 0)
+                                if (dt.Rows.Count == 0)
                                 {
                                     IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
                                                                   select qq)
@@ -346,28 +346,29 @@ namespace Save_Log_CT
                                                         .Contains(qq2.ItemArray[1].ToString())
                                                 select qq2);
 
-                                DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                boundTable.TableName = "Ans";
+                                    DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                    boundTable.TableName = "Ans";
 
-                                IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
-                                                                   select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
+                                    IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
+                                                                       select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
 
-                                DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
+                                    DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
 
-                                DataSet Ans = new DataSet();
-                                Ans.Tables.Add(AnsTable);
-                                Table = Ans;
+                                    DataSet Ans = new DataSet();
+                                    Ans.Tables.Add(AnsTable);
+                                    Table = Ans;
 
-                                SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
+                                    SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
 
-                                SqlCommand cmd = new SqlCommand();
-                                cmd.CommandType = CommandType.Text;
-                                cmd.CommandText = "INSERT INTO LOG_CT (TYPE,LOG_DATA,SEARCH,WORKDATE,STCODE,WHCODE,FLAG) VALUES('1','SELECT FROM CARDID','" + Seach + "','" + thisDay.ToString("yyyy/MM/dd", CultureInfo.GetCultureInfo("en-US")) + "','" + _STCODE + "','" + _WHCODE + "','0')";
-                                cmd.Connection = sqlConnection1;
+                                    SqlCommand cmd = new SqlCommand();
+                                    cmd.CommandType = CommandType.Text;
+                                    cmd.CommandText = "INSERT INTO LOG_CT (TYPE,LOG_DATA,SEARCH,WORKDATE,STCODE,WHCODE,FLAG) VALUES('1','SELECT FROM CARDID','" + Seach + "','" + thisDay.ToString("yyyy/MM/dd", CultureInfo.GetCultureInfo("en-US")) + "','" + _STCODE + "','" + _WHCODE + "','0')";
+                                    cmd.Connection = sqlConnection1;
 
-                                sqlConnection1.Open();
-                                cmd.ExecuteNonQuery();
-                                sqlConnection1.Close();
+                                    sqlConnection1.Open();
+                                    cmd.ExecuteNonQuery();
+                                    sqlConnection1.Close();
+                                }
 
                             }
                             else if (Type == "ชื่อลูกค้า")
@@ -401,10 +402,10 @@ namespace Save_Log_CT
                                                          .Contains(qq2.ItemArray[1].ToString())
                                                  select qq2);
 
-                                DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                boundTable.TableName = "Ans";
+                                        DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                        boundTable.TableName = "Ans";
 
-                                IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
+                                        IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
                                                                    select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
 
                                 DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
@@ -413,9 +414,9 @@ namespace Save_Log_CT
                                 Ans.Tables.Add(AnsTable);
                                 Table = Ans;
 
-                                    DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                    boundTable.TableName = "Ans";
-                                    DataSet Ans = new DataSet();
+                                    //DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                    //boundTable.TableName = "Ans";
+                                    //DataSet Ans = new DataSet();
                                     Ans.Tables.Add(boundTable);
                                     Table = Ans;
                                 }
