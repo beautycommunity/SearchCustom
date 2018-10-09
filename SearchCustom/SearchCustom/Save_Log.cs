@@ -63,10 +63,10 @@ namespace Save_Log_CT
             InitializeComponent();
 
             _STCODE = "8063";
-            _WHCODE = "1139";
+            _WHCODE = "1149";
 
-            _Local_CMDFX = @"Data Source=LTPY.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=LTPY.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            _Local_CMDFX = @"Data Source=BCCR.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=BCCR.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
             //_Local_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             //_Local_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
 
