@@ -47,7 +47,9 @@ namespace Save_Log_CT
         DataSet DsSelect;
         kListView _lsvSearch = new kListView();
 
-        bool pr1000_500 = false;
+        bool pr1000_500 = true;
+
+        bool prHBD = false;
 
         BackgroundWorker bgWorker = new BackgroundWorker();
 
@@ -81,7 +83,7 @@ namespace Save_Log_CT
                                 from mas_wh where id = (select wh_id from def_local)";
 
 
-            DataSet ds = k.libary.cData.getDataSetWithSqlCommand(strconn, SELECT_WH, 1000, true);
+            DataSet ds = k.libary.cData.getDataSetWithSqlCommand(_Local_CMDFX, SELECT_WH, 1000, true);
 
             string check = ds.Tables[0].Rows[0]["Brand"].ToString();
 
@@ -115,8 +117,17 @@ namespace Save_Log_CT
             _Local_COMSUP = Local_COMSUP;
 
             string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-            string SELECT_WH = "WITH ANS AS( SELECT * FROM NV_MAS_WH UNION SELECT * FROM [192.168.1.24,1833].[CMD-BX].dbo.NV_MAS_WH UNION SELECT * FROM [192.168.1.53,1733].[CMD-BX].dbo.NV_MAS_WH) SELECT Brand FROM ANS WHERE WHCODE = '" + WHCODE + "'";
-            DataSet ds = k.libary.cData.getDataSetWithSqlCommand(strconn, SELECT_WH, 1000, true);
+            //string SELECT_WH = "WITH ANS AS( SELECT * FROM NV_MAS_WH UNION SELECT * FROM [192.168.1.24,1833].[CMD-BX].dbo.NV_MAS_WH UNION SELECT * FROM [192.168.1.53,1733].[CMD-BX].dbo.NV_MAS_WH) SELECT Brand FROM ANS WHERE WHCODE = '" + WHCODE + "'";
+
+            string SELECT_WH = @"select 
+                                case when substring(whcode,1,1) = 1 then 'BB'
+                                when substring(whcode,1,1) = 3 then 'BB'
+                                when substring(whcode,1,1) = 5 then 'BC'
+                                else 'BM' end as brand  
+                                from mas_wh where id = (select wh_id from def_local)";
+
+
+            DataSet ds = k.libary.cData.getDataSetWithSqlCommand(_Local_CMDFX, SELECT_WH, 1000, true);
 
             string check = ds.Tables[0].Rows[0]["Brand"].ToString();
 
@@ -177,29 +188,32 @@ namespace Save_Log_CT
 
             Type_ComboBox.SelectedIndex = 0;
 
+
+
+            //string days = cDateTime.getDateTimeWithDayOnly();
+
+            int dd = Convert.ToInt32( cDateTime.getDateTimeWithMonthOnly());
+
            
-
-            string days = cDateTime.getDateTimeWithDayOnly();
-
-            if( int.Parse(days) > 25)
+            if (dd >= 1)
             {
-                pr1000_500 = true;
+                prHBD = true;
             }
-            setLabel(ref radProV8, pr1000_500);
+            setLabel(ref radHBD, prHBD);
             getProV8();
 
         }
 
-        private void setLabel(ref RadioButton radProV8, bool pr1000_500)
+        private void setLabel(ref RadioButton radHBD, bool prHBD)
         {
             //throw new NotImplementedException();
-            if (pr1000_500)
+            if (prHBD)
             {
-                radProV8.Text = "ซื้อ 1000 ลด 500";
+                radHBD.Visible = true;
             }
             else
             {
-                radProV8.Text = "ซื้อ 1000 ลด 300";
+                radHBD.Visible = false;
             }
         }
 
@@ -282,7 +296,7 @@ namespace Save_Log_CT
                     //lsvSearch_local.Items.Clear();
                     lsvSearch.Items.Clear();
 
-                    using (new cWaitIndicator())
+                    using (cWaitIndicator cw =  new cWaitIndicator())
                     {
                         //Thread.Sleep(50);
 
@@ -306,37 +320,55 @@ namespace Save_Log_CT
 
                                 DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
 
-                                DsServer = cData.getDataSetWithSqlCommand(_Sever_CMDFX, sql, 1000, true);
+                                if (dt.Rows.Count == 0)
+                                {
+                                    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
+                                                                  select qq)
+                                         .Union(from qq2 in dt2.AsEnumerable()
+                                                where !(from o in dt2.AsEnumerable()
+                                                        select o.ItemArray[1].ToString())
+                                                        .Contains(qq2.ItemArray[1].ToString())
+                                                select qq2);
 
-                                DataTable dt = DsShop.Tables[0];
-                                DataTable dt2 = DsServer.Tables[0];
+                                    DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                    boundTable.TableName = "Ans";
+                                    DataSet Ans = new DataSet();
+                                    Ans.Tables.Add(boundTable);
+                                    Table = Ans;
+                                }
+                                else
+                                {
+                                    IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
+                                                                  select qq)
+                                         .Union(from qq2 in dt2.AsEnumerable()
+                                                where !(from o in dt.AsEnumerable()
+                                                        select o.ItemArray[1].ToString())
+                                                        .Contains(qq2.ItemArray[1].ToString())
+                                                select qq2);
 
-                                IEnumerable<DataRow> query = (from qq in dt.AsEnumerable() select qq)
-                                .Union(from qq2 in dt2.AsEnumerable()
-                                       select qq2);
+                                    DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                    boundTable.TableName = "Ans";
 
-                                DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                boundTable.TableName = "Ans";
+                                    IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
+                                                                       select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
 
-                                IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
-                                                                   select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
+                                    DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
 
-                                DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
+                                    DataSet Ans = new DataSet();
+                                    Ans.Tables.Add(AnsTable);
+                                    Table = Ans;
 
-                                DataSet Ans = new DataSet();
-                                Ans.Tables.Add(AnsTable);
-                                Table = Ans;
+                                    SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
 
-                                SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
+                                    SqlCommand cmd = new SqlCommand();
+                                    cmd.CommandType = CommandType.Text;
+                                    cmd.CommandText = "INSERT INTO LOG_CT (TYPE,LOG_DATA,SEARCH,WORKDATE,STCODE,WHCODE,FLAG) VALUES('1','SELECT FROM CARDID','" + Seach + "','" + thisDay.ToString("yyyy/MM/dd", CultureInfo.GetCultureInfo("en-US")) + "','" + _STCODE + "','" + _WHCODE + "','0')";
+                                    cmd.Connection = sqlConnection1;
 
-                                SqlCommand cmd = new SqlCommand();
-                                cmd.CommandType = CommandType.Text;
-                                cmd.CommandText = "INSERT INTO LOG_CT (TYPE,LOG_DATA,SEARCH,WORKDATE,STCODE,WHCODE,FLAG) VALUES('1','SELECT FROM CARDID','" + Seach + "','" + thisDay.ToString("yyyy/MM/dd", CultureInfo.GetCultureInfo("en-US")) + "','" + _STCODE + "','" + _WHCODE + "','0')";
-                                cmd.Connection = sqlConnection1;
-
-                                sqlConnection1.Open();
-                                cmd.ExecuteNonQuery();
-                                sqlConnection1.Close();
+                                    sqlConnection1.Open();
+                                    cmd.ExecuteNonQuery();
+                                    sqlConnection1.Close();
+                                }
 
                             }
                             else if (Type == "ชื่อลูกค้า")
@@ -359,14 +391,21 @@ namespace Save_Log_CT
                                 DataTable dt = DsShop.Tables[0];
                                 DataTable dt2 = DsServer.Tables[0];
 
-                                IEnumerable<DataRow> query = (from qq in dt.AsEnumerable() select qq)
-                                .Union(from qq2 in dt2.AsEnumerable()
-                                       select qq2);
+                                if (dt.Rows.Count == 0)
+                                {
+                                    IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
+                                                                      //where qq.ItemArray[5].ToString() == "Online"
+                                                                  select qq)
+                                          .Union(from qq2 in dt2.AsEnumerable()
+                                                 where !(from o in dt.AsEnumerable()
+                                                         select o.ItemArray[1].ToString())
+                                                         .Contains(qq2.ItemArray[1].ToString())
+                                                 select qq2);
 
-                                DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                boundTable.TableName = "Ans";
+                                        DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                        boundTable.TableName = "Ans";
 
-                                IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
+                                        IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
                                                                    select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
 
                                 DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
@@ -375,6 +414,12 @@ namespace Save_Log_CT
                                 Ans.Tables.Add(AnsTable);
                                 Table = Ans;
 
+                                    //DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                    //boundTable.TableName = "Ans";
+                                    //DataSet Ans = new DataSet();
+                                    Ans.Tables.Add(boundTable);
+                                    Table = Ans;
+                                }
                                 SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
 
                                 SqlCommand cmd = new SqlCommand();
@@ -401,21 +446,40 @@ namespace Save_Log_CT
                                 DataTable dt = ds.Tables[0];
                                 DataTable dt2 = ds2.Tables[0];
 
-                                IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
-                                                                  //where qq.ItemArray[5].ToString() == "Online"
-                                                              select qq)
+                                if (dt.Rows.Count == 0)
+                                {
+                                    IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
+                                                                      //where qq.ItemArray[5].ToString() == "Online"
+                                                                  select qq)
                                           .Union(from qq2 in dt2.AsEnumerable()
                                                  where !(from o in dt.AsEnumerable()
                                                          select o.ItemArray[1].ToString())
                                                          .Contains(qq2.ItemArray[1].ToString())
                                                  select qq2);
 
-                                DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                boundTable.TableName = "Ans";
-                                DataSet Ans = new DataSet();
-                                Ans.Tables.Add(boundTable);
-                                Table = Ans;
+                                    DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                    boundTable.TableName = "Ans";
+                                    DataSet Ans = new DataSet();
+                                    Ans.Tables.Add(boundTable);
+                                    Table = Ans;
+                                }
+                                else
+                                {
+                                    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
+                                                                      //where qq.ItemArray[5].ToString() == "Online"
+                                                                  select qq)
+                                         .Union(from qq2 in dt2.AsEnumerable()
+                                                where !(from o in dt2.AsEnumerable()
+                                                        select o.ItemArray[1].ToString())
+                                                        .Contains(qq2.ItemArray[1].ToString())
+                                                select qq2);
 
+                                    DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                    boundTable.TableName = "Ans";
+                                    DataSet Ans = new DataSet();
+                                    Ans.Tables.Add(boundTable);
+                                    Table = Ans;
+                                }
                                 SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
 
                                 SqlCommand cmd = new SqlCommand();
@@ -438,25 +502,48 @@ namespace Save_Log_CT
                                 sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ADDR_MOBILE,A.PEOPLEID,A.ID FROM MAS_CT A (NOLOCK) 
                                     LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.PEOPLEID = '" + Seach + @"' 
                                     AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
+                                //sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ADDR_MOBILE,A.PEOPLEID,A.ID FROM MAS_CT A (NOLOCK) 
+                                //    LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.PEOPLEID = '11111" + Seach + @"' 
+                                //    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
                                 DataSet ds2 = cData.getDataSetWithSqlCommand(_Sever_CMDFX, sql, 1000, true);
 
                                 DataTable dt = ds.Tables[0];
                                 DataTable dt2 = ds2.Tables[0];
 
-                                IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
-                                                                  //where qq.ItemArray[5].ToString() == "Online"
-                                                              select qq)
+                                if (dt.Rows.Count == 0)
+                                {
+                                    IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
+                                                                      //where qq.ItemArray[5].ToString() == "Online"
+                                                                  select qq)
                                           .Union(from qq2 in dt2.AsEnumerable()
                                                  where !(from o in dt.AsEnumerable()
                                                          select o.ItemArray[1].ToString())
                                                          .Contains(qq2.ItemArray[1].ToString())
                                                  select qq2);
 
-                                DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                boundTable.TableName = "Ans";
-                                DataSet Ans = new DataSet();
-                                Ans.Tables.Add(boundTable);
-                                Table = Ans;
+                                    DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                    boundTable.TableName = "Ans";
+                                    DataSet Ans = new DataSet();
+                                    Ans.Tables.Add(boundTable);
+                                    Table = Ans;
+                                }
+                                else
+                                {
+                                    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
+                                                                      //where qq.ItemArray[5].ToString() == "Online"
+                                                                  select qq)
+                                          .Union(from qq2 in dt2.AsEnumerable()
+                                                 where !(from o in dt2.AsEnumerable()
+                                                         select o.ItemArray[1].ToString())
+                                                         .Contains(qq2.ItemArray[1].ToString())
+                                                 select qq2);
+
+                                    DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                    boundTable.TableName = "Ans";
+                                    DataSet Ans = new DataSet();
+                                    Ans.Tables.Add(boundTable);
+                                    Table = Ans;
+                                }
                                 SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
 
                                 SqlCommand cmd = new SqlCommand();
@@ -809,6 +896,7 @@ namespace Save_Log_CT
         {
             try
             {
+                BIRTHDATE.Value = DateTime.Now.Date;
                 GetSelectItems();
                 GetGoto();
                 SaveData.Enabled = true;
@@ -827,6 +915,15 @@ namespace Save_Log_CT
                
                 GetPromotion();
 
+                if(getHBD())
+                {
+                    radHBD.Enabled = true;
+                }
+                else
+                {
+                    radHBD.Enabled = false;
+                }
+
             }
             catch(Exception ex)
             {
@@ -841,6 +938,46 @@ namespace Save_Log_CT
         }
 
         private void btnVIP_Click(object sender, EventArgs e)
+        {
+
+            setMember();
+            //SqlConnection conn = new SqlConnection(_Local_CMDFX);
+            //try
+            //{
+            //    if (radMem.Checked)
+            //    {
+            //        string CT_CARDID = CARDID.Text;
+            //        string sql = "delete from mas_ct_cd_vp where cardid = '" + CT_CARDID + "'";
+
+            //        SqlCommand comm = new SqlCommand();
+
+            //        comm.CommandText = sql;
+            //        comm.CommandTimeout = 10000;
+            //        comm.Connection = conn;
+
+            //        if (conn.State == ConnectionState.Closed)
+            //        {
+            //            conn.Open();
+            //        }
+
+            //        comm.ExecuteNonQuery();
+            //        gbMem.Enabled = true;
+            //        MessageBox.Show("แก้ไขสิทธิสำเร็จ");
+            //    }
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("เกิดข้อผิดพลาด" + ex.Message);
+            //}
+            //finally
+            //{
+            //    conn.Close();
+            //}
+
+        }
+
+        private void setMember()
         {
             SqlConnection conn = new SqlConnection(_Local_CMDFX);
             try
@@ -862,7 +999,7 @@ namespace Save_Log_CT
                     }
 
                     comm.ExecuteNonQuery();
-
+                    gbMem.Enabled = true;
                     MessageBox.Show("แก้ไขสิทธิสำเร็จ");
                 }
 
@@ -875,7 +1012,6 @@ namespace Save_Log_CT
             {
                 conn.Close();
             }
-
         }
 
         //private void lsvSearch_local_DoubleClick(object sender, EventArgs e)
@@ -1269,11 +1405,11 @@ namespace Save_Log_CT
                         }
                     }
 
-                    string sql = "select PRNAME from pr_setdate where (TIMELIMIT = 'F' or (TIMELIMIT = 'T' and convert(varchar(10),getdate(),102) between S_DATE and E_date)) and MEMBERONLY = 'T' and prtype not in ( 'V9','V3')";
+                    string sql = "select PRNAME from pr_setdate where (TIMELIMIT = 'F' or (TIMELIMIT = 'T' and convert(varchar(10),getdate(),102) between S_DATE and E_date)) and MEMBERONLY = 'T' and prtype not in ( 'V9','V3','V10')";
 
                     if (getVIP())
                     {
-                        sql = sql + " union all select PRNAME from pr_setdate where (TIMELIMIT = 'F' or (TIMELIMIT = 'T' and convert(varchar(10),getdate(),102) between S_DATE and E_date)) and MEMBERONLY = 'T' and prtype= 'V9'";
+                        sql = sql + " union all select PRNAME from pr_setdate where (TIMELIMIT = 'F' or (TIMELIMIT = 'T' and convert(varchar(10),getdate(),102) between S_DATE and E_date)) and MEMBERONLY = 'T' and prtype in ('V9','V10')";
                     }
 
                     SqlConnection conn = new SqlConnection(_Local_CMDFX);
@@ -1365,6 +1501,7 @@ namespace Save_Log_CT
             {
                 radVIP.Checked = true;
                 gbMem.Enabled = true;
+                
                 bl = true;
             }
                
@@ -1404,7 +1541,26 @@ namespace Save_Log_CT
 
             else
             {
-                radProGen.Checked = true;
+                sql = "select count(*) cnt from pr_std_us where prcode Like 'Q9%' and cflag = 0";
+
+
+                SqlConnection conn1 = new SqlConnection(_Local_CMDFX);
+                SqlDataAdapter da1 = new SqlDataAdapter(sql, conn1);
+
+                DataSet ds1 = new DataSet();
+
+                da1.Fill(ds1, "tbl");
+
+                if (Convert.ToInt32(ds1.Tables["tbl"].Rows[0]["cnt"]) > 0)
+                {
+                    radHBD.Checked = true;
+                }
+                else
+                {
+                    radProGen.Checked = true;
+                }
+
+                    
             }
 
         }
@@ -1455,23 +1611,37 @@ namespace Save_Log_CT
             {
                 if (radProV8.Checked)
                 {
-                    if(pr1000_500)
-                    {
-                        sql = "update pr_std_us set  cflag = 0 where prcode = 'V818090002'; ";
-                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <>'V818090002';";
-                    }
-                    else
-                    {
-                        sql = "update pr_std_us set  cflag = 0 where prcode = 'V818090001'; ";
-                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <>'V818090001';";
-                    }
+                    //if(pr1000_500)
+                    //{
+                        //sql = "update pr_std_us set  cflag = 0 where prcode in ('V818090002','Q0180500710','Q0180501203','Q01808537','Q0180501512','Q018080580','Q01809050','V1180500071','Q018090188','Q318090002'); ";
+                        //sql = sql + "update pr_std_us set  cflag = 1 where prcode not in ('V818090002','Q0180500710','Q0180501203','Q01808537','Q0180501512','Q018080580','Q01809050','V1180500071','Q018090188','Q318090002');";
 
-                   
+                    sql = "update pr_std_us set  cflag = 0 where prcode = 'V818090002'; ";
+                    sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'V818090002'";
+
+                    //}
+                    //else
+                    //{
+                    //    sql = "update pr_std_us set  cflag = 0 where prcode = 'V818090001'; ";
+                    //    sql = sql + "update pr_std_us set  cflag = 1 where prcode <>'V818090001';";
+                    //}
+
+
+                }
+                else if (radHBD.Checked)
+                {
+                    sql = "update pr_std_us set  cflag = 0 where prcode  like 'Q9%'; ";
+                    sql = sql + "update pr_std_us set  cflag = 1 where prcode not like 'Q9%';";
+
+                    radMem.Checked = true;
+                    setMember();
+
                 }
                 else
                 {
                     sql = "update pr_std_us set  cflag = 0 where prcode not like 'V8%'; ";
                     sql = sql + "update pr_std_us set  cflag = 1 where prcode like 'V8%';";
+                    sql = sql + "update pr_std_us set  cflag = 1 where prcode like 'Q9%';";
                 }
                 SqlCommand comm = new SqlCommand();
 
@@ -1498,6 +1668,36 @@ namespace Save_Log_CT
             
         }
 
-        
+        private bool getHBD()
+        {
+            bool bl = false;
+
+            if(BIRTHDATE.Value.Date != DateTime.Now.Date)
+            {
+                if (BIRTHDATE.Value.Month == DateTime.Now.Month)
+                {
+                    bl = true;
+                }
+            }
+            //if (BIRTHDATE.Value.Date != DateTime.Now.Date)
+            //{
+            //    if (BIRTHDATE.Value.Month == DateTime.Now.Month)
+            //    {
+            //        int cnt = Cls_HBD.MK_DOC_HBDs.Where(s => s.cardno == CT_CARDID && s.workdate.Year == DateTime.Now.Year).Count();
+
+            //        if (cnt == 0)
+            //        {
+            //            ListViewItem lst = new ListViewItem();
+            //            lst = lsvPromotion.Items.Add((lsvPromotion.Items.Count + 1).ToString());
+            //            lst.SubItems.Add("Happy Birthday");
+
+            //        }
+
+            //    }
+            //}
+
+
+            return bl;
+        }
     }
 }
