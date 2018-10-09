@@ -319,6 +319,10 @@ namespace Save_Log_CT
                                 AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
 
                                 DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
+                                DsServer = cData.getDataSetWithSqlCommand(_Sever_CMDFX, sql, 1000, true);
+
+                                DataTable dt = DsShop.Tables[0];
+                                DataTable dt2 = DsServer.Tables[0];
 
                                 if (dt.Rows.Count == 0)
                                 {
