@@ -65,14 +65,12 @@ namespace Save_Log_CT
             InitializeComponent();
 
             _STCODE = "8063";
-            _WHCODE = "1020";
+            _WHCODE = "1174";
 
-            //_Local_CMDFX = @"Data Source=(local)\sqlexpress,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            //_Local_COMSUP = @"Data Source=(local)\sqlexpress,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            _Local_CMDFX = @"Data Source=(local)\sqlexpress,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=(local)\sqlexpress,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
             //_Local_CMDFX = @"Data Source=192.168.1.55,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
             //_Local_COMSUP = @"Data Source=192.168.1.55,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
-            _Local_CMDFX = @"Data Source=LOTB.dyndns.info,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=LOTB.dyndns.info,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
             //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
