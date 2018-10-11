@@ -24,7 +24,7 @@ namespace SearchCustom
         {
             InitializeComponent();
 
-            strconn = "";
+            strconn = "Data Source=.;Initial Catalog=CMD-FX;User ID=sa;Password=1Q2w3e4r@";
             txtbl.Text = "false";
             txtPro.Text = "";
         }
@@ -33,9 +33,21 @@ namespace SearchCustom
         {
             InitializeComponent();
 
-            strconn = "";
+            strconn = _strconn;
             txtbl = _txtbl;
             txtPro = _txtPro;
+        }
+
+        private void frmPromotion_Load(object sender, EventArgs e)
+        {
+            try
+            {
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

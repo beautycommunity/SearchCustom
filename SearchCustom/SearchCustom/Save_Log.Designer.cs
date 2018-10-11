@@ -37,6 +37,8 @@
             this.button_Select = new System.Windows.Forms.Button();
             this.SeachText = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnPromotion = new System.Windows.Forms.Button();
+            this.lblPromotion = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.radHBD = new System.Windows.Forms.RadioButton();
             this.btnProV8 = new System.Windows.Forms.Button();
@@ -170,6 +172,8 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.btnPromotion);
+            this.panel2.Controls.Add(this.lblPromotion);
             this.panel2.Controls.Add(this.groupBox3);
             this.panel2.Controls.Add(this.gbMem);
             this.panel2.Controls.Add(this.groupBox2);
@@ -210,6 +214,27 @@
             this.panel2.Size = new System.Drawing.Size(793, 614);
             this.panel2.TabIndex = 214;
             // 
+            // btnPromotion
+            // 
+            this.btnPromotion.Location = new System.Drawing.Point(463, 556);
+            this.btnPromotion.Name = "btnPromotion";
+            this.btnPromotion.Size = new System.Drawing.Size(88, 43);
+            this.btnPromotion.TabIndex = 248;
+            this.btnPromotion.Text = "เปลี่ยน";
+            this.btnPromotion.UseVisualStyleBackColor = true;
+            this.btnPromotion.Visible = false;
+            this.btnPromotion.Click += new System.EventHandler(this.btnPromotion_Click);
+            // 
+            // lblPromotion
+            // 
+            this.lblPromotion.AutoSize = true;
+            this.lblPromotion.Location = new System.Drawing.Point(382, 572);
+            this.lblPromotion.Name = "lblPromotion";
+            this.lblPromotion.Size = new System.Drawing.Size(63, 21);
+            this.lblPromotion.TabIndex = 247;
+            this.lblPromotion.Text = "label16";
+            this.lblPromotion.Visible = false;
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.radHBD);
@@ -229,7 +254,7 @@
             // 
             this.radHBD.AutoSize = true;
             this.radHBD.Enabled = false;
-            this.radHBD.Location = new System.Drawing.Point(35, 59);
+            this.radHBD.Location = new System.Drawing.Point(35, 95);
             this.radHBD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radHBD.Name = "radHBD";
             this.radHBD.Size = new System.Drawing.Size(124, 25);
@@ -251,14 +276,13 @@
             // radProV8
             // 
             this.radProV8.AutoSize = true;
-            this.radProV8.Location = new System.Drawing.Point(35, 95);
+            this.radProV8.Location = new System.Drawing.Point(35, 59);
             this.radProV8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radProV8.Name = "radProV8";
-            this.radProV8.Size = new System.Drawing.Size(151, 25);
+            this.radProV8.Size = new System.Drawing.Size(191, 25);
             this.radProV8.TabIndex = 1;
-            this.radProV8.Text = "ซื้อ 1000 ลด 500";
+            this.radProV8.Text = "Online ซื้อ500 จ่าย400";
             this.radProV8.UseVisualStyleBackColor = true;
-            this.radProV8.Visible = false;
             // 
             // radProGen
             // 
@@ -859,6 +883,8 @@
         private System.Windows.Forms.RadioButton radProV8;
         private System.Windows.Forms.RadioButton radProGen;
         private System.Windows.Forms.RadioButton radHBD;
+        private System.Windows.Forms.Button btnPromotion;
+        private System.Windows.Forms.Label lblPromotion;
     }
 }
 

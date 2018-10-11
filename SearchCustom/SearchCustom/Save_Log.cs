@@ -40,6 +40,7 @@ namespace Save_Log_CT
         public string link_Server;
         string Seach;
         string Type;
+        string chkBrand;
         DataSet Table;
         DataSet Table2;
         DataSet DsShop;
@@ -50,6 +51,7 @@ namespace Save_Log_CT
         bool pr1000_500 = true;
 
         bool prHBD = false;
+        bool prVIP = false;
 
         BackgroundWorker bgWorker = new BackgroundWorker();
 
@@ -67,26 +69,34 @@ namespace Save_Log_CT
             _STCODE = "8063";
             _WHCODE = "1149";
 
-            _Local_CMDFX = @"Data Source=BCCR.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=BCCR.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
-            //_Local_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-            //_Local_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
+            //_Local_CMDFX = @"Data Source=BCCR.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            //_Local_COMSUP = @"Data Source=BCCR.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            _Local_CMDFX = @"Data Source=.;Initial Catalog=CMD-FX;User ID=sa;Password=1Q2w3e4r@";
+            _Local_COMSUP = @"Data Source=.;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=1Q2w3e4r";
 
             //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
             string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+
+            //string SELECT_WH = @"select 
+            //                    case when substring(whcode,1,1) = 1 then 'BB'
+            //                    when substring(whcode,1,1) = 3 then 'BB'
+            //                    when substring(whcode,1,1) = 5 then 'BC'
+            //                    else 'BM' end as brand  
+            //                    from mas_wh where id = (select wh_id from def_local)";
+
             string SELECT_WH = @"select 
                                 case when substring(whcode,1,1) = 1 then 'BB'
                                 when substring(whcode,1,1) = 3 then 'BB'
                                 when substring(whcode,1,1) = 5 then 'BC'
                                 else 'BM' end as brand  
-                                from mas_wh where id = (select wh_id from def_local)";
+                                from mas_wh where id = 491";
 
 
             DataSet ds = k.libary.cData.getDataSetWithSqlCommand(_Local_CMDFX, SELECT_WH, 1000, true);
 
             string check = ds.Tables[0].Rows[0]["Brand"].ToString();
-
+            chkBrand = check;
             if (check == "BB")
             {
                 _Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
@@ -130,7 +140,7 @@ namespace Save_Log_CT
             DataSet ds = k.libary.cData.getDataSetWithSqlCommand(_Local_CMDFX, SELECT_WH, 1000, true);
 
             string check = ds.Tables[0].Rows[0]["Brand"].ToString();
-
+            chkBrand = check;
             if (check == "BB")
             {
                 _Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
@@ -188,18 +198,57 @@ namespace Save_Log_CT
 
             Type_ComboBox.SelectedIndex = 0;
 
-
+    
 
             //string days = cDateTime.getDateTimeWithDayOnly();
 
-            int dd = Convert.ToInt32( cDateTime.getDateTimeWithMonthOnly());
+//--------------------------------set radio promotion ---------------------------------------------
+            int dd = Convert.ToInt32( cDateTime.getDateTimeWithDayOnly());
+            int mm = Convert.ToInt32(cDateTime.getDateTimeWithMonthOnly());
+            int yy = Convert.ToInt32(cDateTime.getDateTimeWithYearOnly());
 
-           
-            if (dd >= 1)
+            if (mm >= 1)
             {
                 prHBD = true;
             }
-            setLabel(ref radHBD, prHBD);
+            if (dd >= 15)
+            {
+               prVIP = true;
+            }
+
+            if (chkBrand == "BB" )
+            {
+
+                groupBox3.Visible = true;
+                setLabel(ref radHBD, prHBD);
+                //setLabel(ref radProV8, prVIP);
+            }
+            else if(chkBrand == "BM")
+            {
+
+                groupBox3.Visible = true;
+                setLabel(ref radProV8, prVIP);
+            }
+            else
+            {
+                if (dd >= 18)
+                {
+                    groupBox3.Visible = true;
+                    setLabel(ref radProV8, prVIP);
+                }
+                else if (mm > 10)
+                {
+                    groupBox3.Visible = true;
+                    setLabel(ref radProV8, prVIP);
+                }
+                else
+                {
+                    groupBox3.Visible = false;
+                }
+                    
+            }
+
+            
             getProV8();
 
         }
@@ -209,11 +258,11 @@ namespace Save_Log_CT
             //throw new NotImplementedException();
             if (prHBD)
             {
-                radHBD.Visible = true;
+                radHBD.Enabled = true;
             }
             else
             {
-                radHBD.Visible = false;
+                radHBD.Enabled = false;
             }
         }
 
@@ -1018,81 +1067,6 @@ namespace Save_Log_CT
             }
         }
 
-        //private void lsvSearch_local_DoubleClick(object sender, EventArgs e)
-        //{
-        //    GetSelectItems_local();
-        //    GetGoto_local();
-        //}
-
-        //private void GetGoto_local()
-        //{
-        //    string sql = "SELECT A.CARDID,B.TITLE,B.FULLNAME,B.ADDR_ROW1,B.ADDR_ROW2,ADDR_PROVINCE,B.ADDR_MOBILE,ADDR_EMAIL,B.PEOPLEID,BIRTHDATE,AGE,SEX,ENTRYDATE FROM MAS_CT_CD A LEFT JOIN MAS_CT B ON A.CT_ID = B.ID WHERE A.CT_ID = '" + CT_ID_local + "'";
-
-        //    DataSet ds = k.libary.cData.getDataSetWithSqlCommand(_Local_CMDFX, sql, 1000, true);
-
-        //    if (ds.Tables[0].Rows.Count <= 0)
-        //    {
-        //        TITLE.Text = " ";
-        //        FULLNAME.Text = " ";
-        //        ADDR_ROW1.Text = " ";
-        //        ADDR_MOBILE.Text = " ";
-        //        ADDR_ROW2.Text = " ";
-        //        ADDR_PROVINCE.Text = " ";
-        //        ADDR_EMAIL.Text = " ";
-        //        PEOPLEID.Text = " ";
-        //        CARDID.Text = " ";
-        //        AGE.Text = " ";
-        //    }
-
-        //    //cMessage.ErrorNoData();
-
-        //    TITLE.Text = ds.Tables[0].Rows[0]["TITLE"].ToString();
-        //    FULLNAME.Text = ds.Tables[0].Rows[0]["FULLNAME"].ToString();
-        //    ADDR_ROW1.Text = ds.Tables[0].Rows[0]["ADDR_ROW1"].ToString();
-        //    ADDR_MOBILE.Text = ds.Tables[0].Rows[0]["ADDR_MOBILE"].ToString();
-        //    ADDR_ROW2.Text = ds.Tables[0].Rows[0]["ADDR_ROW2"].ToString();
-        //    ADDR_PROVINCE.Text = ds.Tables[0].Rows[0]["ADDR_PROVINCE"].ToString();
-        //    ADDR_EMAIL.Text = ds.Tables[0].Rows[0]["ADDR_EMAIL"].ToString();
-        //    PEOPLEID.Text = ds.Tables[0].Rows[0]["PEOPLEID"].ToString();
-
-        //    CARDID.Text = ds.Tables[0].Rows[0]["CARDID"].ToString();
-        //    CARDID.ReadOnly = true;
-        //    AGE.Text = ds.Tables[0].Rows[0]["AGE"].ToString();
-        //    AGE.ReadOnly = true;
-        //    if (ds.Tables[0].Rows[0]["SEX"].ToString() == "M")
-        //    {
-        //        SEX_comboBox.Text = "ชาย";
-        //    }
-        //    else if (ds.Tables[0].Rows[0]["SEX"].ToString() == "F")
-        //    {
-        //        SEX_comboBox.Text = "หญิง";
-        //    }
-        //    BIRTHDATE.Text = ds.Tables[0].Rows[0]["BIRTHDATE"].ToString();
-        //    BIRTHDATE.Enabled = false;
-        //    ENTRYDATE.Text = ds.Tables[0].Rows[0]["ENTRYDATE"].ToString();
-        //    ENTRYDATE.Enabled = false;
-        //    //textBox13.Text = ds.Tables[0].Rows[0]["BIRTHDATE"].ToString();
-        //    //textBox14.Text = ds.Tables[0].Rows[0]["ENTRYDATE"].ToString();
-        //    //textBox14.ReadOnly = true;
-        //}
-
-        //private void GetSelectItems_local()
-        //{
-        //    try
-        //    {
-        //        IDCARD_local = lsvSearch_local.SelectedItems[0].SubItems[0].Text.ToString();
-        //        CTNAME_local = lsvSearch_local.SelectedItems[0].SubItems[1].Text.ToString();
-        //        CT_ID_local = lsvSearch_local.SelectedItems[0].SubItems[4].Text.ToString();
-        //        Status = lsvSearch_local.SelectedItems[0].SubItems[5].Text.ToString();
-
-        //        closedOK = true;
-        //    }
-        //    catch
-        //    {
-        //        closedOK = false;
-        //    }
-        //}
-
         private void CARDID_TextChanged(object sender, EventArgs e)
         {
 
@@ -1617,11 +1591,8 @@ namespace Save_Log_CT
                 {
                     //if(pr1000_500)
                     //{
-                        //sql = "update pr_std_us set  cflag = 0 where prcode in ('V818090002','Q0180500710','Q0180501203','Q01808537','Q0180501512','Q018080580','Q01809050','V1180500071','Q018090188','Q318090002'); ";
-                        //sql = sql + "update pr_std_us set  cflag = 1 where prcode not in ('V818090002','Q0180500710','Q0180501203','Q01808537','Q0180501512','Q018080580','Q01809050','V1180500071','Q018090188','Q318090002');";
-
-                    sql = "update pr_std_us set  cflag = 0 where prcode = 'V818090002'; ";
-                    sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'V818090002'";
+                    //sql = "update pr_std_us set  cflag = 0 where prcode in ('V818090002','Q0180500710','Q0180501203','Q01808537','Q0180501512','Q018080580','Q01809050','V1180500071','Q018090188','Q318090002'); ";
+                    //sql = sql + "update pr_std_us set  cflag = 1 where prcode not in ('V818090002','Q0180500710','Q0180501203','Q01808537','Q0180501512','Q018080580','Q01809050','V1180500071','Q018090188','Q318090002');";
 
                     //}
                     //else
@@ -1629,11 +1600,26 @@ namespace Save_Log_CT
                     //    sql = "update pr_std_us set  cflag = 0 where prcode = 'V818090001'; ";
                     //    sql = sql + "update pr_std_us set  cflag = 1 where prcode <>'V818090001';";
                     //}
-
+                    if (chkBrand == "BB")
+                    {
+                        sql = "update pr_std_us set  cflag = 0 where prcode = 'V818090002'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'V818090002'";
+                    }
+                    else if (chkBrand == "BM")
+                    {
+                        sql = "update pr_std_us set  cflag = 0 where prcode = 'MD18100001'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'MD18100001'";
+                    }
+                    else
+                    {
+                        sql = "update pr_std_us set  cflag = 0 where prcode = 'ABCDEFG'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'ABCDEFG'";
+                    }
 
                 }
                 else if (radHBD.Checked)
                 {
+
                     sql = "update pr_std_us set  cflag = 0 where prcode  like 'Q9%'; ";
                     sql = sql + "update pr_std_us set  cflag = 1 where prcode not like 'Q9%';";
 
@@ -1643,10 +1629,24 @@ namespace Save_Log_CT
                 }
                 else
                 {
-                    sql = "update pr_std_us set  cflag = 0 where prcode not like 'V8%'; ";
-                    sql = sql + "update pr_std_us set  cflag = 1 where prcode like 'V8%';";
-                    sql = sql + "update pr_std_us set  cflag = 1 where prcode like 'Q9%';";
-                }
+                    if (chkBrand == "BB")
+                    {
+                        sql = "update pr_std_us set  cflag = 0 where prcode not like 'V8%'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode like 'V8%';";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode like 'Q9%';";
+                    }
+
+                    else if (chkBrand == "BM")
+                    {
+                        sql = "update pr_std_us set  cflag = 0 where prcode <> 'MD18100001'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode = 'MD18100001'";
+                    }
+                    else
+                    {
+                        sql = "update pr_std_us set  cflag = 0 where prcode not like 'abc%'; ";
+                       
+                    }
+                }  
                 SqlCommand comm = new SqlCommand();
 
                 comm.CommandText = sql;
@@ -1702,6 +1702,18 @@ namespace Save_Log_CT
 
 
             return bl;
+        }
+
+        private void btnPromotion_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
