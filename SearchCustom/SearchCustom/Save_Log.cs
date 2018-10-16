@@ -51,7 +51,8 @@ namespace Save_Log_CT
         bool pr1000_500 = true;
 
         bool prHBD = false;
-        bool prVIP = false;
+        bool prOnline = false;
+        bool prVip = false;
 
         BackgroundWorker bgWorker = new BackgroundWorker();
 
@@ -74,8 +75,8 @@ namespace Save_Log_CT
             _Local_CMDFX = @"Data Source=.;Initial Catalog=CMD-FX;User ID=sa;Password=1Q2w3e4r@";
             _Local_COMSUP = @"Data Source=.;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=1Q2w3e4r";
 
-            //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-            //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
+            //_Local_CMDFX = @"Data Source=192.168.1.55,1401;Initial Catalog=BMCSL;User ID=sa;Password=0000";
+            //_Sever_COMSUP = @"Data Source=192.168.1.55,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
             string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
 
             //string SELECT_WH = @"select 
@@ -90,7 +91,7 @@ namespace Save_Log_CT
                                 when substring(whcode,1,1) = 3 then 'BB'
                                 when substring(whcode,1,1) = 5 then 'BC'
                                 else 'BM' end as brand  
-                                from mas_wh where id = 491";
+                                from mas_wh where id = 311";
 
 
             DataSet ds = k.libary.cData.getDataSetWithSqlCommand(_Local_CMDFX, SELECT_WH, 1000, true);
@@ -211,9 +212,10 @@ namespace Save_Log_CT
             {
                 prHBD = true;
             }
-            if (dd >= 15)
+
+            if (dd >= 20)
             {
-               prVIP = true;
+               prOnline = true;
             }
 
             if (chkBrand == "BB" )
@@ -227,24 +229,24 @@ namespace Save_Log_CT
             {
 
                 groupBox3.Visible = true;
-                setLabel(ref radProV8, prVIP);
+                setLabel(ref radProV8, prOnline);
             }
             else
             {
-                if (dd >= 18)
-                {
-                    groupBox3.Visible = true;
-                    setLabel(ref radProV8, prVIP);
-                }
-                else if (mm > 10)
-                {
-                    groupBox3.Visible = true;
-                    setLabel(ref radProV8, prVIP);
-                }
-                else
-                {
+                //if (dd >= 18)
+                //{
+                //    groupBox3.Visible = true;
+                //    //setLabel(ref radProV8, prOnline);
+                //}
+                //else if (mm > 9)
+                //{
+                //    groupBox3.Visible = true;
+                //    //setLabel(ref radProV8, prOnline);
+                //}
+                //else
+                //{
                     groupBox3.Visible = false;
-                }
+                //}
                     
             }
 
@@ -256,8 +258,23 @@ namespace Save_Log_CT
         private void setLabel(ref RadioButton radHBD, bool prHBD)
         {
             //throw new NotImplementedException();
+
+            //if(chkBrand=="BC")
+            //{
+            //    radHBD.Text = " ซื้อ 3,000 ลด 1,500 บาท";
+            //}
+            //else if (chkBrand == "BM")
+            //{
+            //    radHBD.Text = "Online ซื้อ500 จ่าย400";
+            //}
+            //else
+            //{
+            //    radHBD.Text = "Online ซื้อ500 จ่าย400";
+            //}
+
             if (prHBD)
             {
+
                 radHBD.Enabled = true;
             }
             else
@@ -1607,8 +1624,11 @@ namespace Save_Log_CT
                     }
                     else if (chkBrand == "BM")
                     {
-                        sql = "update pr_std_us set  cflag = 0 where prcode = 'MD18100001'; ";
-                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'MD18100001'";
+                        //sql = "update pr_std_us set  cflag = 0 where prcode = 'MD18100001'; ";
+                        //sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'MD18100001'";
+
+                        sql = "update pr_std_us set  cflag = 0 where prcode = 'CC18100011'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'CC18100011'";
                     }
                     else
                     {
@@ -1638,8 +1658,8 @@ namespace Save_Log_CT
 
                     else if (chkBrand == "BM")
                     {
-                        sql = "update pr_std_us set  cflag = 0 where prcode <> 'MD18100001'; ";
-                        sql = sql + "update pr_std_us set  cflag = 1 where prcode = 'MD18100001'";
+                        sql = "update pr_std_us set  cflag = 0 where prcode <> 'CC18100011'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode = 'CC18100011'";
                     }
                     else
                     {
