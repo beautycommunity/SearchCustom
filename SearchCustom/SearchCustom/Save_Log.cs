@@ -67,12 +67,13 @@ namespace Save_Log_CT
             InitializeComponent();
 
             _STCODE = "8063";
-            _WHCODE = "1149";
+            _WHCODE = "1068";
 
-            //_Local_CMDFX = @"Data Source=BCCR.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            //_Local_COMSUP = @"Data Source=BCCR.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
-            _Local_CMDFX = @"Data Source=.;Initial Catalog=CMD-FX;User ID=sa;Password=1Q2w3e4r@";
-            _Local_COMSUP = @"Data Source=.;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=1Q2w3e4r";
+            _Local_CMDFX = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+
+            //_Local_CMDFX = @"Data Source=.;Initial Catalog=CMD-FX;User ID=sa;Password=1Q2w3e4r@";
+            //_Local_COMSUP = @"Data Source=.;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=1Q2w3e4r";
 
             //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
@@ -90,7 +91,7 @@ namespace Save_Log_CT
                                 when substring(whcode,1,1) = 3 then 'BB'
                                 when substring(whcode,1,1) = 5 then 'BC'
                                 else 'BM' end as brand  
-                                from mas_wh where id = 491";
+                                from mas_wh where id = 18";
 
 
             DataSet ds = k.libary.cData.getDataSetWithSqlCommand(_Local_CMDFX, SELECT_WH, 1000, true);
@@ -616,7 +617,7 @@ namespace Save_Log_CT
                         }
                         catch
                         {
-
+                            MessageBox.Show("ไม่พบข้อมูล");
                         }
                     }
                 }
@@ -671,18 +672,20 @@ namespace Save_Log_CT
             string connect = "";
             if (Status == "สำนักงาน")
             {
-                //connect = _Sever_CMDFX;
-                DsSelect = DsServer;
+                connect = _Sever_CMDFX;
+                //DsSelect = DsServer;
             }
             else if (Status == "หน้าร้าน")
             {
-                //connect = _Local_CMDFX;
-                DsSelect = DsShop;
+                connect = _Local_CMDFX;
+                //DsSelect = DsShop;
             }
 
-            //DataSet ds = k.libary.cData.getDataSetWithSqlCommand(connect, sql, 1000, true);
+            //DsSelect.Tables[0].Select("CT_ID = '" + CT_ID + "'").CopyToDataTable();
 
-            if (DsSelect.Tables[0].Rows.Count <= 0)
+            DataSet ds = k.libary.cData.getDataSetWithSqlCommand(connect, sql, 1000, true);
+
+            if (ds.Tables[0].Rows.Count <= 0)
             {
                 TITLE.Text = " ";
                 FULLNAME.Text = " ";
@@ -698,31 +701,31 @@ namespace Save_Log_CT
 
             //cMessage.ErrorNoData();
 
-            TITLE.Text = DsSelect.Tables[0].Rows[0]["TITLE"].ToString();
-            FULLNAME.Text = DsSelect.Tables[0].Rows[0]["FULLNAME"].ToString();
-            ADDR_ROW1.Text = DsSelect.Tables[0].Rows[0]["ADDR_ROW1"].ToString();
-            ADDR_MOBILE.Text = DsSelect.Tables[0].Rows[0]["ADDR_MOBILE"].ToString();
-            ADDR_ROW2.Text = DsSelect.Tables[0].Rows[0]["ADDR_ROW2"].ToString();
-            ADDR_PROVINCE.Text = DsSelect.Tables[0].Rows[0]["ADDR_PROVINCE"].ToString();
-            ADDR_EMAIL.Text = DsSelect.Tables[0].Rows[0]["ADDR_EMAIL"].ToString();
-            PEOPLEID.Text = DsSelect.Tables[0].Rows[0]["PEOPLEID"].ToString();
+            TITLE.Text = ds.Tables[0].Rows[0]["TITLE"].ToString();
+            FULLNAME.Text = ds.Tables[0].Rows[0]["FULLNAME"].ToString();
+            ADDR_ROW1.Text = ds.Tables[0].Rows[0]["ADDR_ROW1"].ToString();
+            ADDR_MOBILE.Text = ds.Tables[0].Rows[0]["ADDR_MOBILE"].ToString();
+            ADDR_ROW2.Text = ds.Tables[0].Rows[0]["ADDR_ROW2"].ToString();
+            ADDR_PROVINCE.Text = ds.Tables[0].Rows[0]["ADDR_PROVINCE"].ToString();
+            ADDR_EMAIL.Text = ds.Tables[0].Rows[0]["ADDR_EMAIL"].ToString();
+            PEOPLEID.Text = ds.Tables[0].Rows[0]["PEOPLEID"].ToString();
 
-            CARDID.Text = DsSelect.Tables[0].Rows[0]["CARDID"].ToString();
+            CARDID.Text = ds.Tables[0].Rows[0]["CARDID"].ToString();
             CARDID.ReadOnly = true;
-            AGE.Text = DsSelect.Tables[0].Rows[0]["AGE"].ToString();
+            AGE.Text = ds.Tables[0].Rows[0]["AGE"].ToString();
             AGE.ReadOnly = true;
-            if (DsSelect.Tables[0].Rows[0]["SEX"].ToString() == "M")
+            if (ds.Tables[0].Rows[0]["SEX"].ToString() == "M")
             {
                 SEX_comboBox.Text = "ชาย";
             }
-            else if(DsSelect.Tables[0].Rows[0]["SEX"].ToString() == "F")
+            else if(ds.Tables[0].Rows[0]["SEX"].ToString() == "F")
             {
                 SEX_comboBox.Text = "หญิง";
             }
-            BIRTHDATE.Text = DsSelect.Tables[0].Rows[0]["BIRTHDATE"].ToString();
+            BIRTHDATE.Text = ds.Tables[0].Rows[0]["BIRTHDATE"].ToString();
            
             BIRTHDATE.Enabled = false;
-            ENTRYDATE.Text = DsSelect.Tables[0].Rows[0]["ENTRYDATE"].ToString();
+            ENTRYDATE.Text = ds.Tables[0].Rows[0]["ENTRYDATE"].ToString();
             ENTRYDATE.Enabled = false;
             //textBox13.Text = ds.Tables[0].Rows[0]["BIRTHDATE"].ToString();
             //textBox14.Text = ds.Tables[0].Rows[0]["ENTRYDATE"].ToString();
@@ -735,7 +738,7 @@ namespace Save_Log_CT
             {
                 IDCARD = lsvSearch.SelectedItems[0].SubItems[1].Text.ToString();
                 CTNAME = lsvSearch.SelectedItems[0].SubItems[2].Text.ToString();
-                CT_ID = lsvSearch.SelectedItems[0].SubItems[5].Text.ToString();
+                CT_ID = lsvSearch.SelectedItems[0].SubItems[3].Text.ToString();
                 Status = lsvSearch.SelectedItems[0].SubItems[0].Text.ToString();
 
                 closedOK = true;
