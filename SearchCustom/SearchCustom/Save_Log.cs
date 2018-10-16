@@ -70,29 +70,30 @@ namespace Save_Log_CT
             _STCODE = "8063";
             _WHCODE = "1068";
 
-            _Local_CMDFX = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            //_Local_CMDFX = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            //_Local_COMSUP = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
+            _Local_CMDFX = @"Data Source=192.168.1.55,1401;Initial Catalog=BCHPY;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=192.168.1.55,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
             //_Local_CMDFX = @"Data Source=.;Initial Catalog=CMD-FX;User ID=sa;Password=1Q2w3e4r@";
-            //_Local_COMSUP = @"Data Source=.;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=1Q2w3e4r";
-
+            //_Local_COMSUP = @"Data Source=.;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=1Q2w3e4r@";
             //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
             string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-
-            //string SELECT_WH = @"select 
-            //                    case when substring(whcode,1,1) = 1 then 'BB'
-            //                    when substring(whcode,1,1) = 3 then 'BB'
-            //                    when substring(whcode,1,1) = 5 then 'BC'
-            //                    else 'BM' end as brand  
-            //                    from mas_wh where id = (select wh_id from def_local)";
 
             string SELECT_WH = @"select 
                                 case when substring(whcode,1,1) = 1 then 'BB'
                                 when substring(whcode,1,1) = 3 then 'BB'
                                 when substring(whcode,1,1) = 5 then 'BC'
                                 else 'BM' end as brand  
-                                from mas_wh where id = 311";
+                                from mas_wh where id = (select wh_id from def_local)";
+
+            //string SELECT_WH = @"select 
+            //                    case when substring(whcode,1,1) = 1 then 'BB'
+            //                    when substring(whcode,1,1) = 3 then 'BB'
+            //                    when substring(whcode,1,1) = 5 then 'BC'
+            //                    else 'BM' end as brand  
+            //                    from mas_wh where id = 311";
 
 
             DataSet ds = k.libary.cData.getDataSetWithSqlCommand(_Local_CMDFX, SELECT_WH, 1000, true);
@@ -1497,10 +1498,45 @@ namespace Save_Log_CT
 
             if (Convert.ToInt32( ds.Tables["tbl"].Rows[0]["cnt"]) >0 )
             {
-                radVIP.Checked = true;
-                gbMem.Enabled = true;
+                if(chkBrand=="BB")
+                {
+                    radVIP.Checked = true;
+                    gbMem.Enabled = true;
+                    bl = true;
+                }
+                else if(chkBrand == "BC")
+                {
+                    int dd = Convert.ToInt32(cDateTime.getDateTimeWithDayOnly());
+                    int mm = Convert.ToInt32(cDateTime.getDateTimeWithMonthOnly());
+                    int yy = Convert.ToInt32(cDateTime.getDateTimeWithYearOnly());
+
+                    if (dd >= 18)
+                    {
+                        radVIP.Checked = true;
+                        gbMem.Enabled = true;
+                        bl = true;
+                    }
+                    else if (mm > 10)
+                    {
+                        radVIP.Checked = true;
+                        gbMem.Enabled = true;
+                        bl = true;
+                    }
+                    else
+                    {
+                        radMem.Checked = true;
+                        gbMem.Enabled = false;
+                        bl = false;
+                    }
+
+                }
+                else
+                {
+
+                }
+               
                 
-                bl = true;
+               
             }
                
             else
