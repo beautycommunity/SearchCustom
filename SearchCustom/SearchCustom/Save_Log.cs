@@ -215,7 +215,7 @@ namespace Save_Log_CT
                 prHBD = true;
             }
 
-            if (dd >= 20)
+            if (dd >= 23)
             {
                prOnline = true;
             }
