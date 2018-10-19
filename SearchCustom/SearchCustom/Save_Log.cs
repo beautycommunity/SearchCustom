@@ -1658,8 +1658,8 @@ namespace Save_Log_CT
                     //}
                     if (chkBrand == "BB")
                     {
-                        sql = "update pr_std_us set  cflag = 0 where prcode = 'V818090002'; ";
-                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'V818090002'";
+                        sql = "update pr_std_us set  cflag = 0 where prcode = 'MD18100001'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'MD18100001'";//MD18100001
                     }
                     else if (chkBrand == "BM")
                     {
@@ -1693,6 +1693,7 @@ namespace Save_Log_CT
                         sql = "update pr_std_us set  cflag = 0 where prcode not like 'V8%'; ";
                         sql = sql + "update pr_std_us set  cflag = 1 where prcode like 'V8%';";
                         sql = sql + "update pr_std_us set  cflag = 1 where prcode like 'Q9%';";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode = 'MD18100001';";
                     }
 
                     else if (chkBrand == "BM")
