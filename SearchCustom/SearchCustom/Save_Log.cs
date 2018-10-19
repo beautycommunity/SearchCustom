@@ -225,7 +225,7 @@ namespace Save_Log_CT
 
                 groupBox3.Visible = true;
                 setLabel(ref radHBD, prHBD);
-                //setLabel(ref radProV8, prVIP);
+                setLabel(ref radProV8, prOnline);
             }
             else if(chkBrand == "BM")
             {
