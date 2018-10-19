@@ -226,6 +226,8 @@ namespace Save_Log_CT
                 groupBox3.Visible = true;
                 setLabel(ref radHBD, prHBD);
                 setLabel(ref radProV8, prOnline);
+
+                
             }
             else if(chkBrand == "BM")
             {
@@ -252,7 +254,19 @@ namespace Save_Log_CT
                     
             }
 
-            
+            if (chkBrand == "BC")
+            {
+                radProV8.Text = " ซื้อ 3,000 ลด 1,500 บาท";
+            }
+            else if (chkBrand == "BM")
+            {
+                radProV8.Text = "Online ซื้อ599 จ่าย499";
+            }
+            else
+            {
+                radProV8.Text = "Online ซื้อ600 จ่าย450";
+            }
+
             getProV8();
 
         }
@@ -261,7 +275,7 @@ namespace Save_Log_CT
         {
             //throw new NotImplementedException();
 
-            //if(chkBrand=="BC")
+            //if (chkBrand == "BC")
             //{
             //    radHBD.Text = " ซื้อ 3,000 ลด 1,500 บาท";
             //}
