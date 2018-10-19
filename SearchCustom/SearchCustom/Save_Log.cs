@@ -73,27 +73,27 @@ namespace Save_Log_CT
             //_Local_CMDFX = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
             //_Local_COMSUP = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
-            _Local_CMDFX = @"Data Source=192.168.1.55,1401;Initial Catalog=BCHPY;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=192.168.1.55,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            _Local_CMDFX = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
             //_Local_CMDFX = @"Data Source=.;Initial Catalog=CMD-FX;User ID=sa;Password=1Q2w3e4r@";
             //_Local_COMSUP = @"Data Source=.;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=1Q2w3e4r@";
             //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
-            string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-
-            string SELECT_WH = @"select 
-                                case when substring(whcode,1,1) = 1 then 'BB'
-                                when substring(whcode,1,1) = 3 then 'BB'
-                                when substring(whcode,1,1) = 5 then 'BC'
-                                else 'BM' end as brand  
-                                from mas_wh where id = (select wh_id from def_local)";
+            //string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
 
             //string SELECT_WH = @"select 
             //                    case when substring(whcode,1,1) = 1 then 'BB'
             //                    when substring(whcode,1,1) = 3 then 'BB'
             //                    when substring(whcode,1,1) = 5 then 'BC'
             //                    else 'BM' end as brand  
-            //                    from mas_wh where id = 311";
+            //                    from mas_wh where id = (select wh_id from def_local)";
+
+            string SELECT_WH = @"select 
+                                case when substring(whcode,1,1) = 1 then 'BB'
+                                when substring(whcode,1,1) = 3 then 'BB'
+                                when substring(whcode,1,1) = 5 then 'BC'
+                                else 'BM' end as brand  
+                                from mas_wh where id = 201";
 
 
             DataSet ds = k.libary.cData.getDataSetWithSqlCommand(_Local_CMDFX, SELECT_WH, 1000, true);
@@ -376,7 +376,7 @@ namespace Save_Log_CT
                             {
                                 sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID 
                                 ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE 
-                                FROM MAS_CT A (NOLOCK) 
+                                FROM MAS_CT A (NOLOCK)      
                                 LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE CARDID = '" + Seach + @"' 
                                 AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
 
@@ -429,31 +429,31 @@ namespace Save_Log_CT
                                     DataSet Ans = new DataSet();
                                     Ans.Tables.Add(AnsTable);
                                     Table = Ans;
-
-                                    SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
-
-                                    SqlCommand cmd = new SqlCommand();
-                                    cmd.CommandType = CommandType.Text;
-                                    cmd.CommandText = "INSERT INTO LOG_CT (TYPE,LOG_DATA,SEARCH,WORKDATE,STCODE,WHCODE,FLAG) VALUES('1','SELECT FROM CARDID','" + Seach + "','" + thisDay.ToString("yyyy/MM/dd", CultureInfo.GetCultureInfo("en-US")) + "','" + _STCODE + "','" + _WHCODE + "','0')";
-                                    cmd.Connection = sqlConnection1;
-
-                                    sqlConnection1.Open();
-                                    cmd.ExecuteNonQuery();
-                                    sqlConnection1.Close();
                                 }
+
+                                SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
+
+                                SqlCommand cmd = new SqlCommand();
+                                cmd.CommandType = CommandType.Text;
+                                cmd.CommandText = "INSERT INTO LOG_CT (TYPE,LOG_DATA,SEARCH,WORKDATE,STCODE,WHCODE,FLAG) VALUES('1','SELECT FROM CARDID','" + Seach + "','" + thisDay.ToString("yyyy/MM/dd", CultureInfo.GetCultureInfo("en-US")) + "','" + _STCODE + "','" + _WHCODE + "','0')";
+                                cmd.Connection = sqlConnection1;
+
+                                sqlConnection1.Open();
+                                cmd.ExecuteNonQuery();
+                                sqlConnection1.Close();
 
                             }
                             else if (Type == "ชื่อลูกค้า")
                             {
-                                sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID 
-                                    ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE 
-                                    FROM MAS_CT A (NOLOCK) 
-                                    LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE FULLNAME LIKE '%" + Seach + @"%' 
-                                    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
+                                sql_local = @"SELECT 'หน้าร้าน' AS Status, B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID
+                                    ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE
+                                    FROM MAS_CT A(NOLOCK)
+                                    LEFT JOIN MAS_CT_CD(NOLOCK) B ON B.CT_ID = A.ID WHERE FULLNAME LIKE '%" + Seach + @"%'
+                                    AND B.CT_ID IS NOT NULL AND(A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
                                 DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
 
 
-                                sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID 
+                               sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID 
                                     ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE  
                                     FROM MAS_CT A (NOLOCK) 
                                     LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE FULLNAME LIKE '%" + Seach + @"%' 
@@ -465,33 +465,88 @@ namespace Save_Log_CT
 
                                 if (dt.Rows.Count == 0)
                                 {
-                                    IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
-                                                                      //where qq.ItemArray[5].ToString() == "Online"
+                                    //IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
+                                    //                                  //where qq.ItemArray[5].ToString() == "Online"
+                                    //                              select qq)
+                                    //      .Union(from qq2 in dt2.AsEnumerable()
+                                    //             where !(from o in dt.AsEnumerable()
+                                    //                     select o.ItemArray[1].ToString())
+                                    //                     .Contains(qq2.ItemArray[1].ToString())
+                                    //             select qq2);
+
+                                    //DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                    //boundTable.TableName = "Ans";
+
+                                    //IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
+                                    //                                   select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
+
+                                    //DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
+
+                                    //DataSet Ans = new DataSet();
+                                    //Ans.Tables.Add(AnsTable);
+                                    //Table = Ans;
+                                    //Ans.Tables.Add(boundTable);
+                                    //Table = Ans;
+
+
+                                    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
                                                                   select qq)
-                                          .Union(from qq2 in dt2.AsEnumerable()
-                                                 where !(from o in dt.AsEnumerable()
-                                                         select o.ItemArray[1].ToString())
-                                                         .Contains(qq2.ItemArray[1].ToString())
-                                                 select qq2);
+                                    .Union(from qq2 in dt2.AsEnumerable()
+                                           where !(from o in dt2.AsEnumerable()
+                                                   select o.ItemArray[1].ToString())
+                                                   .Contains(qq2.ItemArray[1].ToString())
+                                           select qq2);
 
-                                        DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                        boundTable.TableName = "Ans";
+                                    DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                    boundTable.TableName = "Ans";
+                                    DataSet Ans = new DataSet();
+                                    Ans.Tables.Add(boundTable);
+                                    Table = Ans;
 
-                                        IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
-                                                                   select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
-
-                                        DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
-
-                                        DataSet Ans = new DataSet();
-                                        Ans.Tables.Add(AnsTable);
-                                        Table = Ans;
-
-                                        //DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                        //boundTable.TableName = "Ans";
-                                        //DataSet Ans = new DataSet();
-                                        Ans.Tables.Add(boundTable);
-                                        Table = Ans;
                                 }
+                                else
+                                {
+                                    //IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
+                                    //                              select qq)
+                                    //     .Union(from qq2 in dt2.AsEnumerable()
+                                    //            where !(from o in dt.AsEnumerable()
+                                    //                    select o.ItemArray[1].ToString())
+                                    //                    .Contains(qq2.ItemArray[1].ToString())
+                                    //            select qq2);
+
+                                    //DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                    //boundTable.TableName = "Ans";
+
+                                    //IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
+                                    //                                   select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
+
+                                    //DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
+
+                                    //DataSet Ans = new DataSet();
+                                    //Ans.Tables.Add(AnsTable);
+                                    //Table = Ans;
+
+                                    IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
+                                                                  select qq)
+                                    .Union(from qq2 in dt2.AsEnumerable()
+                                           where !(from o in dt.AsEnumerable()
+                                                   select o.ItemArray[1].ToString())
+                                                   .Contains(qq2.ItemArray[1].ToString())
+                                           select qq2);
+
+                                    DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                    boundTable.TableName = "Ans";
+
+                                    IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
+                                                                       select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
+
+                                    DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
+
+                                    DataSet Ans = new DataSet();
+                                    Ans.Tables.Add(AnsTable);
+                                    Table = Ans;
+                                }
+
                                 SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
 
                                 SqlCommand cmd = new SqlCommand();
@@ -505,12 +560,16 @@ namespace Save_Log_CT
                             }
                             else if (Type == "เบอร์โทรศัพท์")
                             {
-                                sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ADDR_MOBILE,A.PEOPLEID,A.ID FROM MAS_CT A (NOLOCK) 
-                                    LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.ADDR_MOBILE = '" + Seach + @"' 
-                                    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
+                                sql_local = @"SELECT 'หน้าร้าน' AS Status, B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID
+                                    ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE
+                                    FROM MAS_CT A(NOLOCK)
+                                    LEFT JOIN MAS_CT_CD(NOLOCK) B ON B.CT_ID = A.ID WHERE A.ADDR_MOBILE = '" + Seach + @"' 
+                                    AND B.CT_ID IS NOT NULL AND(A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
                                 DataSet ds = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
 
-                                sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ADDR_MOBILE,A.PEOPLEID,A.ID FROM MAS_CT A (NOLOCK) 
+                                sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID 
+                                    ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE  
+                                    FROM MAS_CT A (NOLOCK) 
                                     LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.ADDR_MOBILE = '" + Seach + @"' 
                                     AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
                                 DataSet ds2 = cData.getDataSetWithSqlCommand(_Sever_CMDFX, sql, 1000, true);
@@ -537,19 +596,38 @@ namespace Save_Log_CT
                                 }
                                 else
                                 {
-                                    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
-                                                                      //where qq.ItemArray[5].ToString() == "Online"
+                                    //IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
+                                    //                                  //where qq.ItemArray[5].ToString() == "Online"
+                                    //                              select qq)
+                                    //     .Union(from qq2 in dt2.AsEnumerable()
+                                    //            where !(from o in dt2.AsEnumerable()
+                                    //                    select o.ItemArray[1].ToString())
+                                    //                    .Contains(qq2.ItemArray[1].ToString())
+                                    //            select qq2);
+
+                                    //DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                    //boundTable.TableName = "Ans";
+                                    //DataSet Ans = new DataSet();
+                                    //Ans.Tables.Add(boundTable);
+                                    //Table = Ans;
+                                    IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
                                                                   select qq)
-                                         .Union(from qq2 in dt2.AsEnumerable()
-                                                where !(from o in dt2.AsEnumerable()
-                                                        select o.ItemArray[1].ToString())
-                                                        .Contains(qq2.ItemArray[1].ToString())
-                                                select qq2);
+                                    .Union(from qq2 in dt2.AsEnumerable()
+                                           where !(from o in dt.AsEnumerable()
+                                                   select o.ItemArray[1].ToString())
+                                                   .Contains(qq2.ItemArray[1].ToString())
+                                           select qq2);
 
                                     DataTable boundTable = query.CopyToDataTable<DataRow>();
                                     boundTable.TableName = "Ans";
+
+                                    IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
+                                                                       select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
+
+                                    DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
+
                                     DataSet Ans = new DataSet();
-                                    Ans.Tables.Add(boundTable);
+                                    Ans.Tables.Add(AnsTable);
                                     Table = Ans;
                                 }
                                 SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
@@ -566,17 +644,18 @@ namespace Save_Log_CT
                             }
                             else if (Type == "บัตรประชาชน")
                             {
-                                sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ADDR_MOBILE,A.PEOPLEID,A.ID FROM MAS_CT A (NOLOCK) 
-                                    LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.PEOPLEID = '" + Seach + @"' 
-                                    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
+                                sql_local = @"SELECT 'หน้าร้าน' AS Status, B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID
+                                    ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE
+                                    FROM MAS_CT A(NOLOCK)
+                                    LEFT JOIN MAS_CT_CD(NOLOCK) B ON B.CT_ID = A.ID WHERE A.PEOPLEID = '" + Seach + @"'
+                                    AND B.CT_ID IS NOT NULL AND(A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
                                 DataSet ds = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
 
-                                sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ADDR_MOBILE,A.PEOPLEID,A.ID FROM MAS_CT A (NOLOCK) 
-                                    LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.PEOPLEID = '" + Seach + @"' 
+                                sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID 
+                                    ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE  
+                                    FROM MAS_CT A (NOLOCK) 
+                                    LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.PEOPLEID = '" + Seach + @"'
                                     AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
-                                //sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ADDR_MOBILE,A.PEOPLEID,A.ID FROM MAS_CT A (NOLOCK) 
-                                //    LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.PEOPLEID = '11111" + Seach + @"' 
-                                //    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
                                 DataSet ds2 = cData.getDataSetWithSqlCommand(_Sever_CMDFX, sql, 1000, true);
 
                                 DataTable dt = ds.Tables[0];
@@ -601,20 +680,39 @@ namespace Save_Log_CT
                                 }
                                 else
                                 {
-                                    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
-                                                                      //where qq.ItemArray[5].ToString() == "Online"
+                                    IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
                                                                   select qq)
-                                          .Union(from qq2 in dt2.AsEnumerable()
-                                                 where !(from o in dt2.AsEnumerable()
-                                                         select o.ItemArray[1].ToString())
-                                                         .Contains(qq2.ItemArray[1].ToString())
-                                                 select qq2);
+                                    .Union(from qq2 in dt2.AsEnumerable()
+                                           where !(from o in dt.AsEnumerable()
+                                                   select o.ItemArray[1].ToString())
+                                                   .Contains(qq2.ItemArray[1].ToString())
+                                           select qq2);
 
                                     DataTable boundTable = query.CopyToDataTable<DataRow>();
                                     boundTable.TableName = "Ans";
+
+                                    IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
+                                                                       select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
+
+                                    DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
+
                                     DataSet Ans = new DataSet();
-                                    Ans.Tables.Add(boundTable);
+                                    Ans.Tables.Add(AnsTable);
                                     Table = Ans;
+                                    //IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
+                                    //                                  //where qq.ItemArray[5].ToString() == "Online"
+                                    //                              select qq)
+                                    //      .Union(from qq2 in dt2.AsEnumerable()
+                                    //             where !(from o in dt2.AsEnumerable()
+                                    //                     select o.ItemArray[1].ToString())
+                                    //                     .Contains(qq2.ItemArray[1].ToString())
+                                    //             select qq2);
+
+                                    //DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                    //boundTable.TableName = "Ans";
+                                    //DataSet Ans = new DataSet();
+                                    //Ans.Tables.Add(boundTable);
+                                    //Table = Ans;
                                 }
                                 SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
 
