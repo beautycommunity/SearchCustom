@@ -462,17 +462,17 @@ namespace Save_Log_CT
                                         IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
                                                                    select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
 
-                                DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
+                                        DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
 
-                                DataSet Ans = new DataSet();
-                                Ans.Tables.Add(AnsTable);
-                                Table = Ans;
+                                        DataSet Ans = new DataSet();
+                                        Ans.Tables.Add(AnsTable);
+                                        Table = Ans;
 
-                                    //DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                    //boundTable.TableName = "Ans";
-                                    //DataSet Ans = new DataSet();
-                                    Ans.Tables.Add(boundTable);
-                                    Table = Ans;
+                                        //DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                        //boundTable.TableName = "Ans";
+                                        //DataSet Ans = new DataSet();
+                                        Ans.Tables.Add(boundTable);
+                                        Table = Ans;
                                 }
                                 SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
 
