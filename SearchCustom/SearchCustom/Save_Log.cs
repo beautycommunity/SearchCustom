@@ -73,8 +73,8 @@ namespace Save_Log_CT
             //_Local_CMDFX = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
             //_Local_COMSUP = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
-            _Local_CMDFX = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            _Local_CMDFX = @"Data Source=BCLP.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=BCLP.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
             //_Local_CMDFX = @"Data Source=.;Initial Catalog=CMD-FX;User ID=sa;Password=1Q2w3e4r@";
             //_Local_COMSUP = @"Data Source=.;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=1Q2w3e4r@";
             //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
@@ -552,7 +552,7 @@ namespace Save_Log_CT
                                     boundTable.TableName = "Ans";
 
                                     IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
-                                                                       select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
+                                                                       select xx).OrderByDescending(s => s.ItemArray[0].ToString());
 
                                     DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
 
@@ -636,7 +636,7 @@ namespace Save_Log_CT
                                     boundTable.TableName = "Ans";
 
                                     IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
-                                                                       select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
+                                                                       select xx).OrderByDescending(s => s.ItemArray[0].ToString());
 
                                     DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
 
@@ -706,7 +706,7 @@ namespace Save_Log_CT
                                     boundTable.TableName = "Ans";
 
                                     IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
-                                                                       select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
+                                                                       select xx).OrderByDescending(s => s.ItemArray[0].ToString());
 
                                     DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
 
