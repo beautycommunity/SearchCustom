@@ -554,7 +554,7 @@ namespace Save_Log_CT
                                     boundTable.TableName = "Ans";
 
                                     IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
-                                                                       select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
+                                                                       select xx).OrderByDescending(s => s.ItemArray[0].ToString());
 
                                     DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
 
@@ -638,7 +638,7 @@ namespace Save_Log_CT
                                     boundTable.TableName = "Ans";
 
                                     IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
-                                                                       select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
+                                                                       select xx).OrderByDescending(s => s.ItemArray[0].ToString());
 
                                     DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
 
@@ -708,7 +708,7 @@ namespace Save_Log_CT
                                     boundTable.TableName = "Ans";
 
                                     IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
-                                                                       select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
+                                                                       select xx).OrderByDescending(s => s.ItemArray[0].ToString());
 
                                     DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
 
