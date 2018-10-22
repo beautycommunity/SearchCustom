@@ -53,6 +53,7 @@ namespace Save_Log_CT
         bool prHBD = false;
         bool prOnline = false;
         bool prVip = false;
+        bool prOth = false;
 
         BackgroundWorker bgWorker = new BackgroundWorker();
 
@@ -81,19 +82,19 @@ namespace Save_Log_CT
             //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
             //string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
 
-            //string SELECT_WH = @"select 
-            //                    case when substring(whcode,1,1) = 1 then 'BB'
-            //                    when substring(whcode,1,1) = 3 then 'BB'
-            //                    when substring(whcode,1,1) = 5 then 'BC'
-            //                    else 'BM' end as brand  
-            //                    from mas_wh where id = (select wh_id from def_local)";
-
             string SELECT_WH = @"select 
                                 case when substring(whcode,1,1) = 1 then 'BB'
                                 when substring(whcode,1,1) = 3 then 'BB'
                                 when substring(whcode,1,1) = 5 then 'BC'
                                 else 'BM' end as brand  
-                                from mas_wh where id = 201";
+                                from mas_wh where id = (select wh_id from def_local)";
+
+            //string SELECT_WH = @"select 
+            //                    case when substring(whcode,1,1) = 1 then 'BB'
+            //                    when substring(whcode,1,1) = 3 then 'BB'
+            //                    when substring(whcode,1,1) = 5 then 'BC'
+            //                    else 'BM' end as brand  
+            //                    from mas_wh where id = 201";
 
 
             DataSet ds = k.libary.cData.getDataSetWithSqlCommand(_Local_CMDFX, SELECT_WH, 1000, true);
@@ -220,11 +221,16 @@ namespace Save_Log_CT
                prOnline = true;
             }
 
+            if (dd == 23 && mm== 10)
+            {
+                prOth = true;
+            }
+
             if (chkBrand == "BB" )
             {
 
                 groupBox3.Visible = true;
-                //setLabel(ref radHBD, prHBD);
+                setLabel(ref radOther, prOth);
                 setLabel(ref radProV8, prOnline);
 
                 
@@ -256,7 +262,7 @@ namespace Save_Log_CT
 
             if (chkBrand == "BC")
             {
-                radProV8.Text = " ซื้อ 3,000 ลด 1,500 บาท";
+                radProV8.Text = "ซื้อ 3,000 ลด 1,500 บาท";
             }
             else if (chkBrand == "BM")
             {
@@ -647,7 +653,7 @@ namespace Save_Log_CT
                                     Table = Ans;
                                 }
                                 SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
-
+                                
                                 SqlCommand cmd = new SqlCommand();
                                 cmd.CommandType = CommandType.Text;
                                 cmd.CommandText = "INSERT INTO LOG_CT (TYPE,LOG_DATA,SEARCH,WORKDATE,STCODE,WHCODE,FLAG) VALUES('1','SELECT FROM MOBILE','" + Seach + "','" + thisDay.ToString("yyyy/MM/dd", CultureInfo.GetCultureInfo("en-US")) + "','" + _STCODE + "','" + _WHCODE + "','0')";
@@ -1700,7 +1706,6 @@ namespace Save_Log_CT
             {
                 sql = "select count(*) cnt from pr_std_us where prcode Like 'Q9%' and cflag = 0";
 
-
                 SqlConnection conn1 = new SqlConnection(_Local_CMDFX);
                 SqlDataAdapter da1 = new SqlDataAdapter(sql, conn1);
 
@@ -1712,14 +1717,36 @@ namespace Save_Log_CT
                 {
                     radHBD.Checked = true;
                 }
+                else if (chkBrand == "BB")
+                {
+
+                    sql = "select count(*) cnt from pr_std_us where prcode = 'Q218100003' and cflag = 0";
+
+
+                    SqlDataAdapter da2 = new SqlDataAdapter(sql, conn1);
+
+                    DataSet ds2 = new DataSet();
+
+                    da1.Fill(ds2, "tbl");
+                    if (Convert.ToInt32(ds1.Tables["tbl"].Rows[0]["cnt"]) > 0)
+                    {
+                        radOther.Checked = true;
+                    }
+                    else
+                    {
+                        radOther.Checked = false;
+                    }
+                    
+                }
                 else
                 {
                     radProGen.Checked = true;
                 }
 
-                    
+
             }
 
+            
         }
 
         private void ChangToPr1000_500()
@@ -1809,6 +1836,16 @@ namespace Save_Log_CT
                     setMember();
 
                 }
+                else if (radOther.Checked)
+                {
+
+                    sql = "update pr_std_us set  cflag = 0 where prcode  = 'Q218100003'; ";
+                    sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'Q218100003';";
+
+                    radMem.Checked = true;
+                    setMember();
+
+                }
                 else
                 {
                     if (chkBrand == "BB")
@@ -1817,6 +1854,7 @@ namespace Save_Log_CT
                         sql = sql + "update pr_std_us set  cflag = 1 where prcode like 'V8%';";
                         sql = sql + "update pr_std_us set  cflag = 1 where prcode like 'Q9%';";
                         sql = sql + "update pr_std_us set  cflag = 1 where prcode = 'MD18100001';";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode = 'Q218100003';";
                     }
 
                     else if (chkBrand == "BM")
@@ -1829,7 +1867,8 @@ namespace Save_Log_CT
                         sql = "update pr_std_us set  cflag = 0 where prcode not like 'abc%'; ";
                        
                     }
-                }  
+                } 
+                
                 SqlCommand comm = new SqlCommand();
 
                 comm.CommandText = sql;
