@@ -91,6 +91,8 @@
             this.lsvPromotion = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.pb = new System.Windows.Forms.PictureBox();
+            this.radOther = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -99,6 +101,7 @@
             this.groupBox1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -211,7 +214,7 @@
             this.panel2.Location = new System.Drawing.Point(411, 51);
             this.panel2.Margin = new System.Windows.Forms.Padding(5);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(793, 614);
+            this.panel2.Size = new System.Drawing.Size(793, 647);
             this.panel2.TabIndex = 214;
             // 
             // btnPromotion
@@ -237,6 +240,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.radOther);
             this.groupBox3.Controls.Add(this.radHBD);
             this.groupBox3.Controls.Add(this.btnProV8);
             this.groupBox3.Controls.Add(this.radProV8);
@@ -245,7 +249,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(336, 138);
+            this.groupBox3.Size = new System.Drawing.Size(336, 171);
             this.groupBox3.TabIndex = 246;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "โปรโมชั่น";
@@ -254,7 +258,7 @@
             // 
             this.radHBD.AutoSize = true;
             this.radHBD.Enabled = false;
-            this.radHBD.Location = new System.Drawing.Point(35, 95);
+            this.radHBD.Location = new System.Drawing.Point(35, 92);
             this.radHBD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radHBD.Name = "radHBD";
             this.radHBD.Size = new System.Drawing.Size(124, 25);
@@ -264,7 +268,7 @@
             // 
             // btnProV8
             // 
-            this.btnProV8.Location = new System.Drawing.Point(211, 86);
+            this.btnProV8.Location = new System.Drawing.Point(225, 116);
             this.btnProV8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnProV8.Name = "btnProV8";
             this.btnProV8.Size = new System.Drawing.Size(105, 34);
@@ -708,7 +712,7 @@
             this.lsvSearch.Location = new System.Drawing.Point(14, 230);
             this.lsvSearch.Margin = new System.Windows.Forms.Padding(4);
             this.lsvSearch.Name = "lsvSearch";
-            this.lsvSearch.Size = new System.Drawing.Size(394, 434);
+            this.lsvSearch.Size = new System.Drawing.Size(394, 467);
             this.lsvSearch.TabIndex = 215;
             this.lsvSearch.UseCompatibleStateImageBehavior = false;
             this.lsvSearch.View = System.Windows.Forms.View.Details;
@@ -760,7 +764,7 @@
             this.panel3.Location = new System.Drawing.Point(1207, 51);
             this.panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(350, 614);
+            this.panel3.Size = new System.Drawing.Size(350, 647);
             this.panel3.TabIndex = 217;
             // 
             // lsvPromotion
@@ -774,7 +778,7 @@
             this.lsvPromotion.Location = new System.Drawing.Point(0, 0);
             this.lsvPromotion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lsvPromotion.Name = "lsvPromotion";
-            this.lsvPromotion.Size = new System.Drawing.Size(348, 612);
+            this.lsvPromotion.Size = new System.Drawing.Size(348, 645);
             this.lsvPromotion.TabIndex = 0;
             this.lsvPromotion.UseCompatibleStateImageBehavior = false;
             this.lsvPromotion.View = System.Windows.Forms.View.Details;
@@ -789,11 +793,37 @@
             this.columnHeader2.Text = "Promotion";
             this.columnHeader2.Width = 261;
             // 
+            // pb
+            // 
+            this.pb.BackColor = System.Drawing.Color.White;
+            this.pb.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pb.Image = ((System.Drawing.Image)(resources.GetObject("pb.Image")));
+            this.pb.Location = new System.Drawing.Point(51, 282);
+            this.pb.Name = "pb";
+            this.pb.Size = new System.Drawing.Size(304, 231);
+            this.pb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pb.TabIndex = 218;
+            this.pb.TabStop = false;
+            this.pb.Visible = false;
+            // 
+            // radOther
+            // 
+            this.radOther.AutoSize = true;
+            this.radOther.Enabled = false;
+            this.radOther.Location = new System.Drawing.Point(35, 125);
+            this.radOther.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.radOther.Name = "radOther";
+            this.radOther.Size = new System.Drawing.Size(149, 25);
+            this.radOther.TabIndex = 4;
+            this.radOther.Text = "30% สูงสุด 3 ชิ้น";
+            this.radOther.UseVisualStyleBackColor = true;
+            // 
             // Save_Log
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1570, 673);
+            this.ClientSize = new System.Drawing.Size(1570, 706);
+            this.Controls.Add(this.pb);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.lsvSearch);
             this.Controls.Add(this.toolStrip1);
@@ -817,6 +847,7 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -885,6 +916,8 @@
         private System.Windows.Forms.RadioButton radHBD;
         private System.Windows.Forms.Button btnPromotion;
         private System.Windows.Forms.Label lblPromotion;
+        internal System.Windows.Forms.PictureBox pb;
+        private System.Windows.Forms.RadioButton radOther;
     }
 }
 

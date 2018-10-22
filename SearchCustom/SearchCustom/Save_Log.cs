@@ -73,8 +73,8 @@ namespace Save_Log_CT
             //_Local_CMDFX = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
             //_Local_COMSUP = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
-            _Local_CMDFX = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=CFLK.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            _Local_CMDFX = @"Data Source=192.168.1.55,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=192.168.1.55,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
             //_Local_CMDFX = @"Data Source=.;Initial Catalog=CMD-FX;User ID=sa;Password=1Q2w3e4r@";
             //_Local_COMSUP = @"Data Source=.;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=1Q2w3e4r@";
             //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
@@ -210,7 +210,7 @@ namespace Save_Log_CT
             int mm = Convert.ToInt32(cDateTime.getDateTimeWithMonthOnly());
             int yy = Convert.ToInt32(cDateTime.getDateTimeWithYearOnly());
 
-            if (mm >= 1)
+            if (mm >= 10)
             {
                 prHBD = true;
             }
@@ -224,7 +224,7 @@ namespace Save_Log_CT
             {
 
                 groupBox3.Visible = true;
-                setLabel(ref radHBD, prHBD);
+                //setLabel(ref radHBD, prHBD);
                 setLabel(ref radProV8, prOnline);
 
                 
@@ -320,6 +320,7 @@ namespace Save_Log_CT
             button_Select.Enabled = false;
             Seach = SeachText.Text;
             Type = Type_ComboBox.Text;
+            pb.Visible = true;
             bgWorker.RunWorkerAsync();
         }
 
@@ -339,6 +340,7 @@ namespace Save_Log_CT
         private void bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             // Finish
+            pb.Visible = false;
             try
             {
                 lsvSearch.addDataWithDataset(Table, false, false);
@@ -748,23 +750,32 @@ namespace Save_Log_CT
                         catch
                         {
                             MessageBox.Show("ไม่พบข้อมูล");
+                            lsvSearch.Items.Clear();
                         }
                     }
                 }
 
                 if (Table.Tables[0].Rows.Count <= 0)
                 {
-                    MessageBox.Show("ไม่พบข้อมูลบนหน้าร้าน");
+                    MessageBox.Show("ไม่พบข้อมูล");
+                    lsvSearch.Items.Clear();
                 }
-                if (Table2.Tables[0].Rows.Count <= 0)
-                {
-                    MessageBox.Show("ไม่พบข้อมูลบนเซิฟเวอร์");
-                }
+                //if (Table.Tables[0].Rows.Count <= 0)
+                //{
+                //    MessageBox.Show("ไม่พบข้อมูลบนหน้าร้าน");
+                //}
+                //if (Table2.Tables[1].Rows.Count <= 0)
+                //{
+                //    MessageBox.Show("ไม่พบข้อมูลบนเซิฟเวอร์");
+                //}
+
+
                 return;
             }
-            catch
+            catch(Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
+                lsvSearch.Items.Clear();
             }
         }
 
