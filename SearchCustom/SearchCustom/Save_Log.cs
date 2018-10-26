@@ -82,19 +82,19 @@ namespace Save_Log_CT
             //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
             //string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
 
-            string SELECT_WH = @"select 
-                                case when substring(whcode,1,1) = 1 then 'BB'
-                                when substring(whcode,1,1) = 3 then 'BB'
-                                when substring(whcode,1,1) = 5 then 'BC'
-                                else 'BM' end as brand  
-                                from mas_wh where id = (select wh_id from def_local)";
-
             //string SELECT_WH = @"select 
             //                    case when substring(whcode,1,1) = 1 then 'BB'
             //                    when substring(whcode,1,1) = 3 then 'BB'
             //                    when substring(whcode,1,1) = 5 then 'BC'
             //                    else 'BM' end as brand  
-            //                    from mas_wh where id = 201";
+            //                    from mas_wh where id = (select wh_id from def_local)";
+
+            string SELECT_WH = @"select 
+                                case when substring(whcode,1,1) = 1 then 'BB'
+                                when substring(whcode,1,1) = 3 then 'BB'
+                                when substring(whcode,1,1) = 5 then 'BC'
+                                else 'BM' end as brand  
+                                from mas_wh where id = 492";
 
 
             DataSet ds = k.libary.cData.getDataSetWithSqlCommand(_Local_CMDFX, SELECT_WH, 1000, true);
