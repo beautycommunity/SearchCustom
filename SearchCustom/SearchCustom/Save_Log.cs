@@ -71,8 +71,11 @@ namespace Save_Log_CT
             _STCODE = "8063";
             _WHCODE = "1068";
 
-            _Local_CMDFX = @"Data Source=BCCR9.DYNDNS.INFO,1801;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=BCCR9.DYNDNS.INFO,1801;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            //_Local_CMDFX = @"Data Source=BCCR9.DYNDNS.INFO,1801;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            //_Local_COMSUP = @"Data Source=BCCR9.DYNDNS.INFO,1801;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+
+            _Local_CMDFX = @"Data Source=(local)\sqlexpress;Initial Catalog=CMD-FX_old;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=(local)\sqlexpress;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
             //_Local_CMDFX = @"Data Source=192.168.1.55,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
             //_Local_COMSUP = @"Data Source=192.168.1.55,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
@@ -82,21 +85,21 @@ namespace Save_Log_CT
             //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
             //string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
 
-            //string SELECT_WH = @"select 
-            //                    case when substring(whcode,1,1) = 1 then 'BB'
-            //                    when substring(whcode,1,1) = 3 then 'BB'
-            //                    when substring(whcode,1,1) = 5 then 'BC'
-            //                    else 'BM' end as brand  
-            //                    from mas_wh where id = (select wh_id from def_local)";
-
             string SELECT_WH = @"select 
                                 case when substring(whcode,1,1) = 1 then 'BB'
                                 when substring(whcode,1,1) = 3 then 'BB'
                                 when substring(whcode,1,1) = 5 then 'BC'
                                 else 'BM' end as brand  
-                                from mas_wh where id = 4";
+                                from mas_wh where id = (select wh_id from def_local)";
 
+            //string SELECT_WH = @"select 
+            //                    case when substring(whcode,1,1) = 1 then 'BB'
+            //                    when substring(whcode,1,1) = 3 then 'BB'
+            //                    when substring(whcode,1,1) = 5 then 'BC'
+            //                    else 'BM' end as brand  
+            //                    from mas_wh where id = 492";
 
+            MessageBox.Show(_Local_CMDFX);
             DataSet ds = k.libary.cData.getDataSetWithSqlCommand(_Local_CMDFX, SELECT_WH, 1000, true);
 
             string check = ds.Tables[0].Rows[0]["Brand"].ToString();
@@ -221,6 +224,14 @@ namespace Save_Log_CT
             {
                prOnline = true;
             }
+            else
+            {
+                if (dd < 15 && mm == 11)
+                {
+                    prOnline = true;
+                }
+
+             }
 
             if (dd == 23 && mm== 10)
             {
@@ -231,7 +242,7 @@ namespace Save_Log_CT
             {
 
                 groupBox3.Visible = true;
-                setLabel(ref radOther, prOth);
+                //setLabel(ref radOther, prOth);
                 setLabel(ref radProV8, prOnline);
 
                 
@@ -1203,7 +1214,7 @@ namespace Save_Log_CT
                     }
 
                     comm.ExecuteNonQuery();
-                    gbMem.Enabled = true;
+                    gbMem.Enabled = false;
                     MessageBox.Show("แก้ไขสิทธิสำเร็จ");
                 }
 
@@ -1662,7 +1673,9 @@ namespace Save_Log_CT
                 }
                 else
                 {
-
+                    radVIP.Checked = true;
+                    gbMem.Enabled = true;
+                    bl = true;
                 }
                
                 
@@ -1829,18 +1842,28 @@ namespace Save_Log_CT
                 }
                 else if (radHBD.Checked)
                 {
+                    if (chkBrand == "BB")
+                    {
+                        sql = "update pr_std_us set  cflag = 0 where prcode  like 'Q9%'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode not like 'Q9%';";
+                    }
+                    else if (chkBrand == "BM")
+                    {
+                        sql = "update pr_std_us set  cflag = 0 where prcode  = 'V818090001'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'V818090001';";
+                    }
+                    else
+                    {
 
-                    sql = "update pr_std_us set  cflag = 0 where prcode  like 'Q9%'; ";
-                    sql = sql + "update pr_std_us set  cflag = 1 where prcode not like 'Q9%';";
-
+                    }
                     radMem.Checked = true;
                     setMember();
 
                 }
                 else if (radOther.Checked)
                 {
-
-                    sql = "update pr_std_us set  cflag = 0 where prcode  = 'Q218100003'; ";
+                    
+                       sql = "update pr_std_us set  cflag = 0 where prcode  = 'Q218100003'; ";
                     sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'Q218100003';";
 
                     radMem.Checked = true;
@@ -1862,6 +1885,7 @@ namespace Save_Log_CT
                     {
                         sql = "update pr_std_us set  cflag = 0 where prcode <> 'CC18100011'; ";
                         sql = sql + "update pr_std_us set  cflag = 1 where prcode = 'CC18100011'";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode = 'V818090001'";
                     }
                     else
                     {
