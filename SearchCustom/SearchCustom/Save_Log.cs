@@ -69,13 +69,13 @@ namespace Save_Log_CT
             InitializeComponent();
 
             _STCODE = "8063";
-            _WHCODE = "1068";
+            _WHCODE = "5003";
 
-            //_Local_CMDFX = @"Data Source=BCCR9.DYNDNS.INFO,1801;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            //_Local_COMSUP = @"Data Source=BCCR9.DYNDNS.INFO,1801;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            _Local_CMDFX = @"Data Source=BCCR9.DYNDNS.INFO,1801;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=BCCR9.DYNDNS.INFO,1801;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
-            _Local_CMDFX = @"Data Source=(local)\sqlexpress;Initial Catalog=CMD-FX_old;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=(local)\sqlexpress;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            //_Local_CMDFX = @"Data Source=(local)\sqlexpress;Initial Catalog=CMD-FX_old;User ID=sa;Password=0000";
+            //_Local_COMSUP = @"Data Source=(local)\sqlexpress;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
             //_Local_CMDFX = @"Data Source=192.168.1.55,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
             //_Local_COMSUP = @"Data Source=192.168.1.55,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
@@ -85,19 +85,19 @@ namespace Save_Log_CT
             //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
             //string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
 
-            string SELECT_WH = @"select 
-                                case when substring(whcode,1,1) = 1 then 'BB'
-                                when substring(whcode,1,1) = 3 then 'BB'
-                                when substring(whcode,1,1) = 5 then 'BC'
-                                else 'BM' end as brand  
-                                from mas_wh where id = (select wh_id from def_local)";
-
             //string SELECT_WH = @"select 
             //                    case when substring(whcode,1,1) = 1 then 'BB'
             //                    when substring(whcode,1,1) = 3 then 'BB'
             //                    when substring(whcode,1,1) = 5 then 'BC'
             //                    else 'BM' end as brand  
-            //                    from mas_wh where id = 492";
+            //                    from mas_wh where id = (select wh_id from def_local)";
+
+            string SELECT_WH = @"select 
+                                case when substring(whcode,1,1) = 1 then 'BB'
+                                when substring(whcode,1,1) = 3 then 'BB'
+                                when substring(whcode,1,1) = 5 then 'BC'
+                                else 'BM' end as brand  
+                                from mas_wh where id = 4";
 
             MessageBox.Show(_Local_CMDFX);
             DataSet ds = k.libary.cData.getDataSetWithSqlCommand(_Local_CMDFX, SELECT_WH, 1000, true);
@@ -428,13 +428,8 @@ namespace Save_Log_CT
 
                                 if (dt.Rows.Count == 0)
                                 {
-                                    IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
-                                                                  select qq)
-                                         .Union(from qq2 in dt2.AsEnumerable()
-                                                where !(from o in dt2.AsEnumerable()
-                                                        select o.ItemArray[1].ToString())
-                                                        .Contains(qq2.ItemArray[1].ToString())
-                                                select qq2);
+                                    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
+                                                                  select qq);
 
                                     DataTable boundTable = query.CopyToDataTable<DataRow>();
                                     boundTable.TableName = "Ans";
@@ -499,37 +494,8 @@ namespace Save_Log_CT
 
                                 if (dt.Rows.Count == 0)
                                 {
-                                    //IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
-                                    //                                  //where qq.ItemArray[5].ToString() == "Online"
-                                    //                              select qq)
-                                    //      .Union(from qq2 in dt2.AsEnumerable()
-                                    //             where !(from o in dt.AsEnumerable()
-                                    //                     select o.ItemArray[1].ToString())
-                                    //                     .Contains(qq2.ItemArray[1].ToString())
-                                    //             select qq2);
-
-                                    //DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                    //boundTable.TableName = "Ans";
-
-                                    //IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
-                                    //                                   select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
-
-                                    //DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
-
-                                    //DataSet Ans = new DataSet();
-                                    //Ans.Tables.Add(AnsTable);
-                                    //Table = Ans;
-                                    //Ans.Tables.Add(boundTable);
-                                    //Table = Ans;
-
-
-                                    IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
-                                                                  select qq)
-                                    .Union(from qq2 in dt2.AsEnumerable()
-                                           where !(from o in dt2.AsEnumerable()
-                                                   select o.ItemArray[1].ToString())
-                                                   .Contains(qq2.ItemArray[1].ToString())
-                                           select qq2);
+                                    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
+                                                                  select qq);
 
                                     DataTable boundTable = query.CopyToDataTable<DataRow>();
                                     boundTable.TableName = "Ans";
@@ -540,26 +506,6 @@ namespace Save_Log_CT
                                 }
                                 else
                                 {
-                                    //IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
-                                    //                              select qq)
-                                    //     .Union(from qq2 in dt2.AsEnumerable()
-                                    //            where !(from o in dt.AsEnumerable()
-                                    //                    select o.ItemArray[1].ToString())
-                                    //                    .Contains(qq2.ItemArray[1].ToString())
-                                    //            select qq2);
-
-                                    //DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                    //boundTable.TableName = "Ans";
-
-                                    //IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
-                                    //                                   select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
-
-                                    //DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
-
-                                    //DataSet Ans = new DataSet();
-                                    //Ans.Tables.Add(AnsTable);
-                                    //Table = Ans;
-
                                     IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
                                                                   select qq)
                                     .Union(from qq2 in dt2.AsEnumerable()
@@ -613,14 +559,9 @@ namespace Save_Log_CT
 
                                 if (dt.Rows.Count == 0)
                                 {
-                                    IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
+                                    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
                                                                       //where qq.ItemArray[5].ToString() == "Online"
-                                                                  select qq)
-                                          .Union(from qq2 in dt2.AsEnumerable()
-                                                 where !(from o in dt.AsEnumerable()
-                                                         select o.ItemArray[1].ToString())
-                                                         .Contains(qq2.ItemArray[1].ToString())
-                                                 select qq2);
+                                                                  select qq);
 
                                     DataTable boundTable = query.CopyToDataTable<DataRow>();
                                     boundTable.TableName = "Ans";
@@ -630,20 +571,6 @@ namespace Save_Log_CT
                                 }
                                 else
                                 {
-                                    //IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
-                                    //                                  //where qq.ItemArray[5].ToString() == "Online"
-                                    //                              select qq)
-                                    //     .Union(from qq2 in dt2.AsEnumerable()
-                                    //            where !(from o in dt2.AsEnumerable()
-                                    //                    select o.ItemArray[1].ToString())
-                                    //                    .Contains(qq2.ItemArray[1].ToString())
-                                    //            select qq2);
-
-                                    //DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                    //boundTable.TableName = "Ans";
-                                    //DataSet Ans = new DataSet();
-                                    //Ans.Tables.Add(boundTable);
-                                    //Table = Ans;
                                     IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
                                                                   select qq)
                                     .Union(from qq2 in dt2.AsEnumerable()
@@ -697,14 +624,9 @@ namespace Save_Log_CT
 
                                 if (dt.Rows.Count == 0)
                                 {
-                                    IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
+                                    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
                                                                       //where qq.ItemArray[5].ToString() == "Online"
-                                                                  select qq)
-                                          .Union(from qq2 in dt2.AsEnumerable()
-                                                 where !(from o in dt.AsEnumerable()
-                                                         select o.ItemArray[1].ToString())
-                                                         .Contains(qq2.ItemArray[1].ToString())
-                                                 select qq2);
+                                                                  select qq);
 
                                     DataTable boundTable = query.CopyToDataTable<DataRow>();
                                     boundTable.TableName = "Ans";
@@ -733,20 +655,6 @@ namespace Save_Log_CT
                                     DataSet Ans = new DataSet();
                                     Ans.Tables.Add(AnsTable);
                                     Table = Ans;
-                                    //IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
-                                    //                                  //where qq.ItemArray[5].ToString() == "Online"
-                                    //                              select qq)
-                                    //      .Union(from qq2 in dt2.AsEnumerable()
-                                    //             where !(from o in dt2.AsEnumerable()
-                                    //                     select o.ItemArray[1].ToString())
-                                    //                     .Contains(qq2.ItemArray[1].ToString())
-                                    //             select qq2);
-
-                                    //DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                    //boundTable.TableName = "Ans";
-                                    //DataSet Ans = new DataSet();
-                                    //Ans.Tables.Add(boundTable);
-                                    //Table = Ans;
                                 }
                                 SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
 
