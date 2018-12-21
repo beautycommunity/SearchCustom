@@ -71,40 +71,46 @@ namespace Save_Log_CT
             _STCODE = "8063";
             _WHCODE = "5003";
 
-            _Local_CMDFX = @"Data Source=BCCR9.DYNDNS.INFO,1801;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=BCCR9.DYNDNS.INFO,1801;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            //_Local_CMDFX = @"Data Source=fash2.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            //_Local_COMSUP = @"Data Source=fash2.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
             //_Local_CMDFX = @"Data Source=(local)\sqlexpress;Initial Catalog=CMD-FX_old;User ID=sa;Password=0000";
             //_Local_COMSUP = @"Data Source=(local)\sqlexpress;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
-            //_Local_CMDFX = @"Data Source=192.168.1.55,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            //_Local_COMSUP = @"Data Source=192.168.1.55,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
-            _Local_CMDFX = @"Data Source=.;Initial Catalog=CMD-FX;User ID=sa;Password=1Q2w3e4r@";
-            _Local_COMSUP = @"Data Source=.;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=1Q2w3e4r@";
+            _Local_CMDFX = @"Data Source=192.168.1.55,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=192.168.1.55,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            //_Local_CMDFX = @"Data Source=.;Initial Catalog=CMD-FX;User ID=sa;Password=1Q2w3e4r@";
+            //_Local_COMSUP = @"Data Source=.;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=1Q2w3e4r@";
             //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
             //string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-
-            //string SELECT_WH = @"select 
-            //                    case when substring(whcode,1,1) = 1 then 'BB'
-            //                    when substring(whcode,1,1) = 3 then 'BB'
-            //                    when substring(whcode,1,1) = 5 then 'BC'
-            //                    else 'BM' end as brand  
-            //                    from mas_wh where id = (select wh_id from def_local)";
 
             string SELECT_WH = @"select 
                                 case when substring(whcode,1,1) = 1 then 'BB'
                                 when substring(whcode,1,1) = 3 then 'BB'
                                 when substring(whcode,1,1) = 5 then 'BC'
                                 else 'BM' end as brand  
-                                from mas_wh where id = 4";
+                                from mas_wh where id = (select wh_id from def_local)";
+
+            //string SELECT_WH = @"select 
+            //                    case when substring(whcode,1,1) = 1 then 'BB'
+            //                    when substring(whcode,1,1) = 3 then 'BB'
+            //                    when substring(whcode,1,1) = 5 then 'BC'
+            //                    else 'BM' end as brand  
+            //                    from mas_wh where id = 4";
 
             //MessageBox.Show(_Local_CMDFX);
             DataSet ds = k.libary.cData.getDataSetWithSqlCommand(_Local_CMDFX, SELECT_WH, 1000, true);
 
             string check = ds.Tables[0].Rows[0]["Brand"].ToString();
             //string check = "BB";
+           
+            //chkBrand = "BB";
+            //chkBrand = "BC";
+            //chkBrand = "BM";
+
             chkBrand = check;
+
             if (check == "BB")
             {
                 _Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
@@ -215,18 +221,18 @@ namespace Save_Log_CT
             int mm = Convert.ToInt32(cDateTime.getDateTimeWithMonthOnly());
             int yy = Convert.ToInt32(cDateTime.getDateTimeWithYearOnly());
 
-            if (mm >= 10)
-            {
-                prHBD = true;
-            }
+            //if (mm >= 10)
+            //{
+            //    prHBD = true;
+            //}
 
-            if (dd >= 23)
+            if (dd >= 15 && mm == 11)
             {
                prOnline = true;
             }
             else
             {
-                if (dd < 15 && mm == 11)
+                if (dd < 15 && mm == 12)
                 {
                     prOnline = true;
                 }
@@ -257,32 +263,34 @@ namespace Save_Log_CT
             {
                 //if (dd >= 18)
                 //{
-                //    groupBox3.Visible = true;
-                //    //setLabel(ref radProV8, prOnline);
+                    groupBox3.Visible = true;
+                    setLabel(ref radProV8, prOnline);
                 //}
-                //else if (mm > 9)
-                //{
-                //    groupBox3.Visible = true;
-                //    //setLabel(ref radProV8, prOnline);
-                //}
-                //else
-                //{
-                    groupBox3.Visible = false;
-                //}
-                    
+
             }
 
             if (chkBrand == "BC")
             {
-                radProV8.Text = "ซื้อ 3,000 ลด 1,500 บาท";
+                if(dd<16)
+                {
+                    radProV8.Text = "Online ซื้อ 1000 จ่าย 700";
+                    radProV8.Enabled = false;
+                }
+                else
+                {
+                    radProV8.Text = "Online ซื้อ 1000 จ่าย 700";
+                }
+                
             }
             else if (chkBrand == "BM")
             {
-                radProV8.Text = "Online ซื้อ599 จ่าย499";
+                
+                    radProV8.Enabled = false;
+
             }
             else
             {
-                radProV8.Text = "Online ซื้อ600 จ่าย450";
+                radProV8.Text = "Online ซื้อ 600 จ่าย450";
             }
 
             getProV8();
@@ -398,8 +406,8 @@ namespace Save_Log_CT
                     //lsvSearch_local.Items.Clear();
                     lsvSearch.Items.Clear();
 
-                    using (cWaitIndicator cw =  new cWaitIndicator())
-                    {
+                    //using (cWaitIndicator cw = new cWaitIndicator())
+                    //{
                         //Thread.Sleep(50);
 
                         string sql = "";
@@ -678,7 +686,7 @@ namespace Save_Log_CT
                             MessageBox.Show("ไม่พบข้อมูล");
                             lsvSearch.Items.Clear();
                         }
-                    }
+                   // }
                 }
 
                 if (Table.Tables[0].Rows.Count <= 0)
@@ -1626,8 +1634,21 @@ namespace Save_Log_CT
 
             else
             {
-                sql = "select count(*) cnt from pr_std_us where prcode Like 'Q9%' and cflag = 0";
+                if(chkBrand == "BB")
+                {
+                    sql = "select count(*) cnt from pr_std_us where prcode Like 'Q9%' and cflag = 0";
 
+                }
+                else if (chkBrand == "BC")
+                {
+                    sql = "select count(*) cnt from pr_std_us where prcode Like 'Q9%' and cflag = 0";
+
+                }
+                else
+                {
+                    sql = "select count(*) cnt from pr_std_us where prcode = 'V818090001' and cflag = 0";
+                }
+                    
                 SqlConnection conn1 = new SqlConnection(_Local_CMDFX);
                 SqlDataAdapter da1 = new SqlDataAdapter(sql, conn1);
 
@@ -1743,8 +1764,8 @@ namespace Save_Log_CT
                     }
                     else
                     {
-                        sql = "update pr_std_us set  cflag = 0 where prcode = 'ABCDEFG'; ";
-                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'ABCDEFG'";
+                        sql = "update pr_std_us set  cflag = 0 where prcode = 'MD18100001'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'MD18100001'";
                     }
 
                 }
@@ -1797,8 +1818,9 @@ namespace Save_Log_CT
                     }
                     else
                     {
-                        sql = "update pr_std_us set  cflag = 0 where prcode not like 'abc%'; ";
-                       
+                        sql = "update pr_std_us set  cflag = 0 where prcode <> 'MD18100001'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode = 'MD18100001';";
+
                     }
                 } 
                 
