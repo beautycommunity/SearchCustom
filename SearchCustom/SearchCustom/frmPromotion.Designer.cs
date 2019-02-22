@@ -86,6 +86,7 @@
             this.Controls.Add(this.cmbpro);
             this.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.Name = "frmPromotion";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Promotion";
             this.Load += new System.EventHandler(this.frmPromotion_Load);
             this.ResumeLayout(false);

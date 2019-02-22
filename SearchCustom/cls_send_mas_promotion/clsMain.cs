@@ -45,7 +45,7 @@ namespace cls_send_mas_promotion
             bool bl = false;
             ds.Clear();
 
-            string sql = "select * from [dbbeutycommsupport]..mas_promotion";
+            string sql = "select * from [dbbeautycommsupport]..mas_promotion";
 
             ds.Clear();
             ds = cData.getDataSetWithSqlCommand(strserv, sql, 10000, true);
@@ -59,7 +59,7 @@ namespace cls_send_mas_promotion
             bool bl = false;
             string sql = "";
 
-            sql = "delete from [dbbeutycommsupport]..mas_promotion";
+            sql = "delete from [dbbeautycommsupport]..mas_promotion";
 
             SqlCommand comm = new SqlCommand();
             SqlConnection sconn = new SqlConnection(strcli);
@@ -75,10 +75,11 @@ namespace cls_send_mas_promotion
 
             for (int i = 0;i<= ds.Tables[0].Rows.Count -1;i++ )
             {
-                sql = @"insert mas_promotion(id, prname, sqltext, sort, uflag, cflag) 
-                        values('"+ ds.Tables[0].Rows[i]["id"].ToString() + "'," +
+                string sqltxt = ds.Tables[0].Rows[i]["sqltext"].ToString().Replace("'","''");
+                sql = @"insert [dbbeautycommsupport]..mas_promotion(id, prname, sqltext, sort, uflag, cflag) 
+                        values('" + ds.Tables[0].Rows[i]["id"].ToString() + "'," +
                         "'" + ds.Tables[0].Rows[i]["prname"].ToString() + "'," +
-                        "'" + ds.Tables[0].Rows[i]["sqltext"].ToString() + "'," +
+                        "'" + sqltxt + "'," +
                         "'" + ds.Tables[0].Rows[i]["sort"].ToString() + "'," +
                         "'" + ds.Tables[0].Rows[i]["uflag"].ToString() + "'," +
                         "'" + ds.Tables[0].Rows[i]["cflag"].ToString() + "') ";

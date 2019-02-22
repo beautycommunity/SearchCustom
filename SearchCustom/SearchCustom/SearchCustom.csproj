@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{CDF67D31-EB92-4C96-BEDD-8EF35156EED7}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>ค้นหาข้อมูลสมาชิกลืมพกบัตร</RootNamespace>
     <AssemblyName>Save_Log_CT</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -179,6 +179,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\cls_send_mas_promotion\cls_send_mas_promotion.csproj">
+      <Project>{ac1e7e03-f5a2-4120-ad2a-a82a7a84ad76}</Project>
+      <Name>cls_send_mas_promotion</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -81,7 +81,7 @@ namespace Save_Log_CT
             //_Local_CMDFX = @"Data Source=(local)\sqlexpress;Initial Catalog=CMD-FX_old;User ID=sa;Password=0000";
             //_Local_COMSUP = @"Data Source=(local)\sqlexpress;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
-            _Local_CMDFX = @"Data Source=192.168.1.55,1701;Initial Catalog=BMSIY;User ID=sa;Password=0000";
+            _Local_CMDFX = @"Data Source=192.168.1.55,1701;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
             _Local_COMSUP = @"Data Source=192.168.1.55,1701;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
             //_Local_CMDFX = @"Data Source=.;Initial Catalog=CMD-FX;User ID=sa;Password=1Q2w3e4r@";
             //_Local_COMSUP = @"Data Source=.;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=1Q2w3e4r@";
@@ -2245,6 +2245,11 @@ namespace Save_Log_CT
             //MessageBox.Show("แก้ไขโปรโมชั่นสำเร็จ");
 
 
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            cls_send_mas_promotion.clsMain.clsSendMas(_Local_COMSUP, _Sever_COMSUP);
         }
     }
 }
