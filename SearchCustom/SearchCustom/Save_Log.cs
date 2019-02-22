@@ -55,6 +55,10 @@ namespace Save_Log_CT
         bool prOnline = false;
         bool prVip = false;
         bool prOth = false;
+        bool CHBD = false;
+
+        TextBox txtbl = new TextBox();
+        TextBox txtID = new TextBox();
 
         BackgroundWorker bgWorker = new BackgroundWorker();
 
@@ -77,13 +81,19 @@ namespace Save_Log_CT
             //_Local_CMDFX = @"Data Source=(local)\sqlexpress;Initial Catalog=CMD-FX_old;User ID=sa;Password=0000";
             //_Local_COMSUP = @"Data Source=(local)\sqlexpress;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
-            _Local_CMDFX = @"Data Source=192.168.1.55,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=192.168.1.55,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            _Local_CMDFX = @"Data Source=192.168.1.55,1701;Initial Catalog=BMSIY;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=192.168.1.55,1701;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
             //_Local_CMDFX = @"Data Source=.;Initial Catalog=CMD-FX;User ID=sa;Password=1Q2w3e4r@";
             //_Local_COMSUP = @"Data Source=.;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=1Q2w3e4r@";
             //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
             //string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+
+            _Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+            _Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
+            _Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautybuffetpoint;User ID=sa;Password=0211";
+            link_Server = "5COSMEDA.HOMEUNIX.COM,1433";
+            DNS = "[" + link_Server + "].[CMD-BX].dbo.";
 
             string SELECT_WH = @"select 
                                 case when substring(whcode,1,1) = 1 then 'BB'
@@ -111,30 +121,36 @@ namespace Save_Log_CT
 
             chkBrand = check;
 
-            if (check == "BB")
-            {
-                _Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-                _Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
-                _Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautybuffetpoint;User ID=sa;Password=0211";
-                DNS = "[5cosmeda.homeunix.com,1433].[CMD-BX].dbo.";
-            }
-            else if (check == "BC")
-            {
-                _Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-                _Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
-                _Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=dbBeautycottagepoint;User ID=sa;Password=0211";
-                DNS = "[5cosmeda.homeunix.com,1833].[CMD-BX].dbo.";
-            }
-            else if (check == "BM")
-            {
-                _Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1733;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-                _Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1733;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
-                _Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1733;Initial Catalog=dbBeautymarketpoint;User ID=sa;Password=0211";
-                DNS = "[5cosmeda.homeunix.com,1733].[CMD-BX].dbo.";
-            }
+            //if (check == "BB")
+            //{
+            //    //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+            //    //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
+            //    //_Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautybuffetpoint;User ID=sa;Password=0211";
+            //    //DNS = "[5cosmeda.homeunix.com,1433].[CMD-BX].dbo.";
+            //    DNS = _Sever_CMDFX.supstring(13, _Sever_CMDFX. )
+            //}
+            //else if (check == "BC")
+            //{
+            //    //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+            //    //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
+            //    //_Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=dbBeautycottagepoint;User ID=sa;Password=0211";
+            //    DNS = "[5cosmeda.homeunix.com,1833].[CMD-BX].dbo.";
+            //}
+            //else if (check == "BM")
+            //{
+            //    //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1733;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+            //    //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1733;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
+            //    //_Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1733;Initial Catalog=dbBeautymarketpoint;User ID=sa;Password=0211";
+            //    DNS = "[5cosmeda.homeunix.com,1733].[CMD-BX].dbo.";
+            //}
+
+            //_Sever_CMDFX = @"Data Source=192.168.1.10,1533;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+            //_Sever_COMSUP = @"Data Source=192.168.1.10,1533;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
+            //_Sever_Point = @"Data Source=192.168.1.10,1533;Initial Catalog=dbBeautybuffetpoint;User ID=sa;Password=0211";
+            //DNS = "[192.168.1.10,1533].[CMD-BX].dbo.";
         }
 
-        public Save_Log(string STCODE,string WHCODE,string Local_CMD,string Local_COMSUP)
+        public Save_Log(string STCODE,string WHCODE,string Local_CMD,string Local_COMSUP, string Sever_CMDFX, string Sever_COMSUP , string Sever_Point, string LinkSever)
         {
             InitializeComponent();
 
@@ -142,8 +158,14 @@ namespace Save_Log_CT
             _WHCODE = WHCODE;
             _Local_CMDFX = Local_CMD;
             _Local_COMSUP = Local_COMSUP;
+            _Sever_CMDFX=Sever_CMDFX;
+            _Sever_COMSUP = Sever_COMSUP;
+            _Sever_Point = Sever_Point;
+            link_Server = LinkSever;
+            DNS = "[" + link_Server + "].[CMD-BX].dbo.";
 
-            string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+            //string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+            //string strconn = @"Data Source=192.168.1.10,1533;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             //string SELECT_WH = "WITH ANS AS( SELECT * FROM NV_MAS_WH UNION SELECT * FROM [192.168.1.24,1833].[CMD-BX].dbo.NV_MAS_WH UNION SELECT * FROM [192.168.1.53,1733].[CMD-BX].dbo.NV_MAS_WH) SELECT Brand FROM ANS WHERE WHCODE = '" + WHCODE + "'";
 
             string SELECT_WH = @"select 
@@ -158,28 +180,36 @@ namespace Save_Log_CT
 
             string check = ds.Tables[0].Rows[0]["Brand"].ToString();
             chkBrand = check;
-            if (check == "BB")
-            {
-                _Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-                _Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
-                _Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautybuffetpoint;User ID=sa;Password=0211";
-                DNS = "[5cosmeda.homeunix.com,1433].[CMD-BX].dbo.";
-            }
-            else if (check == "BC")
-            {
-                _Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-                _Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
-                _Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=dbBeautycottagepoint;User ID=sa;Password=0211";
-                DNS = "[5cosmeda.homeunix.com,1833].[CMD-BX].dbo.";
 
-            }
-            else if (check == "BM")
-            {
-                _Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1733;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-                _Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1733;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
-                _Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1733;Initial Catalog=dbBeautymarketpoint;User ID=sa;Password=0211";
-                DNS = "[5cosmeda.homeunix.com,1733].[CMD-BX].dbo.";
-            }
+
+
+            //if (check == "BB")
+            //{
+            //    //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+            //    //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
+            //    //_Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautybuffetpoint;User ID=sa;Password=0211";
+            //    DNS = "["+link_Server+"].[CMD-BX].dbo.";
+            //}
+            //else if (check == "BC")
+            //{
+            //    //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+            //    //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
+            //    //_Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=dbBeautycottagepoint;User ID=sa;Password=0211";
+            //    DNS = "[" + link_Server + "].[CMD-BX].dbo.";
+
+            //}
+            //else if (check == "BM")
+            //{
+            //    //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1733;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+            //    //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1733;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
+            //    //_Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1733;Initial Catalog=dbBeautymarketpoint;User ID=sa;Password=0211";
+            //    //DNS = "[" + link_Server + "].[CMD-BX].dbo.";
+            //}
+
+            //_Sever_CMDFX = @"Data Source=192.168.1.10,1533;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+            //_Sever_COMSUP = @"Data Source=192.168.1.10,1533;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
+            //_Sever_Point = @"Data Source=192.168.1.10,1533;Initial Catalog=dbBeautybuffetpoint;User ID=sa;Password=0211";
+
         }
 
         private void Save_Log_Load(object sender, EventArgs e)
@@ -237,22 +267,27 @@ namespace Save_Log_CT
             }
             else
             {
-                if (dd < 15 && mm == 12)
+                if ( mm == 12)
                 {
                     prOnline = true;
                 }
 
-             }
+
+            }
 
             if (dd == 23 && mm== 10)
             {
                 prOth = true;
             }
-
+            // ---------------------------------------------------------------------
             if (chkBrand == "BB" )
             {
+                //if (dd == 23 || dd == 24)
+                //{
+                    prOnline = true;
 
-                groupBox3.Visible = true;
+                //}
+                //groupBox3.Visible = true;
                 //setLabel(ref radOther, prOth);
                 setLabel(ref radProV8, prOnline);
 
@@ -261,19 +296,20 @@ namespace Save_Log_CT
             else if(chkBrand == "BM")
             {
 
-                groupBox3.Visible = true;
+                //groupBox3.Visible = true;
                 setLabel(ref radProV8, prOnline);
             }
             else
             {
+               
                 //if (dd >= 18)
                 //{
-                    groupBox3.Visible = true;
+                //groupBox3.Visible = true;
                     setLabel(ref radProV8, prOnline);
                 //}
 
             }
-
+           // ---------------------------------------------------------------------
             if (chkBrand == "BC")
             {
                 if(dd<16)
@@ -295,10 +331,12 @@ namespace Save_Log_CT
             }
             else
             {
-                radProV8.Text = "Online ซื้อ 600 จ่าย450";
+               
+                radProV8.Text = "ชั่วโมงทองชั่วโมงถูก 17:00 -20:00";
             }
 
             getProV8();
+            setlabel();
 
         }
 
@@ -1219,7 +1257,15 @@ namespace Save_Log_CT
                 }
                 else
                 {
-                    radHBD.Enabled = false;
+                    if(CHBD )
+                    {
+                        radHBD.Enabled = true;
+                    }
+                    else
+                    {
+                        radHBD.Enabled = false;
+                    }
+                   
                 }
 
             }
@@ -1385,29 +1431,32 @@ namespace Save_Log_CT
             SqlConnection sqlConnection2 = new SqlConnection(_Server_COMSUP);
             try
             {
-                string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-                string SELECT_WH = "WITH ANS AS( SELECT * FROM NV_MAS_WH UNION SELECT * FROM [192.168.1.24,1833].[CMD-BX].dbo.NV_MAS_WH UNION SELECT * FROM [192.168.1.53,1733].[CMD-BX].dbo.NV_MAS_WH) SELECT Brand FROM ANS WHERE WHCODE = '" + _WHCODE + "'";
-                DataSet ds = k.libary.cData.getDataSetWithSqlCommand(strconn, SELECT_WH, 1000, true);
+                //string strconn = @"Data Source=192.168.1.10,1533;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+                string strconn = _Sever_CMDFX;
+                //string SELECT_WH = "WITH ANS AS( SELECT * FROM NV_MAS_WH UNION SELECT * FROM [192.168.1.24,1833].[CMD-BX].dbo.NV_MAS_WH UNION SELECT * FROM [192.168.1.53,1733].[CMD-BX].dbo.NV_MAS_WH) SELECT Brand FROM ANS WHERE WHCODE = '" + _WHCODE + "'";
+                //DataSet ds = k.libary.cData.getDataSetWithSqlCommand(strconn, SELECT_WH, 1000, true);
 
-                string check = ds.Tables[0].Rows[0]["Brand"].ToString();
+                //string check = ds.Tables[0].Rows[0]["Brand"].ToString();
 
-                if (check == "BB")
-                {
-                    link_Server = "[5COSMEDA.HOMEUNIX.COM,1433]";
-                }
-                else if (check == "BC")
-                {
-                    link_Server = "[5COSMEDA.HOMEUNIX.COM,1833]";
-                }
-                else if (check == "BM")
-                {
-                    link_Server = "[5COSMEDA.HOMEUNIX.COM,1733]";
-                }
+                string check = chkBrand;
+
+                //if (check == "BB")
+                //{
+                //    link_Server = "[192.168.1.10,1533]";
+                //}
+                //else if (check == "BC")
+                //{
+                //    link_Server = "[192.168.1.10,1533]";
+                //}
+                //else if (check == "BM")
+                //{
+                //    link_Server = "[192.168.1.10,1533]";
+                //}
 
                 
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "INSERT INTO " + link_Server + ".[dbBeautyCommSupport].[dbo].LOG_CT ([TYPE],[LOG_DATA],[SEARCH],[CARD_ID],[CT_ID],[WORKDATE],[STCODE],[WHCODE],[FLAG]) SELECT[TYPE],[LOG_DATA],[SEARCH],[CARD_ID],[CT_ID],[WORKDATE],[STCODE],[WHCODE],[FLAG] FROM LOG_CT WHERE FLAG = '0'";
+                cmd.CommandText = "INSERT INTO [" + link_Server + "].[dbBeautyCommSupport].[dbo].LOG_CT ([TYPE],[LOG_DATA],[SEARCH],[CARD_ID],[CT_ID],[WORKDATE],[STCODE],[WHCODE],[FLAG]) SELECT[TYPE],[LOG_DATA],[SEARCH],[CARD_ID],[CT_ID],[WORKDATE],[STCODE],[WHCODE],[FLAG] FROM LOG_CT WHERE FLAG = '0'";
 
                 cmd.Connection = sqlConnection1;
                 sqlConnection1.Open();
@@ -1511,34 +1560,36 @@ namespace Save_Log_CT
                     //INSERT_CT += "CONVERT(int,'" + CT.Tables[0].Rows[0]["REASON_PURCH"].ToString() + "'), ";
                     //INSERT_CT += "'" + CT.Tables[0].Rows[0]["GET_MSG"].ToString() + "')";
 
-                    string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-                    string SELECT_WH = @"WITH ANS AS( SELECT * FROM NV_MAS_WH UNION SELECT * FROM [192.168.1.24,1833].[CMD-BX].dbo.NV_MAS_WH UNION 
-                                     SELECT * FROM [192.168.1.53,1733].[CMD-BX].dbo.NV_MAS_WH) SELECT Brand FROM ANS WHERE WHCODE = '" + _WHCODE + "'";
-                    DataSet ds = k.libary.cData.getDataSetWithSqlCommand(strconn, SELECT_WH, 1000, true);
+                    //string strconn = @"Data Source=192.168.1.10,1533;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+                    //string SELECT_WH = @"WITH ANS AS( SELECT * FROM NV_MAS_WH UNION SELECT * FROM [192.168.1.24,1833].[CMD-BX].dbo.NV_MAS_WH UNION 
+                    //                 SELECT * FROM [192.168.1.53,1733].[CMD-BX].dbo.NV_MAS_WH) SELECT Brand FROM ANS WHERE WHCODE = '" + _WHCODE + "'";
+                    //DataSet ds = k.libary.cData.getDataSetWithSqlCommand(strconn, SELECT_WH, 1000, true);
 
-                    string check = ds.Tables[0].Rows[0]["Brand"].ToString();
+                    //string check = ds.Tables[0].Rows[0]["Brand"].ToString();
 
-                    if (check == "BB")
-                    {
-                        link_Server = "[5COSMEDA.HOMEUNIX.COM,1433]";
-                    }
-                    else if (check == "BC")
-                    {
-                        link_Server = "[5COSMEDA.HOMEUNIX.COM,1833]";
-                    }
-                    else if (check == "BM")
-                    {
-                        link_Server = "[5COSMEDA.HOMEUNIX.COM,1733]";
-                    }
+                    string check = chkBrand;
+
+                    //if (check == "BB")
+                    //{
+                    //    link_Server = "[192.168.1.10,1533]";
+                    //}
+                    //else if (check == "BC")
+                    //{
+                    //    link_Server = "[192.168.1.10,1533]";
+                    //}
+                    //else if (check == "BM")
+                    //{
+                    //    link_Server = "[192.168.1.10,1533]";
+                    //}
 
                     //SqlConnection sqlConnection1 = new SqlConnection(connect);
                    
                     SqlCommand cmd = new SqlCommand();
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = @"INSERT INTO MAS_CT
-                                SELECT * FROM " + link_Server + ".[CMD-BX].dbo.MAS_CT WHERE ID = '" + CT_ID + @"'
+                                SELECT * FROM [" + link_Server + "].[CMD-BX].dbo.MAS_CT WHERE ID = '" + CT_ID + @"'
                                 INSERT INTO MAS_CT_CD
-                                SELECT * FROM " + link_Server + ".[CMD-BX].dbo.MAS_CT_CD WHERE CT_ID = '" + CT_ID + @"'";
+                                SELECT * FROM [" + link_Server + "].[CMD-BX].dbo.MAS_CT_CD WHERE CT_ID = '" + CT_ID + @"'";
                     cmd.Connection = sqlConnection;
 
                     sqlConnection.Open();
@@ -1570,89 +1621,124 @@ namespace Save_Log_CT
             string strSearch = CT_CARDID.Trim();
             DataSet dspro = new DataSet();
 
+            string _dns = "";
+
+            _dns = _Sever_Point.Substring(13, 17);
+
+
             clsServDataDataContext Cls_Serv = new clsServDataDataContext(_Sever_Point);
             clsHBDDataContext Cls_HBD = new clsHBDDataContext("data source=5cosmeda.homeunix.com,1433; initial catalog=dbmona;Integrated Security=false;User id=sa;Password=0211");
+            int chbd = 0;
+
+            //if (chkBrand == "BB")
+            //{
+            //    string sqlc = "select count(*) cnt from [cmd-fx]..tmp_birthdate where cardid = '" + CT_CARDID + "' and getdate() between '2018.12.11 00:00:00' and '2018.12.31 23:59:00'";
+            //    SqlDataAdapter cda = new SqlDataAdapter(sqlc, _Local_CMDFX);
+            //    DataSet cds = new DataSet();
+               
+            //    cda.Fill(cds, "tbl");
+
+            //    chbd = Convert.ToInt32(cds.Tables["tbl"].Rows[0]["cnt"].ToString());
+            //}
+
             
 
-            if (strSearch.Length > 0)
+            if (chbd>0)
             {
-                using (cWaitIndicator cw = new cWaitIndicator())
+                CHBD = true;
+                ListViewItem lst = new ListViewItem();
+                lst = lsvPromotion.Items.Add((lsvPromotion.Items.Count + 1).ToString());
+                lst.SubItems.Add("Happy Birthday");
+            }
+            else
+            {
+                if (strSearch.Length > 0)
                 {
-             
-                    int RPoint = 0;
-
-                    lsvPromotion.Items.Clear();
-
-                    if (BIRTHDATE.Value.Date != DateTime.Now.Date)
+                    using (cWaitIndicator cw = new cWaitIndicator())
                     {
-                        if (BIRTHDATE.Value.Month == DateTime.Now.Month)
-                        {
-                            int cnt = Cls_HBD.MK_DOC_HBDs.Where(s => s.cardno == CT_CARDID && s.workdate.Year == DateTime.Now.Year).Count();
 
-                            if (cnt == 0)
+                        int RPoint = 0;
+
+                        lsvPromotion.Items.Clear();
+
+                        if (BIRTHDATE.Value.Date != DateTime.Now.Date)
+                        {
+                            if (BIRTHDATE.Value.Month == DateTime.Now.Month)
                             {
-                                ListViewItem lst = new ListViewItem();
-                                lst = lsvPromotion.Items.Add((lsvPromotion.Items.Count + 1).ToString());
-                                lst.SubItems.Add("Happy Birthday");
+                                if (_dns == "5cosmeda.homeunix.com")
+                                {
+                                    int cnt = Cls_HBD.MK_DOC_HBDs.Where(s => s.cardno == CT_CARDID && s.workdate.Year == DateTime.Now.Year).Count();
+
+                                    if (cnt == 0 || chbd > 0)
+                                    {
+                                        CHBD = true;
+                                        ListViewItem lst = new ListViewItem();
+                                        lst = lsvPromotion.Items.Add((lsvPromotion.Items.Count + 1).ToString());
+                                        lst.SubItems.Add("Happy Birthday");
+
+                                    }
+
+                                }
+                                
 
                             }
-
                         }
-                    }
 
-                    var spoint = Cls_Serv.MV_POS_POINTs.Where(s => s.CARDID == CT_CARDID).FirstOrDefault();
+                        var spoint = Cls_Serv.MV_POS_POINTs.Where(s => s.CARDID == CT_CARDID).FirstOrDefault();
 
-                    var epoint = Cls_Serv.PV_EPOINTs.Where(s => s.CT_CARDID == CT_CARDID).FirstOrDefault();
+                        var epoint = Cls_Serv.PV_EPOINTs.Where(s => s.CT_CARDID == CT_CARDID).FirstOrDefault();
 
-                    if(epoint != null)
-                    {
-                        EX_Point = Convert.ToInt32(epoint.epoint);
-                    }
-
-                    if (spoint != null)
-                    {
-                        RPoint = Convert.ToInt32(spoint.RPOINT);
-                        CT_Point = RPoint;
-
-                        var ProCC = Cls_Serv.PR_POINTs.Where(s => s.CFLAG == 0 && s.S_DATE <= DateTime.Now && s.E_DATE >= DateTime.Now && s.UPOINT <= RPoint);
-
-                        var fndData = ProCC.Select(s => new { s.PNAME, s.UPOINT, s.S_NO, s.E_NO, s.CTYPE, s.PCODE });
-
-                        foreach (var item in fndData)
+                        if (epoint != null)
                         {
-                            
+                            EX_Point = Convert.ToInt32(epoint.epoint);
+                        }
+
+                        if (spoint != null)
+                        {
+                            RPoint = Convert.ToInt32(spoint.RPOINT);
+                            CT_Point = RPoint;
+
+                            var ProCC = Cls_Serv.PR_POINTs.Where(s => s.CFLAG == 0 && s.S_DATE <= DateTime.Now && s.E_DATE >= DateTime.Now && s.UPOINT <= RPoint);
+
+                            var fndData = ProCC.Select(s => new { s.PNAME, s.UPOINT, s.S_NO, s.E_NO, s.CTYPE, s.PCODE });
+
+                            foreach (var item in fndData)
+                            {
+
+                                ListViewItem lst = new ListViewItem();
+                                lst = lsvPromotion.Items.Add((lsvPromotion.Items.Count + 1).ToString());
+                                lst.SubItems.Add(item.PNAME);
+
+                            }
+                        }
+
+                        string sql = "select PRNAME from pr_setdate where (TIMELIMIT = 'F' or (TIMELIMIT = 'T' and convert(varchar(10),getdate(),102) between S_DATE and E_date)) and MEMBERONLY = 'T' and prtype not in ( 'V9','V3','V10')";
+
+                        if (getVIP())
+                        {
+                            sql = sql + " union all select PRNAME from pr_setdate where (TIMELIMIT = 'F' or (TIMELIMIT = 'T' and convert(varchar(10),getdate(),102) between S_DATE and E_date)) and MEMBERONLY = 'T' and prtype in ('V9','V10')";
+                        }
+
+                        SqlConnection conn = new SqlConnection(_Local_CMDFX);
+                        SqlDataAdapter da = new SqlDataAdapter(sql, conn);
+
+                        DataSet ds = new DataSet();
+
+                        da.Fill(ds, "tbl");
+
+                        for (int i = 0; i <= ds.Tables["tbl"].Rows.Count - 1; i++)
+                        {
                             ListViewItem lst = new ListViewItem();
                             lst = lsvPromotion.Items.Add((lsvPromotion.Items.Count + 1).ToString());
-                            lst.SubItems.Add(item.PNAME);
-                           
+                            lst.SubItems.Add(ds.Tables["tbl"].Rows[i]["prname"].ToString());
                         }
+
+                        lblPoint.Text = Convert.ToDecimal(CT_Point).ToString("#,##0");
+                        lblPointExpire.Text = Convert.ToDecimal(EX_Point).ToString("#,##0");
                     }
-
-                    string sql = "select PRNAME from pr_setdate where (TIMELIMIT = 'F' or (TIMELIMIT = 'T' and convert(varchar(10),getdate(),102) between S_DATE and E_date)) and MEMBERONLY = 'T' and prtype not in ( 'V9','V3','V10')";
-
-                    if (getVIP())
-                    {
-                        sql = sql + " union all select PRNAME from pr_setdate where (TIMELIMIT = 'F' or (TIMELIMIT = 'T' and convert(varchar(10),getdate(),102) between S_DATE and E_date)) and MEMBERONLY = 'T' and prtype in ('V9','V10')";
-                    }
-
-                    SqlConnection conn = new SqlConnection(_Local_CMDFX);
-                    SqlDataAdapter da = new SqlDataAdapter(sql, conn);
-
-                    DataSet ds = new DataSet();
-
-                    da.Fill(ds, "tbl");
-
-                    for(int i = 0; i<= ds.Tables["tbl"].Rows.Count-1;i++)
-                    {
-                        ListViewItem lst = new ListViewItem();
-                        lst = lsvPromotion.Items.Add((lsvPromotion.Items.Count + 1).ToString());
-                        lst.SubItems.Add(ds.Tables["tbl"].Rows[i]["prname"].ToString());
-                    }
-
-                    lblPoint.Text = Convert.ToDecimal(CT_Point).ToString("#,##0");
-                    lblPointExpire.Text = Convert.ToDecimal(EX_Point).ToString("#,##0");
                 }
             }
+            
         }
 
         public string GetThMonth(int _month)
@@ -1748,9 +1834,9 @@ namespace Save_Log_CT
                     }
                     else
                     {
-                        radMem.Checked = true;
-                        gbMem.Enabled = false;
-                        bl = false;
+                        radVIP.Checked = true;
+                        gbMem.Enabled = true;
+                        bl = true;
                     }
 
                 }
@@ -1760,8 +1846,7 @@ namespace Save_Log_CT
                     gbMem.Enabled = true;
                     bl = true;
                 }
-               
-                
+
                
             }
                
@@ -1840,11 +1925,13 @@ namespace Save_Log_CT
                     da1.Fill(ds2, "tbl");
                     if (Convert.ToInt32(ds1.Tables["tbl"].Rows[0]["cnt"]) > 0)
                     {
-                        radOther.Checked = true;
+                       
+                            radOther.Checked = true;
+                                               
                     }
                     else
                     {
-                        radOther.Checked = false;
+                        radProGen.Checked = true;
                     }
                     
                 }
@@ -1918,8 +2005,8 @@ namespace Save_Log_CT
                     //}
                     if (chkBrand == "BB")
                     {
-                        sql = "update pr_std_us set  cflag = 0 where prcode = 'MD18100001'; ";
-                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'MD18100001'";//MD18100001
+                        sql = "update pr_std_us set  cflag = 0 where prcode = 'Q019020207'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'Q019020207'";//MD18100001
                     }
                     else if (chkBrand == "BM")
                     {
@@ -1950,7 +2037,8 @@ namespace Save_Log_CT
                     }
                     else
                     {
-
+                        sql = "update pr_std_us set  cflag = 0 where prcode  like 'Q9%'; ";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode not like 'Q9%';";
                     }
                     radMem.Checked = true;
                     setMember();
@@ -1966,15 +2054,26 @@ namespace Save_Log_CT
                     setMember();
 
                 }
+                else if(radCancel.Checked)
+                {
+                    sql = "update pr_std_us set  cflag = 1 where prcode not like 'C%' and prcode not like 'M%' ; ";
+                    sql = sql + " update pr_std_us set  cflag = 0 where  prcode = 'V1119020001';";
+                    sql = sql + " update pr_std_us set  cflag = 0 where prcode  like 'V8%';";
+                    sql = sql + " update pr_std_us set  cflag = 0 where prcode  like 'V9%';";
+                    sql = sql + " update pr_std_us set  cflag = 0 where prcode  like 'V101%';";
+
+                }
                 else
                 {
                     if (chkBrand == "BB")
                     {
                         sql = "update pr_std_us set  cflag = 0 where prcode not like 'V8%'; ";
-                        sql = sql + "update pr_std_us set  cflag = 1 where prcode like 'V8%';";
+                        sql = sql +  " update pr_std_us set  cflag = 1 where prcode like 'V8%';";
                         sql = sql + "update pr_std_us set  cflag = 1 where prcode like 'Q9%';";
                         sql = sql + "update pr_std_us set  cflag = 1 where prcode = 'MD18100001';";
                         sql = sql + "update pr_std_us set  cflag = 1 where prcode = 'Q218100003';";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode = 'V1119020001';";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode = 'Q019020207';";
                     }
 
                     else if (chkBrand == "BM")
@@ -1987,6 +2086,7 @@ namespace Save_Log_CT
                     {
                         sql = "update pr_std_us set  cflag = 0 where prcode <> 'MD18100001'; ";
                         sql = sql + "update pr_std_us set  cflag = 1 where prcode = 'MD18100001';";
+                        sql = sql + "update pr_std_us set  cflag = 1 where prcode like 'Q9%';";
 
                     }
                 } 
@@ -2052,12 +2152,99 @@ namespace Save_Log_CT
         {
             try
             {
+                frmPromotion frm = new frmPromotion(_Local_COMSUP,CHBD,ref txtbl,ref txtsql,ref txtID);
+                frm.ShowDialog();
 
+                if(txtbl.Text=="true")
+                {
+                   if (update_td_us(txtsql.Text))
+                    {
+                        if(update_mas_promotion(txtID.Text))
+                        {
+                            if (setlabel())
+                            {
+                                MessageBox.Show("แก้ไขโปรโมชั่นสำเร็จ");
+                            }
+                        }
+                       
+                    }
+                }
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private bool setlabel()
+        {
+            bool bl = false;
+            string sql = "";
+            DataSet ds = new DataSet();
+            sql = "select * from [dbbeautyCommsupport]..mas_promotion where cflag = '0' and uflag = 1"; 
+            
+            ds.Clear();
+            ds = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql, 1000, true);
+
+           lblPromotion.Text = ds.Tables[0].Rows[0]["prname"].ToString();
+            bl = true;
+
+            return bl;
+        }
+
+        private bool update_td_us(string _sql)
+        {
+            bool bl = false;
+            string sql = "";
+            sql = _sql;
+
+            SqlCommand comm = new SqlCommand();
+            SqlConnection sconn = new SqlConnection(_Local_CMDFX); 
+
+            comm.CommandText = sql;
+            comm.CommandTimeout = 10000;
+            comm.Connection = sconn;
+
+            if (sconn.State == ConnectionState.Closed)
+            {
+                sconn.Open();
+            }
+
+            comm.ExecuteNonQuery();
+            bl = true;
+
+            return bl;
+            //MessageBox.Show("แก้ไขโปรโมชั่นสำเร็จ");
+
+
+        }
+
+        private bool update_mas_promotion(string _id)
+        {
+            bool bl = false;
+            string sql = "";
+            sql = "update mas_promotion set uflag = 0 where id <> " + _id+ ";";
+            sql = sql + " update mas_promotion set uflag = 1 where id = " + _id + ";";
+
+            SqlCommand comm = new SqlCommand();
+            SqlConnection sconn = new SqlConnection(_Local_COMSUP);
+
+            comm.CommandText = sql;
+            comm.CommandTimeout = 10000;
+            comm.Connection = sconn;
+
+            if (sconn.State == ConnectionState.Closed)
+            {
+                sconn.Open();
+            }
+
+            comm.ExecuteNonQuery();
+            bl = true;
+
+            return bl;
+            //MessageBox.Show("แก้ไขโปรโมชั่นสำเร็จ");
+
+
         }
     }
 }

@@ -28,53 +28,66 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbpro = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnok = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // cmbpro
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(93, 64);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(348, 27);
-            this.comboBox1.TabIndex = 0;
+            this.cmbpro.FormattingEnabled = true;
+            this.cmbpro.Location = new System.Drawing.Point(72, 25);
+            this.cmbpro.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.cmbpro.Name = "cmbpro";
+            this.cmbpro.Size = new System.Drawing.Size(272, 24);
+            this.cmbpro.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 67);
+            this.label1.Location = new System.Drawing.Point(9, 27);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 21);
+            this.label1.Size = new System.Drawing.Size(58, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "โปรโมชั่น";
             // 
-            // button1
+            // btnok
             // 
-            this.button1.Location = new System.Drawing.Point(366, 98);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 31);
-            this.button1.TabIndex = 192;
-            this.button1.Text = "ตกลง";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnok.Location = new System.Drawing.Point(219, 55);
+            this.btnok.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.btnok.Name = "btnok";
+            this.btnok.Size = new System.Drawing.Size(58, 26);
+            this.btnok.TabIndex = 192;
+            this.btnok.Text = "ตกลง";
+            this.btnok.UseVisualStyleBackColor = true;
+            this.btnok.Click += new System.EventHandler(this.btnok_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(286, 55);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(58, 26);
+            this.btnCancel.TabIndex = 193;
+            this.btnCancel.Text = "ยกเลิก";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // frmPromotion
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(469, 145);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(365, 106);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnok);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
-            this.Margin = new System.Windows.Forms.Padding(4, 7, 4, 7);
+            this.Controls.Add(this.cmbpro);
+            this.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.Name = "frmPromotion";
             this.Text = "Promotion";
             this.Load += new System.EventHandler(this.frmPromotion_Load);
-            this.Controls.SetChildIndex(this.comboBox1, 0);
-            this.Controls.SetChildIndex(this.label1, 0);
-            this.Controls.SetChildIndex(this.button1, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -82,8 +95,9 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbpro;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnok;
+        private System.Windows.Forms.Button btnCancel;
     }
 }
