@@ -37,17 +37,7 @@
             this.button_Select = new System.Windows.Forms.Button();
             this.SeachText = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label16 = new System.Windows.Forms.Label();
-            this.txtCardLV = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.lblPromotion = new System.Windows.Forms.Label();
-            this.txtsql = new System.Windows.Forms.TextBox();
-            this.btnPromotion = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.radCancel = new System.Windows.Forms.RadioButton();
-            this.radOther = new System.Windows.Forms.RadioButton();
-            this.radHBD = new System.Windows.Forms.RadioButton();
             this.btnProV8 = new System.Windows.Forms.Button();
             this.radProV8 = new System.Windows.Forms.RadioButton();
             this.radProGen = new System.Windows.Forms.RadioButton();
@@ -98,17 +88,14 @@
             this.lsvPromotion = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.pb = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.gbMem.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -175,7 +162,6 @@
             this.SeachText.Name = "SeachText";
             this.SeachText.Size = new System.Drawing.Size(215, 27);
             this.SeachText.TabIndex = 0;
-            this.SeachText.TextChanged += new System.EventHandler(this.SeachText_TextChanged);
             this.SeachText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // panel2
@@ -183,10 +169,6 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.label16);
-            this.panel2.Controls.Add(this.txtCardLV);
-            this.panel2.Controls.Add(this.button1);
-            this.panel2.Controls.Add(this.groupBox4);
             this.panel2.Controls.Add(this.groupBox3);
             this.panel2.Controls.Add(this.gbMem);
             this.panel2.Controls.Add(this.groupBox2);
@@ -224,141 +206,27 @@
             this.panel2.Location = new System.Drawing.Point(411, 51);
             this.panel2.Margin = new System.Windows.Forms.Padding(5);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(793, 686);
+            this.panel2.Size = new System.Drawing.Size(793, 614);
             this.panel2.TabIndex = 214;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label16.Location = new System.Drawing.Point(378, 65);
-            this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(100, 25);
-            this.label16.TabIndex = 253;
-            this.label16.Text = "ระดับสมาชิก";
-            // 
-            // txtCardLV
-            // 
-            this.txtCardLV.Enabled = false;
-            this.txtCardLV.Location = new System.Drawing.Point(517, 62);
-            this.txtCardLV.Margin = new System.Windows.Forms.Padding(5);
-            this.txtCardLV.Name = "txtCardLV";
-            this.txtCardLV.Size = new System.Drawing.Size(215, 27);
-            this.txtCardLV.TabIndex = 252;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(517, 582);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(96, 27);
-            this.button1.TabIndex = 251;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click_2);
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.lblPromotion);
-            this.groupBox4.Controls.Add(this.txtsql);
-            this.groupBox4.Controls.Add(this.btnPromotion);
-            this.groupBox4.Location = new System.Drawing.Point(19, 475);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox4.Size = new System.Drawing.Size(336, 210);
-            this.groupBox4.TabIndex = 250;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "โปรโมชั่น";
-            // 
-            // lblPromotion
-            // 
-            this.lblPromotion.AutoSize = true;
-            this.lblPromotion.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblPromotion.Location = new System.Drawing.Point(9, 48);
-            this.lblPromotion.Name = "lblPromotion";
-            this.lblPromotion.Size = new System.Drawing.Size(80, 23);
-            this.lblPromotion.TabIndex = 247;
-            this.lblPromotion.Text = "label16";
-            // 
-            // txtsql
-            // 
-            this.txtsql.Location = new System.Drawing.Point(-3, 160);
-            this.txtsql.Margin = new System.Windows.Forms.Padding(4);
-            this.txtsql.Name = "txtsql";
-            this.txtsql.Size = new System.Drawing.Size(318, 27);
-            this.txtsql.TabIndex = 249;
-            this.txtsql.Visible = false;
-            // 
-            // btnPromotion
-            // 
-            this.btnPromotion.Location = new System.Drawing.Point(168, 93);
-            this.btnPromotion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnPromotion.Name = "btnPromotion";
-            this.btnPromotion.Size = new System.Drawing.Size(148, 43);
-            this.btnPromotion.TabIndex = 248;
-            this.btnPromotion.Text = "แก้ไขโปรโมชั่น";
-            this.btnPromotion.UseVisualStyleBackColor = true;
-            this.btnPromotion.Click += new System.EventHandler(this.btnPromotion_Click);
+           
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.radCancel);
-            this.groupBox3.Controls.Add(this.radOther);
-            this.groupBox3.Controls.Add(this.radHBD);
             this.groupBox3.Controls.Add(this.btnProV8);
             this.groupBox3.Controls.Add(this.radProV8);
             this.groupBox3.Controls.Add(this.radProGen);
-            this.groupBox3.Location = new System.Drawing.Point(757, 486);
+            this.groupBox3.Location = new System.Drawing.Point(19, 489);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(336, 210);
+            this.groupBox3.Size = new System.Drawing.Size(336, 101);
             this.groupBox3.TabIndex = 246;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "โปรโมชั่น";
-            this.groupBox3.Visible = false;
-            // 
-            // radCancel
-            // 
-            this.radCancel.AutoSize = true;
-            this.radCancel.Location = new System.Drawing.Point(35, 158);
-            this.radCancel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.radCancel.Name = "radCancel";
-            this.radCancel.Size = new System.Drawing.Size(142, 25);
-            this.radCancel.TabIndex = 5;
-            this.radCancel.Text = "ยกเลิกโปรโมชั่น";
-            this.radCancel.UseVisualStyleBackColor = true;
-            // 
-            // radOther
-            // 
-            this.radOther.AutoSize = true;
-            this.radOther.Enabled = false;
-            this.radOther.Location = new System.Drawing.Point(35, 125);
-            this.radOther.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.radOther.Name = "radOther";
-            this.radOther.Size = new System.Drawing.Size(149, 25);
-            this.radOther.TabIndex = 4;
-            this.radOther.Text = "30% สูงสุด 3 ชิ้น";
-            this.radOther.UseVisualStyleBackColor = true;
-            // 
-            // radHBD
-            // 
-            this.radHBD.AutoSize = true;
-            this.radHBD.Enabled = false;
-            this.radHBD.Location = new System.Drawing.Point(35, 91);
-            this.radHBD.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.radHBD.Name = "radHBD";
-            this.radHBD.Size = new System.Drawing.Size(124, 25);
-            this.radHBD.TabIndex = 3;
-            this.radHBD.Text = "สิทธิ์เดือนเกิด";
-            this.radHBD.UseVisualStyleBackColor = true;
             // 
             // btnProV8
             // 
-            this.btnProV8.Location = new System.Drawing.Point(225, 148);
+            this.btnProV8.Location = new System.Drawing.Point(225, 54);
             this.btnProV8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnProV8.Name = "btnProV8";
             this.btnProV8.Size = new System.Drawing.Size(105, 34);
@@ -370,22 +238,24 @@
             // radProV8
             // 
             this.radProV8.AutoSize = true;
-            this.radProV8.Location = new System.Drawing.Point(35, 59);
+            this.radProV8.Location = new System.Drawing.Point(35, 63);
             this.radProV8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radProV8.Name = "radProV8";
-            this.radProV8.Size = new System.Drawing.Size(176, 25);
+            this.radProV8.Size = new System.Drawing.Size(151, 25);
             this.radProV8.TabIndex = 1;
-            this.radProV8.Text = "ชั่วโมงทอง ชั่วโมงถูก";
+            this.radProV8.Text = "ซื้อ 1000 ลด 500";
             this.radProV8.UseVisualStyleBackColor = true;
             // 
             // radProGen
             // 
             this.radProGen.AutoSize = true;
+            this.radProGen.Checked = true;
             this.radProGen.Location = new System.Drawing.Point(35, 26);
             this.radProGen.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radProGen.Name = "radProGen";
             this.radProGen.Size = new System.Drawing.Size(136, 25);
             this.radProGen.TabIndex = 0;
+            this.radProGen.TabStop = true;
             this.radProGen.Text = "โปรโมชั่นทั่วไป";
             this.radProGen.UseVisualStyleBackColor = true;
             // 
@@ -394,19 +264,18 @@
             this.gbMem.Controls.Add(this.btnVIP);
             this.gbMem.Controls.Add(this.radVIP);
             this.gbMem.Controls.Add(this.radMem);
-            this.gbMem.Enabled = false;
             this.gbMem.Location = new System.Drawing.Point(19, 382);
             this.gbMem.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.gbMem.Name = "gbMem";
             this.gbMem.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.gbMem.Size = new System.Drawing.Size(336, 83);
+            this.gbMem.Size = new System.Drawing.Size(336, 101);
             this.gbMem.TabIndex = 245;
             this.gbMem.TabStop = false;
             this.gbMem.Text = "สมาชิก";
             // 
             // btnVIP
             // 
-            this.btnVIP.Location = new System.Drawing.Point(211, 44);
+            this.btnVIP.Location = new System.Drawing.Point(211, 58);
             this.btnVIP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnVIP.Name = "btnVIP";
             this.btnVIP.Size = new System.Drawing.Size(105, 34);
@@ -418,7 +287,7 @@
             // radVIP
             // 
             this.radVIP.AutoSize = true;
-            this.radVIP.Location = new System.Drawing.Point(35, 53);
+            this.radVIP.Location = new System.Drawing.Point(35, 63);
             this.radVIP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radVIP.Name = "radVIP";
             this.radVIP.Size = new System.Drawing.Size(71, 25);
@@ -443,7 +312,7 @@
             // 
             this.groupBox2.Controls.Add(this.lblPointExpire);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.groupBox2.Location = new System.Drawing.Point(383, 337);
+            this.groupBox2.Location = new System.Drawing.Point(383, 302);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -468,7 +337,7 @@
             // 
             this.groupBox1.Controls.Add(this.lblPoint);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.groupBox1.Location = new System.Drawing.Point(383, 267);
+            this.groupBox1.Location = new System.Drawing.Point(383, 232);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -500,27 +369,24 @@
             this.SaveTo.TabIndex = 242;
             this.SaveTo.Text = "ดึงสมาชิก";
             this.SaveTo.UseVisualStyleBackColor = false;
-            this.SaveTo.Visible = false;
             this.SaveTo.Click += new System.EventHandler(this.SaveTo_Click);
             // 
             // LbShow
             // 
             this.LbShow.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.LbShow.ForeColor = System.Drawing.Color.Red;
-            this.LbShow.Location = new System.Drawing.Point(387, 408);
+            this.LbShow.Location = new System.Drawing.Point(387, 382);
             this.LbShow.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LbShow.Name = "LbShow";
-            this.LbShow.Size = new System.Drawing.Size(354, 73);
+            this.LbShow.Size = new System.Drawing.Size(354, 83);
             this.LbShow.TabIndex = 241;
-            this.LbShow.Text = "*";
-            this.LbShow.Visible = false;
+            this.LbShow.Text = "*กดดึงสมาชิกเพื่อรับส่งข้อมูลจากสำนักงานมายังหน้าร้าน";
             // 
             // SEX_comboBox
             // 
             this.SEX_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.SEX_comboBox.Enabled = false;
             this.SEX_comboBox.FormattingEnabled = true;
-            this.SEX_comboBox.Location = new System.Drawing.Point(517, 163);
+            this.SEX_comboBox.Location = new System.Drawing.Point(517, 128);
             this.SEX_comboBox.Margin = new System.Windows.Forms.Padding(5);
             this.SEX_comboBox.Name = "SEX_comboBox";
             this.SEX_comboBox.Size = new System.Drawing.Size(215, 27);
@@ -529,8 +395,7 @@
             // 
             // ENTRYDATE
             // 
-            this.ENTRYDATE.Enabled = false;
-            this.ENTRYDATE.Location = new System.Drawing.Point(517, 232);
+            this.ENTRYDATE.Location = new System.Drawing.Point(517, 197);
             this.ENTRYDATE.Margin = new System.Windows.Forms.Padding(4);
             this.ENTRYDATE.Name = "ENTRYDATE";
             this.ENTRYDATE.Size = new System.Drawing.Size(215, 27);
@@ -538,8 +403,7 @@
             // 
             // BIRTHDATE
             // 
-            this.BIRTHDATE.Enabled = false;
-            this.BIRTHDATE.Location = new System.Drawing.Point(517, 198);
+            this.BIRTHDATE.Location = new System.Drawing.Point(517, 163);
             this.BIRTHDATE.Margin = new System.Windows.Forms.Padding(4);
             this.BIRTHDATE.Name = "BIRTHDATE";
             this.BIRTHDATE.Size = new System.Drawing.Size(215, 27);
@@ -556,7 +420,6 @@
             this.SaveData.TabIndex = 238;
             this.SaveData.Text = "บันทึก";
             this.SaveData.UseVisualStyleBackColor = false;
-            this.SaveData.Visible = false;
             this.SaveData.Click += new System.EventHandler(this.button3_Click);
             // 
             // Cancel
@@ -570,14 +433,13 @@
             this.Cancel.TabIndex = 212;
             this.Cancel.Text = "ยกเลิกบัตรสมาชิก";
             this.Cancel.UseVisualStyleBackColor = false;
-            this.Cancel.Visible = false;
             this.Cancel.Click += new System.EventHandler(this.button2_Click);
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label15.Location = new System.Drawing.Point(378, 235);
+            this.label15.Location = new System.Drawing.Point(378, 200);
             this.label15.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(84, 25);
@@ -588,7 +450,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label14.Location = new System.Drawing.Point(378, 200);
+            this.label14.Location = new System.Drawing.Point(378, 165);
             this.label14.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(59, 25);
@@ -599,7 +461,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label13.Location = new System.Drawing.Point(381, 162);
+            this.label13.Location = new System.Drawing.Point(381, 127);
             this.label13.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(40, 25);
@@ -610,7 +472,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label12.Location = new System.Drawing.Point(384, 96);
+            this.label12.Location = new System.Drawing.Point(384, 61);
             this.label12.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(39, 25);
@@ -619,8 +481,7 @@
             // 
             // AGE
             // 
-            this.AGE.Enabled = false;
-            this.AGE.Location = new System.Drawing.Point(517, 96);
+            this.AGE.Location = new System.Drawing.Point(517, 61);
             this.AGE.Margin = new System.Windows.Forms.Padding(5);
             this.AGE.Name = "AGE";
             this.AGE.Size = new System.Drawing.Size(215, 27);
@@ -639,7 +500,6 @@
             // 
             // CARDID
             // 
-            this.CARDID.Enabled = false;
             this.CARDID.Location = new System.Drawing.Point(517, 27);
             this.CARDID.Margin = new System.Windows.Forms.Padding(5);
             this.CARDID.Name = "CARDID";
@@ -660,7 +520,6 @@
             // 
             // PEOPLEID
             // 
-            this.PEOPLEID.Enabled = false;
             this.PEOPLEID.Location = new System.Drawing.Point(139, 344);
             this.PEOPLEID.Margin = new System.Windows.Forms.Padding(5);
             this.PEOPLEID.Name = "PEOPLEID";
@@ -680,7 +539,6 @@
             // 
             // ADDR_EMAIL
             // 
-            this.ADDR_EMAIL.Enabled = false;
             this.ADDR_EMAIL.Location = new System.Drawing.Point(139, 309);
             this.ADDR_EMAIL.Margin = new System.Windows.Forms.Padding(5);
             this.ADDR_EMAIL.Name = "ADDR_EMAIL";
@@ -700,7 +558,6 @@
             // 
             // ADDR_PROVINCE
             // 
-            this.ADDR_PROVINCE.Enabled = false;
             this.ADDR_PROVINCE.Location = new System.Drawing.Point(139, 240);
             this.ADDR_PROVINCE.Margin = new System.Windows.Forms.Padding(5);
             this.ADDR_PROVINCE.Name = "ADDR_PROVINCE";
@@ -711,7 +568,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label7.Location = new System.Drawing.Point(378, 129);
+            this.label7.Location = new System.Drawing.Point(378, 94);
             this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(43, 25);
@@ -720,8 +577,7 @@
             // 
             // ADDR_ROW2
             // 
-            this.ADDR_ROW2.Enabled = false;
-            this.ADDR_ROW2.Location = new System.Drawing.Point(517, 130);
+            this.ADDR_ROW2.Location = new System.Drawing.Point(517, 95);
             this.ADDR_ROW2.Margin = new System.Windows.Forms.Padding(5);
             this.ADDR_ROW2.Name = "ADDR_ROW2";
             this.ADDR_ROW2.Size = new System.Drawing.Size(215, 27);
@@ -740,7 +596,6 @@
             // 
             // ADDR_MOBILE
             // 
-            this.ADDR_MOBILE.Enabled = false;
             this.ADDR_MOBILE.Location = new System.Drawing.Point(139, 276);
             this.ADDR_MOBILE.Margin = new System.Windows.Forms.Padding(5);
             this.ADDR_MOBILE.Name = "ADDR_MOBILE";
@@ -760,7 +615,6 @@
             // 
             // ADDR_ROW1
             // 
-            this.ADDR_ROW1.Enabled = false;
             this.ADDR_ROW1.Location = new System.Drawing.Point(139, 96);
             this.ADDR_ROW1.Margin = new System.Windows.Forms.Padding(5);
             this.ADDR_ROW1.Multiline = true;
@@ -781,7 +635,6 @@
             // 
             // FULLNAME
             // 
-            this.FULLNAME.Enabled = false;
             this.FULLNAME.Location = new System.Drawing.Point(139, 61);
             this.FULLNAME.Margin = new System.Windows.Forms.Padding(5);
             this.FULLNAME.Name = "FULLNAME";
@@ -801,7 +654,6 @@
             // 
             // TITLE
             // 
-            this.TITLE.Enabled = false;
             this.TITLE.Location = new System.Drawing.Point(139, 26);
             this.TITLE.Margin = new System.Windows.Forms.Padding(5);
             this.TITLE.Name = "TITLE";
@@ -817,7 +669,7 @@
             this.lsvSearch.Location = new System.Drawing.Point(14, 230);
             this.lsvSearch.Margin = new System.Windows.Forms.Padding(4);
             this.lsvSearch.Name = "lsvSearch";
-            this.lsvSearch.Size = new System.Drawing.Size(394, 506);
+            this.lsvSearch.Size = new System.Drawing.Size(394, 434);
             this.lsvSearch.TabIndex = 215;
             this.lsvSearch.UseCompatibleStateImageBehavior = false;
             this.lsvSearch.View = System.Windows.Forms.View.Details;
@@ -869,7 +721,7 @@
             this.panel3.Location = new System.Drawing.Point(1207, 51);
             this.panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(350, 686);
+            this.panel3.Size = new System.Drawing.Size(350, 614);
             this.panel3.TabIndex = 217;
             // 
             // lsvPromotion
@@ -883,11 +735,10 @@
             this.lsvPromotion.Location = new System.Drawing.Point(0, 0);
             this.lsvPromotion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lsvPromotion.Name = "lsvPromotion";
-            this.lsvPromotion.Size = new System.Drawing.Size(348, 684);
+            this.lsvPromotion.Size = new System.Drawing.Size(348, 612);
             this.lsvPromotion.TabIndex = 0;
             this.lsvPromotion.UseCompatibleStateImageBehavior = false;
             this.lsvPromotion.View = System.Windows.Forms.View.Details;
-            this.lsvPromotion.SelectedIndexChanged += new System.EventHandler(this.LsvPromotion_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -899,26 +750,11 @@
             this.columnHeader2.Text = "Promotion";
             this.columnHeader2.Width = 261;
             // 
-            // pb
-            // 
-            this.pb.BackColor = System.Drawing.Color.White;
-            this.pb.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pb.Image = ((System.Drawing.Image)(resources.GetObject("pb.Image")));
-            this.pb.Location = new System.Drawing.Point(51, 281);
-            this.pb.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(303, 232);
-            this.pb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pb.TabIndex = 218;
-            this.pb.TabStop = false;
-            this.pb.Visible = false;
-            // 
             // Save_Log
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1570, 745);
-            this.Controls.Add(this.pb);
+            this.ClientSize = new System.Drawing.Size(1570, 673);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.lsvSearch);
             this.Controls.Add(this.toolStrip1);
@@ -933,8 +769,6 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.gbMem.ResumeLayout(false);
@@ -944,7 +778,6 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1010,17 +843,6 @@
         private System.Windows.Forms.Button btnProV8;
         private System.Windows.Forms.RadioButton radProV8;
         private System.Windows.Forms.RadioButton radProGen;
-        private System.Windows.Forms.RadioButton radHBD;
-        private System.Windows.Forms.Button btnPromotion;
-        private System.Windows.Forms.Label lblPromotion;
-        internal System.Windows.Forms.PictureBox pb;
-        private System.Windows.Forms.RadioButton radOther;
-        private System.Windows.Forms.RadioButton radCancel;
-        private System.Windows.Forms.TextBox txtsql;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox txtCardLV;
     }
 }
 

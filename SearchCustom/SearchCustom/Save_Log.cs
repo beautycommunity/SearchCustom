@@ -13,6 +13,7 @@ using System.Configuration;
 using System.Globalization;
 using k.libary;
 using ThaiNationalIDCard;
+
 using ค้นหาข้อมูลสมาชิกลืมพกบัตร;
 using SearchCustom;
 
@@ -81,8 +82,8 @@ namespace Save_Log_CT
             //_Local_CMDFX = @"Data Source=(local)\sqlexpress;Initial Catalog=CMD-FX_old;User ID=sa;Password=0000";
             //_Local_COMSUP = @"Data Source=(local)\sqlexpress;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
-            _Local_CMDFX = @"Data Source=BCPK.DDNSTHAILAND.COM,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=BCPK.DDNSTHAILAND.COM,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            _Local_CMDFX = @"Data Source=ltks.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=ltks.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
             //_Local_CMDFX = @"Data Source=.;Initial Catalog=CMD-FX;User ID=sa;Password=1Q2w3e4r@";
             //_Local_COMSUP = @"Data Source=.;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=1Q2w3e4r@";
             //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
@@ -947,7 +948,7 @@ namespace Save_Log_CT
             //strconn = @"Data Source=" + _Sever + ";Initial Catalog=CMD-FX;Integrated Security=True";
             //strconn = @"Data Source=" + _Sever + ";Initial Catalog=CMD-FX;User ID=sa;Password=0000";
 
-            string sql = "SELECT A.CARDID,B.TITLE,B.FULLNAME,B.ADDR_ROW1,B.ADDR_ROW2,ADDR_PROVINCE,B.ADDR_MOBILE,ADDR_EMAIL,B.PEOPLEID,BIRTHDATE,AGE,SEX,ENTRYDATE FROM MAS_CT_CD A LEFT JOIN MAS_CT B ON A.CT_ID = B.ID WHERE A.CT_ID = '" + CT_ID + "'";
+            string sql = "SELECT A.CARDID,B.TITLE,B.FULLNAME,B.ADDR_ROW1,B.ADDR_ROW2,ADDR_PROVINCE,B.ADDR_MOBILE,ADDR_EMAIL,B.PEOPLEID,BIRTHDATE,AGE,SEX,ENTRYDATE,A.CARDLV FROM MAS_CT_CD A LEFT JOIN MAS_CT B ON A.CT_ID = B.ID WHERE A.CT_ID = '" + CT_ID + "'";
 
             string connect = "";
             if (Status == "สำนักงาน")
@@ -977,6 +978,7 @@ namespace Save_Log_CT
                 PEOPLEID.Text = " ";
                 CARDID.Text = " ";
                 AGE.Text = " ";
+                txtCardLV.Text = " ";
             }
 
             //cMessage.ErrorNoData();
@@ -989,6 +991,15 @@ namespace Save_Log_CT
             ADDR_PROVINCE.Text = ds.Tables[0].Rows[0]["ADDR_PROVINCE"].ToString();
             ADDR_EMAIL.Text = ds.Tables[0].Rows[0]["ADDR_EMAIL"].ToString();
             PEOPLEID.Text = ds.Tables[0].Rows[0]["PEOPLEID"].ToString();
+            string cardlvtext = ds.Tables[0].Rows[0]["CARDLV"].ToString();
+            if (cardlvtext == "101" || cardlvtext == "501" || cardlvtext == "701")
+            {
+                txtCardLV.Text = "Pink Member";
+            }
+            else if (cardlvtext == "102" || cardlvtext == "502" || cardlvtext == "702")
+            {
+                txtCardLV.Text = "Rosegold Member";
+            }
 
             CARDID.Text = ds.Tables[0].Rows[0]["CARDID"].ToString();
             CARDID.ReadOnly = true;
@@ -1403,7 +1414,9 @@ namespace Save_Log_CT
                         ADDR_ROW1.Text = personal.Address;
                         ADDR_PROVINCE.Text = personal.addrProvince;
                         PEOPLEID.Text = personal.Citizenid;
-                        int age = DateTime.Now.Year - Int32.Parse(personal.BirthdayYearString);
+                        //int age = DateTime.Now.Year - Int32.Parse(personal.BirthdayYearString);
+                        int age = DateTime.Now.Year - Int32.Parse(personal.Birthday.ToString());
+
                         AGE.Text = age.ToString();
                         //AGE.Text = 
                         if (personal.Sex == "1")
@@ -1712,11 +1725,37 @@ namespace Save_Log_CT
                             }
                         }
 
-                        string sql = "select PRNAME from pr_setdate where (TIMELIMIT = 'F' or (TIMELIMIT = 'T' and convert(varchar(10),getdate(),102) between S_DATE and E_date)) and MEMBERONLY = 'T' and prtype not in ( 'V9','V3','V10')";
+                        //string sql = "select PRNAME from pr_setdate where (TIMELIMIT = 'F' or (TIMELIMIT = 'T' and convert(varchar(10),getdate(),102) between S_DATE and E_date)) and MEMBERONLY = 'T' and prtype not in ( 'V9','V3','V10')";
+                        string sqlchekcard = "";
+                        if (txtCardLV.Text == "Pink Member")
+                        {
+                            if(chkBrand == "BB") sqlchekcard = " AND B.CARDLV= '101'";
+                            else if (chkBrand == "BC") sqlchekcard = " AND B.CARDLV= '501'";
+                            else if (chkBrand == "BM") sqlchekcard = " AND B.CARDLV= '701'";
+
+                        }
+                        else if (txtCardLV.Text == "Rosegold Member")
+                        {
+                            if (chkBrand == "BB") sqlchekcard = " AND B.CARDLV= '102'";
+                            else if (chkBrand == "BC") sqlchekcard = " AND B.CARDLV= '502'";
+                            else if (chkBrand == "BM") sqlchekcard = " AND B.CARDLV= '702'";
+                        }
+
+                        string sql = @"select A.PRNAME from pr_setdate A
+                                            left join PR_LV B ON A.PRCODE=B.PRCODE
+                                            where (A.TIMELIMIT = 'F' or (A.TIMELIMIT = 'T' and convert(varchar(10),getdate(),102) between A.S_DATE and A.E_date)) 
+                                            and A.MEMBERONLY = 'T' 
+                                            and A.prtype not in ( 'V9','V3','V10')" + sqlchekcard;
+                                            
 
                         if (getVIP())
                         {
-                            sql = sql + " union all select PRNAME from pr_setdate where (TIMELIMIT = 'F' or (TIMELIMIT = 'T' and convert(varchar(10),getdate(),102) between S_DATE and E_date)) and MEMBERONLY = 'T' and prtype in ('V9','V10')";
+                            sql = sql + @" select A.PRNAME from pr_setdate A 
+                                            left join PR_LV B ON A.PRCODE=B.PRCODE
+                                            where (A.TIMELIMIT = 'F' or (A.TIMELIMIT = 'T' and convert(varchar(10),getdate(),102) between A.S_DATE and A.E_date)) 
+                                            and A.MEMBERONLY = 'T' 
+                                            and A.prtype in ('V9','V10')" + sqlchekcard;
+                                           
                         }
 
                         SqlConnection conn = new SqlConnection(_Local_CMDFX);
@@ -2250,6 +2289,16 @@ namespace Save_Log_CT
         private void button1_Click_2(object sender, EventArgs e)
         {
             cls_send_mas_promotion.clsMain.clsSendMas(_Local_COMSUP, _Sever_COMSUP);
+        }
+
+        private void LsvPromotion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SeachText_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="dbBeautyBuffetPoint" Class="clsServDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=192.168.1.220,1433;Initial Catalog=dbBeautyBuffetPoint;Persist Security Info=True;User ID=sa;TrustServerCertificate=False" SettingsObjectName="ค้นหาข้อมูลสมาชิกลืมพกบัตร.Properties.Settings" SettingsPropertyName="dbBeautyBuffetPointConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.GEN_ST_POINT" Member="GEN_ST_POINTs">
+    <Type Name="GEN_ST_POINT">
+      <Column Name="SCREATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="WORKDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="WH_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ST_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CARDID" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="PCODE" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="C_NO" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="QTY" Type="System.Decimal" DbType="Decimal(15,2)" CanBeNull="true" />
+      <Column Name="UPOINT" Type="System.Decimal" DbType="Decimal(15,2)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PR_POINT" Member="PR_POINTs">
+    <Type Name="PR_POINT">
+      <Column Name="SCREATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UCREATE" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="PCODE" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PNAME" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="S_DATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="E_DATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CTYPE" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="S_NO" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="E_NO" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="UPOINT" Type="System.Decimal" DbType="Decimal(15,2)" CanBeNull="true" />
+      <Column Name="DISCAMT" Type="System.Decimal" DbType="Decimal(15,2)" CanBeNull="true" />
+      <Column Name="REMARK" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="CFLAG" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MV_POS_POINT" Member="MV_POS_POINTs">
+    <Type Name="MV_POS_POINT">
+      <Column Name="CARDID" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="CTNAME" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="MAXDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="NET" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
+      <Column Name="RPOINT" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PV_EPOINT" Member="PV_EPOINTs">
+    <Type Name="PV_EPOINT">
+      <Column Name="CT_CARDID" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="epoint" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
