@@ -95,6 +95,18 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pb2 = new System.Windows.Forms.PictureBox();
+            this.listViewMember = new System.Windows.Forms.ListView();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lsvPromotion = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -108,6 +120,8 @@
             this.groupBox1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb)).BeginInit();
             this.SuspendLayout();
             // 
@@ -821,6 +835,7 @@
             this.lsvSearch.TabIndex = 215;
             this.lsvSearch.UseCompatibleStateImageBehavior = false;
             this.lsvSearch.View = System.Windows.Forms.View.Details;
+            this.lsvSearch.SelectedIndexChanged += new System.EventHandler(this.LsvSearch_SelectedIndexChanged);
             this.lsvSearch.DoubleClick += new System.EventHandler(this.lsvSearch_DoubleClick);
             // 
             // toolStrip1
@@ -865,6 +880,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.pictureBox1);
+            this.panel3.Controls.Add(this.pb2);
+            this.panel3.Controls.Add(this.listViewMember);
             this.panel3.Controls.Add(this.lsvPromotion);
             this.panel3.Location = new System.Drawing.Point(1207, 51);
             this.panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -872,12 +890,104 @@
             this.panel3.Size = new System.Drawing.Size(350, 686);
             this.panel3.TabIndex = 217;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(3, 426);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(342, 232);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 220;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
+            // 
+            // pb2
+            // 
+            this.pb2.BackColor = System.Drawing.Color.White;
+            this.pb2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pb2.Image = ((System.Drawing.Image)(resources.GetObject("pb2.Image")));
+            this.pb2.Location = new System.Drawing.Point(0, 684);
+            this.pb2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pb2.Name = "pb2";
+            this.pb2.Size = new System.Drawing.Size(348, 0);
+            this.pb2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pb2.TabIndex = 219;
+            this.pb2.TabStop = false;
+            this.pb2.Visible = false;
+            // 
+            // listViewMember
+            // 
+            this.listViewMember.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9,
+            this.columnHeader10,
+            this.columnHeader11});
+            this.listViewMember.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.listViewMember.FullRowSelect = true;
+            this.listViewMember.GridLines = true;
+            this.listViewMember.Location = new System.Drawing.Point(0, 309);
+            this.listViewMember.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.listViewMember.Name = "listViewMember";
+            this.listViewMember.Size = new System.Drawing.Size(348, 375);
+            this.listViewMember.TabIndex = 1;
+            this.listViewMember.UseCompatibleStateImageBehavior = false;
+            this.listViewMember.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "รหัสสมาชิก";
+            this.columnHeader3.Width = 46;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "วันที่เริ่มเก็บยอด";
+            this.columnHeader4.Width = 100;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "วันที่สิ้นสุดเก็บยอด";
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "รอบที่ปรับระดับ";
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "ยอดซื้อที่จะถูกตัด";
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "ยอดซื้อสะสม";
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "ระดับสมาชิก";
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "ยอดซื้อสะสมที่ยังขาด";
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "ยอดซื้อเพื่อรักษาระดับสำหรับ rose เท่านั้น";
+            // 
             // lsvPromotion
             // 
             this.lsvPromotion.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
-            this.lsvPromotion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lsvPromotion.Dock = System.Windows.Forms.DockStyle.Top;
             this.lsvPromotion.FullRowSelect = true;
             this.lsvPromotion.GridLines = true;
             this.lsvPromotion.Location = new System.Drawing.Point(0, 0);
@@ -944,6 +1054,8 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pb2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pb)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1021,6 +1133,18 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txtCardLV;
+        private System.Windows.Forms.ListView listViewMember;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
+        internal System.Windows.Forms.PictureBox pb2;
+        internal System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

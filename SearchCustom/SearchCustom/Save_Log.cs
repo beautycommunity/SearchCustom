@@ -35,15 +35,16 @@ namespace Save_Log_CT
         public string _WHCODE;
         public string _Local_CMDFX;
         public string _Local_COMSUP;
-        public string _Sever_CMDFX;
+        public string _Server_CMDFX;
         public string _Sever_COMSUP;
         public string _Sever_Point;
-        public string link_Server;
-        public string DNS;
+        //public string link_Server;
+        //public string DNS;
         string Seach;
         string Type;
         string chkBrand;
         DataSet Table;
+        DataSet TableMEM;
         //DataSet Table2;
         DataSet DsShop;
         DataSet DsServer;
@@ -62,6 +63,7 @@ namespace Save_Log_CT
         TextBox txtID = new TextBox();
 
         BackgroundWorker bgWorker = new BackgroundWorker();
+        BackgroundWorker bgWorkermember = new BackgroundWorker();
 
         public bool closedOK = false;
 
@@ -82,19 +84,19 @@ namespace Save_Log_CT
             //_Local_CMDFX = @"Data Source=(local)\sqlexpress;Initial Catalog=CMD-FX_old;User ID=sa;Password=0000";
             //_Local_COMSUP = @"Data Source=(local)\sqlexpress;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
-            _Local_CMDFX = @"Data Source=ltks.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=ltks.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            _Local_CMDFX = @"Data Source=fash2.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=fash2.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
             //_Local_CMDFX = @"Data Source=.;Initial Catalog=CMD-FX;User ID=sa;Password=1Q2w3e4r@";
             //_Local_COMSUP = @"Data Source=.;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=1Q2w3e4r@";
             //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
             //string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
 
-            _Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+            _Server_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             _Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
             _Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautybuffetpoint;User ID=sa;Password=0211";
-            link_Server = "5COSMEDA.HOMEUNIX.COM,1433";
-            DNS = "[" + link_Server + "].[CMD-BX].dbo.";
+            //link_Server = "5COSMEDA.HOMEUNIX.COM,1433";
+            //DNS = "[" + link_Server + "].[CMD-BX].dbo.";
 
             string SELECT_WH = @"select 
                                 case when substring(whcode,1,1) = 1 then 'BB'
@@ -159,11 +161,11 @@ namespace Save_Log_CT
             _WHCODE = WHCODE;
             _Local_CMDFX = Local_CMD;
             _Local_COMSUP = Local_COMSUP;
-            _Sever_CMDFX=Sever_CMDFX;
+            _Server_CMDFX=Sever_CMDFX;
             _Sever_COMSUP = Sever_COMSUP;
             _Sever_Point = Sever_Point;
-            link_Server = LinkSever;
-            DNS = "[" + link_Server + "].[CMD-BX].dbo.";
+            //link_Server = LinkSever;
+            //DNS = "[" + link_Server + "].[CMD-BX].dbo.";
 
             //string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             //string strconn = @"Data Source=192.168.1.10,1533;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
@@ -220,6 +222,12 @@ namespace Save_Log_CT
             bgWorker.DoWork += new DoWorkEventHandler(bgWorker_DoWork);
             bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_RunWorkerCompleted);
             bgWorker.ProgressChanged += new ProgressChangedEventHandler(bgWorker_ProgressChanged);
+
+            bgWorkermember.WorkerReportsProgress = true;
+            bgWorkermember.WorkerSupportsCancellation = true;
+            bgWorkermember.DoWork += new DoWorkEventHandler(bgWorkermember_DoWork);
+            bgWorkermember.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bbgWorkermember_RunWorkerCompleted);
+            bgWorkermember.ProgressChanged += new ProgressChangedEventHandler(bgWorkermember_ProgressChanged);
 
             //string linqstr = Con
             Type_ComboBox.Items.Add("กรุณาเลือก...");
@@ -343,20 +351,7 @@ namespace Save_Log_CT
 
         private void setLabel(ref RadioButton radHBD, bool prHBD)
         {
-            //throw new NotImplementedException();
-
-            //if (chkBrand == "BC")
-            //{
-            //    radHBD.Text = " ซื้อ 3,000 ลด 1,500 บาท";
-            //}
-            //else if (chkBrand == "BM")
-            //{
-            //    radHBD.Text = "Online ซื้อ500 จ่าย400";
-            //}
-            //else
-            //{
-            //    radHBD.Text = "Online ซื้อ500 จ่าย400";
-            //}
+            
 
             if (prHBD)
             {
@@ -424,6 +419,52 @@ namespace Save_Log_CT
 
         }
 
+        private void bgWorkermember_DoWork(object sender, DoWorkEventArgs e)
+        {
+            // Do Work
+            GetMembersum();
+        }
+
+        private void bgWorkermember_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            // Update Progress Status to UI
+        }
+
+        // This event handler deals with the results of the background operation.
+        private void bbgWorkermember_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // Finish
+            pictureBox1.Visible = false;
+            try
+            {
+                listViewMember.Items.Clear();
+                //listViewMember.addDataWithDataset(Table, false, false);
+                for (int i = 0; i <= TableMEM.Tables["tbl"].Rows.Count - 1; i++)
+                {
+                    ListViewItem lst = new ListViewItem();
+                    lst = listViewMember.Items.Add(TableMEM.Tables["tbl"].Rows[i]["CARDID"].ToString());
+                    lst.SubItems.Add(DateTime.Parse(TableMEM.Tables["tbl"].Rows[i]["S_COUNT"].ToString()).ToString("dd/MM/yyyy"));
+                    lst.SubItems.Add(DateTime.Parse(TableMEM.Tables["tbl"].Rows[i]["E_COUNT"].ToString()).ToString("dd/MM/yyyy"));
+                    lst.SubItems.Add(DateTime.Parse(TableMEM.Tables["tbl"].Rows[i]["UPDATEDT"].ToString()).ToString("dd/MM/yyyy"));
+                    lst.SubItems.Add(TableMEM.Tables["tbl"].Rows[i]["LOST"].ToString());
+                    lst.SubItems.Add(TableMEM.Tables["tbl"].Rows[i]["NET"].ToString());
+                    //lst.SubItems.Add(ds.Tables["tbl"].Rows[i]["MEMBERTYPE"].ToString());
+                    lst.SubItems.Add(TableMEM.Tables["tbl"].Rows[i]["MEMBERNAME"].ToString());
+                    lst.SubItems.Add(TableMEM.Tables["tbl"].Rows[i]["UPLEVEL"].ToString());
+                    lst.SubItems.Add(TableMEM.Tables["tbl"].Rows[i]["DOWNLEVEL"].ToString());
+                }
+                listViewMember.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                listViewMember.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                listViewMember.FullRowSelect = true;
+                button_Select.Enabled = true;
+            }
+            catch
+            {
+                button_Select.Enabled = true;
+            }
+
+        }
+
         private void Seach_Data()
         {
             try
@@ -477,17 +518,17 @@ namespace Save_Log_CT
                                 sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
                                             FROM MAS_CT A (NOLOCK)      
                                             LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE CARDID = '" + Seach + @"' 
-                                            AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
+                                            AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' ORDER BY B.CARDID";
 
                                 sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
                                         FROM MAS_CT A (NOLOCK) 
                                         LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE CARDID = '" + Seach + @"' 
-                                        AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
+                                        AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' ORDER BY B.CARDID";
 
                                 //--------------------- new ------------------------------
 
                                 DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
-                                DsServer = cData.getDataSetWithSqlCommand(_Sever_CMDFX, sql, 1000, true);
+                                DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
 
                                 DataTable dt = DsShop.Tables[0];
                                 DataTable dt2 = DsServer.Tables[0];
@@ -505,33 +546,36 @@ namespace Save_Log_CT
                                 }
                                 else
                                 {
-                                    //IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
-                                    //                              select qq)
-                                    //     .Union(from qq2 in dt2.AsEnumerable()
-                                    //            where !(from o in dt.AsEnumerable()
-                                    //                    select o.ItemArray[1].ToString())
-                                    //                    .Contains(qq2.ItemArray[1].ToString())
-                                    //            select qq2);
 
-                                    string sql_Union = @"SELECT Status,CARDID,FULLNAME,ID,MAX(UPDATEDT) AS UPDATEDT FROM (
+
+                                //string sql_Union = @"SELECT Status,CARDID,FULLNAME,ID,MAX(UPDATEDT) AS UPDATEDT FROM (
+                                //                    SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
+                                //                    FROM MAS_CT A (NOLOCK)      
+                                //                    LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE CARDID = '" + Seach + @"' 
+                                //                    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') 
+                                //                    UNION
+                                //                    SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
+                                //                    FROM " + DNS + @"MAS_CT A (NOLOCK) 
+                                //                    LEFT JOIN " + DNS + @"MAS_CT_CD B ON B.CT_ID = A.ID WHERE CARDID = '" + Seach + @"'    
+                                //                    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') 
+                                //                    AND ID NOT IN (SELECT ID
+                                //                    FROM MAS_CT A (NOLOCK)      
+                                //                    LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE CARDID = '" + Seach + @"'  
+                                //                    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ) 
+                                //                    ) A
+                                //                    GROUP BY Status,CARDID,FULLNAME,ID
+                                //                    ORDER BY Status DESC";
+
+                                string sql_Union = @"SELECT Status,CARDID,FULLNAME,ID,MAX(UPDATEDT) AS UPDATEDT FROM (
                                                         SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
                                                         FROM MAS_CT A (NOLOCK)      
                                                         LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE CARDID = '" + Seach + @"' 
-                                                        AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') 
-                                                        UNION
-                                                        SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
-                                                        FROM " + DNS + @"MAS_CT A (NOLOCK) 
-                                                        LEFT JOIN " + DNS + @"MAS_CT_CD B ON B.CT_ID = A.ID WHERE CARDID = '" + Seach + @"'    
-                                                        AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') 
-                                                        AND ID NOT IN (SELECT ID
-                                                        FROM MAS_CT A (NOLOCK)      
-                                                        LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE CARDID = '" + Seach + @"'  
-                                                        AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ) 
+                                                        AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' 
                                                         ) A
                                                         GROUP BY Status,CARDID,FULLNAME,ID
                                                         ORDER BY Status DESC";
 
-                                    DsUnion = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_Union, 1500, true);
+                                DsUnion = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_Union, 1500, true);
                                     DataTable dn = DsUnion.Tables[0];
                                     IEnumerable<DataRow> query = (from qq in dn.AsEnumerable() select qq);
 
@@ -541,17 +585,7 @@ namespace Save_Log_CT
                                     Ans.Tables.Add(boundTable);
                                     Table = Ans;
 
-                                    //DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                    //boundTable.TableName = "Ans";
-
-                                    //IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
-                                    //                                   select xx).OrderByDescending(s => s.ItemArray[6].ToString()).Take(1);
-
-                                    //DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
-
-                                    //DataSet Ans = new DataSet();
-                                    //Ans.Tables.Add(AnsTable);
-                                    //Table = Ans;
+                                  
                                 }
 
                                 SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
@@ -568,33 +602,19 @@ namespace Save_Log_CT
                             }
                             else if (Type == "ชื่อลูกค้า")
                             {
-                                // sql_local = @"SELECT 'หน้าร้าน' AS Status, B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID
-                                //     ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE
-                                //     FROM MAS_CT A(NOLOCK)
-                                //     LEFT JOIN MAS_CT_CD(NOLOCK) B ON B.CT_ID = A.ID WHERE FULLNAME LIKE '%" + Seach + @"%'
-                                //     AND B.CT_ID IS NOT NULL AND(A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
-                                // DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
-
-
-                                //sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID 
-                                //     ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE  
-                                //     FROM MAS_CT A (NOLOCK) 
-                                //     LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE FULLNAME LIKE '%" + Seach + @"%' 
-                                //     AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
-                                // DsServer = cData.getDataSetWithSqlCommand(_Sever_CMDFX, sql, 1000, true);
-
+                                
                                 sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
                                             FROM MAS_CT A (NOLOCK)      
                                             LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE FULLNAME LIKE '%" + Seach + @"%'
-                                            AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
+                                            AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' ORDER BY B.CARDID";
 
                                 sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
                                         FROM MAS_CT A (NOLOCK) 
                                         LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE FULLNAME LIKE '%" + Seach + @"%' 
-                                        AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
+                                        AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' ORDER BY B.CARDID";
 
                                 DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
-                                DsServer = cData.getDataSetWithSqlCommand(_Sever_CMDFX, sql, 1000, true);
+                                DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
 
                                 DataTable dt = DsShop.Tables[0];
                                 DataTable dt2 = DsServer.Tables[0];
@@ -613,45 +633,35 @@ namespace Save_Log_CT
                                 }
                                 else
                                 {
-                                    //IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
-                                    //                              select qq)
-                                    //.Union(from qq2 in dt2.AsEnumerable()
-                                    //       where !(from o in dt.AsEnumerable()
-                                    //               select o.ItemArray[1].ToString())
-                                    //               .Contains(qq2.ItemArray[1].ToString())
-                                    //       select qq2);
 
-                                    //DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                    //boundTable.TableName = "Ans";
+                                    //string sql_Union = @"SELECT Status,CARDID,FULLNAME,ID,MAX(UPDATEDT) AS UPDATEDT FROM (
+                                    //                    SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
+                                    //                    FROM MAS_CT A (NOLOCK)      
+                                    //                    LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE FULLNAME LIKE '%" + Seach + @"%'
+                                    //                    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') 
+                                    //                    UNION
+                                    //                    SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
+                                    //                    FROM " + DNS + @"MAS_CT A (NOLOCK) 
+                                    //                    LEFT JOIN " + DNS + @"MAS_CT_CD B ON B.CT_ID = A.ID WHERE FULLNAME LIKE '%" + Seach + @"%' 
+                                    //                    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') 
+                                    //                    AND ID NOT IN (SELECT ID
+                                    //                    FROM MAS_CT A (NOLOCK)      
+                                    //                    LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE FULLNAME LIKE '%" + Seach + @"%' 
+                                    //                    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ) 
+                                    //                    ) A
+                                    //                    GROUP BY Status,CARDID,FULLNAME,ID
+                                    //                    ORDER BY Status DESC";
 
-                                    //IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
-                                    //                                   select xx).OrderByDescending(s => s.ItemArray[0].ToString());
-
-                                    //DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
-
-                                    //DataSet Ans = new DataSet();
-                                    //Ans.Tables.Add(AnsTable);
-                                    //Table = Ans;
-
-                                    string sql_Union = @"SELECT Status,CARDID,FULLNAME,ID,MAX(UPDATEDT) AS UPDATEDT FROM (
+                                string sql_Union = @"SELECT Status,CARDID,FULLNAME,ID,MAX(UPDATEDT) AS UPDATEDT FROM (
                                                         SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
                                                         FROM MAS_CT A (NOLOCK)      
                                                         LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE FULLNAME LIKE '%" + Seach + @"%'
-                                                        AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') 
-                                                        UNION
-                                                        SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
-                                                        FROM " + DNS + @"MAS_CT A (NOLOCK) 
-                                                        LEFT JOIN " + DNS + @"MAS_CT_CD B ON B.CT_ID = A.ID WHERE FULLNAME LIKE '%" + Seach + @"%' 
-                                                        AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') 
-                                                        AND ID NOT IN (SELECT ID
-                                                        FROM MAS_CT A (NOLOCK)      
-                                                        LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE FULLNAME LIKE '%" + Seach + @"%' 
-                                                        AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ) 
+                                                        AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' 
                                                         ) A
                                                         GROUP BY Status,CARDID,FULLNAME,ID
                                                         ORDER BY Status DESC";
 
-                                    DsUnion = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_Union, 1500, true);
+                                DsUnion = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_Union, 1500, true);
                                     DataTable dn = DsUnion.Tables[0];
                                     IEnumerable<DataRow> query = (from qq in dn.AsEnumerable() select qq);
 
@@ -675,33 +685,20 @@ namespace Save_Log_CT
                             }
                             else if (Type == "เบอร์โทรศัพท์")
                             {
-                                //sql_local = @"SELECT 'หน้าร้าน' AS Status, B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID
-                                //    ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE
-                                //    FROM MAS_CT A(NOLOCK)
-                                //    LEFT JOIN MAS_CT_CD(NOLOCK) B ON B.CT_ID = A.ID WHERE A.ADDR_MOBILE = '" + Seach + @"' 
-                                //    AND B.CT_ID IS NOT NULL AND(A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
-                                //DataSet ds = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
-
-                                //sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID 
-                                //    ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE  
-                                //    FROM MAS_CT A (NOLOCK) 
-                                //    LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.ADDR_MOBILE = '" + Seach + @"' 
-                                //    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
-                                //DataSet ds2 = cData.getDataSetWithSqlCommand(_Sever_CMDFX, sql, 1000, true);
-
+                               
 
                                 sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
                                             FROM MAS_CT A (NOLOCK)      
                                             LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.ADDR_MOBILE = '" + Seach + @"' 
-                                            AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
+                                            AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' ORDER BY B.CARDID";
 
                                 sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
                                         FROM MAS_CT A (NOLOCK) 
                                         LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.ADDR_MOBILE = '" + Seach + @"' 
-                                        AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
+                                        AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' ORDER BY B.CARDID";
 
                                 DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
-                                DsServer = cData.getDataSetWithSqlCommand(_Sever_CMDFX, sql, 1000, true);
+                                DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
 
                                 DataTable dt = DsShop.Tables[0];
                                 DataTable dt2 = DsServer.Tables[0];
@@ -719,44 +716,33 @@ namespace Save_Log_CT
                                 }
                                 else
                                 {
-                                    //IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
-                                    //                              select qq)
-                                    //.Union(from qq2 in dt2.AsEnumerable()
-                                    //       where !(from o in dt.AsEnumerable()
-                                    //               select o.ItemArray[1].ToString())
-                                    //               .Contains(qq2.ItemArray[1].ToString())
-                                    //       select qq2);
-
-                                    //DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                    //boundTable.TableName = "Ans";
-
-                                    //IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
-                                    //                                   select xx).OrderByDescending(s => s.ItemArray[0].ToString());
-
-                                    //DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
-
-                                    //DataSet Ans = new DataSet();
-                                    //Ans.Tables.Add(AnsTable);
-                                    //Table = Ans;
-                                    string sql_Union = @"SELECT Status,CARDID,FULLNAME,ID,MAX(UPDATEDT) AS UPDATEDT FROM (
+                                    //string sql_Union = @"SELECT Status,CARDID,FULLNAME,ID,MAX(UPDATEDT) AS UPDATEDT FROM (
+                                    //                    SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
+                                    //                    FROM MAS_CT A (NOLOCK)      
+                                    //                    LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.ADDR_MOBILE = '" + Seach + @"' 
+                                    //                    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') 
+                                    //                    UNION
+                                    //                    SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
+                                    //                    FROM " + DNS + @"MAS_CT A (NOLOCK) 
+                                    //                    LEFT JOIN " + DNS + @"MAS_CT_CD B ON B.CT_ID = A.ID WHERE A.ADDR_MOBILE = '" + Seach + @"' 
+                                    //                    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') 
+                                    //                    AND ID NOT IN (SELECT ID
+                                    //                    FROM MAS_CT A (NOLOCK)      
+                                    //                    LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.ADDR_MOBILE = '" + Seach + @"'  
+                                    //                    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ) 
+                                    //                    ) A
+                                    //                    GROUP BY Status,CARDID,FULLNAME,ID
+                                    //                    ORDER BY Status DESC";
+                                string sql_Union = @"SELECT Status,CARDID,FULLNAME,ID,MAX(UPDATEDT) AS UPDATEDT FROM (
                                                         SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
                                                         FROM MAS_CT A (NOLOCK)      
                                                         LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.ADDR_MOBILE = '" + Seach + @"' 
-                                                        AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') 
-                                                        UNION
-                                                        SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
-                                                        FROM " + DNS + @"MAS_CT A (NOLOCK) 
-                                                        LEFT JOIN " + DNS + @"MAS_CT_CD B ON B.CT_ID = A.ID WHERE A.ADDR_MOBILE = '" + Seach + @"' 
-                                                        AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') 
-                                                        AND ID NOT IN (SELECT ID
-                                                        FROM MAS_CT A (NOLOCK)      
-                                                        LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.ADDR_MOBILE = '" + Seach + @"'  
-                                                        AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ) 
+                                                        AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' 
                                                         ) A
                                                         GROUP BY Status,CARDID,FULLNAME,ID
                                                         ORDER BY Status DESC";
 
-                                    DsUnion = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_Union, 1500, true);
+                                DsUnion = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_Union, 1500, true);
                                     DataTable dn = DsUnion.Tables[0];
                                     IEnumerable<DataRow> query = (from qq in dn.AsEnumerable() select qq);
 
@@ -780,34 +766,20 @@ namespace Save_Log_CT
                             }
                             else if (Type == "บัตรประชาชน")
                             {
-                                //sql_local = @"SELECT 'หน้าร้าน' AS Status, B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID
-                                //    ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE
-                                //    FROM MAS_CT A(NOLOCK)
-                                //    LEFT JOIN MAS_CT_CD(NOLOCK) B ON B.CT_ID = A.ID WHERE A.PEOPLEID = '" + Seach + @"'
-                                //    AND B.CT_ID IS NOT NULL AND(A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
-                                //DataSet ds = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
-
-                                //sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.ADDR_MOBILE,A.PEOPLEID 
-                                //    ,A.TITLE, A.ADDR_ROW1, A.ADDR_ROW2, ADDR_PROVINCE, ADDR_EMAIL, BIRTHDATE, AGE, SEX, ENTRYDATE  
-                                //    FROM MAS_CT A (NOLOCK) 
-                                //    LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.PEOPLEID = '" + Seach + @"'
-                                //    AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
-                                //DataSet ds2 = cData.getDataSetWithSqlCommand(_Sever_CMDFX, sql, 1000, true);
-
+                        
                                 sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
                                             FROM MAS_CT A (NOLOCK)      
                                             LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.PEOPLEID = '" + Seach + @"' 
-                                            AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
+                                            AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' ORDER BY B.CARDID";
 
                                 sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
                                         FROM MAS_CT A (NOLOCK) 
                                         LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.PEOPLEID = '" + Seach + @"'
-                                        AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ORDER BY B.CARDID";
+                                        AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' ORDER BY B.CARDID";
 
                                 DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
-                                //DsServer = cData.getDataSetWithSqlCommand(_Sever_CMDFX, sql, 1000, true);
-
-                                DataTable dt = DsShop.Tables[0];
+                                DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
+                            DataTable dt = DsShop.Tables[0];
                                 DataTable dt2 = DsServer.Tables[0];
 
                                 if (dt.Rows.Count == 0)
@@ -823,39 +795,12 @@ namespace Save_Log_CT
                                 }
                                 else
                                 {
-                                    //IEnumerable<DataRow> query = (from qq in dt.AsEnumerable()
-                                    //                              select qq)
-                                    //.Union(from qq2 in dt2.AsEnumerable()
-                                    //       where !(from o in dt.AsEnumerable()
-                                    //               select o.ItemArray[1].ToString())
-                                    //               .Contains(qq2.ItemArray[1].ToString())
-                                    //       select qq2);
-
-                                    //DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                    //boundTable.TableName = "Ans";
-
-                                    //IEnumerable<DataRow> Selectlinq = (from xx in boundTable.AsEnumerable()
-                                    //                                   select xx).OrderByDescending(s => s.ItemArray[0].ToString());
-
-                                    //DataTable AnsTable = Selectlinq.CopyToDataTable<DataRow>();
-
-                                    //DataSet Ans = new DataSet();
-                                    //Ans.Tables.Add(AnsTable);
-                                    //Table = Ans;
+                               
                                     string sql_Union = @"SELECT Status,CARDID,FULLNAME,ID,MAX(UPDATEDT) AS UPDATEDT FROM (
                                                         SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
                                                         FROM MAS_CT A (NOLOCK)      
                                                         LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.PEOPLEID = '" + Seach + @"' 
-                                                        AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') 
-                                                        UNION
-                                                        SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
-                                                        FROM " + DNS + @"MAS_CT A (NOLOCK) 
-                                                        LEFT JOIN " + DNS + @"MAS_CT_CD B ON B.CT_ID = A.ID WHERE A.PEOPLEID = '" + Seach + @"' 
-                                                        AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') 
-                                                        AND ID NOT IN (SELECT ID
-                                                        FROM MAS_CT A (NOLOCK)      
-                                                        LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.PEOPLEID = '" + Seach + @"' 
-                                                        AND B.CT_ID IS NOT NULL AND (A.FLAGS IS NULL OR A.FLAGS = '0') ) 
+                                                        AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A'
                                                         ) A
                                                         GROUP BY Status,CARDID,FULLNAME,ID
                                                         ORDER BY Status DESC";
@@ -900,14 +845,6 @@ namespace Save_Log_CT
                     MessageBox.Show("ไม่พบข้อมูล");
                     lsvSearch.Items.Clear();
                 }
-                //if (Table.Tables[0].Rows.Count <= 0)
-                //{
-                //    MessageBox.Show("ไม่พบข้อมูลบนหน้าร้าน");
-                //}
-                //if (Table2.Tables[1].Rows.Count <= 0)
-                //{
-                //    MessageBox.Show("ไม่พบข้อมูลบนเซิฟเวอร์");
-                //}
 
 
                 return;
@@ -944,16 +881,13 @@ namespace Save_Log_CT
 
         private void GetGoto()
         {
-            //string strconn;
-            //strconn = @"Data Source=" + _Sever + ";Initial Catalog=CMD-FX;Integrated Security=True";
-            //strconn = @"Data Source=" + _Sever + ";Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-
+            
             string sql = "SELECT A.CARDID,B.TITLE,B.FULLNAME,B.ADDR_ROW1,B.ADDR_ROW2,ADDR_PROVINCE,B.ADDR_MOBILE,ADDR_EMAIL,B.PEOPLEID,BIRTHDATE,AGE,SEX,ENTRYDATE,A.CARDLV FROM MAS_CT_CD A LEFT JOIN MAS_CT B ON A.CT_ID = B.ID WHERE A.CT_ID = '" + CT_ID + "'";
 
             string connect = "";
             if (Status == "สำนักงาน")
             {
-                connect = _Sever_CMDFX;
+                connect = _Server_CMDFX;
                 //DsSelect = DsServer;
             }
             else if (Status == "หน้าร้าน")
@@ -1018,9 +952,7 @@ namespace Save_Log_CT
             BIRTHDATE.Enabled = false;
             ENTRYDATE.Text = ds.Tables[0].Rows[0]["ENTRYDATE"].ToString();
             ENTRYDATE.Enabled = false;
-            //textBox13.Text = ds.Tables[0].Rows[0]["BIRTHDATE"].ToString();
-            //textBox14.Text = ds.Tables[0].Rows[0]["ENTRYDATE"].ToString();
-            //textBox14.ReadOnly = true;
+
         }
 
         private void GetSelectItems()
@@ -1071,7 +1003,7 @@ namespace Save_Log_CT
                     //string CARD = "";
                     if (Status == "สำนักงาน")
                     {
-                        connect = _Sever_CMDFX;
+                        connect = _Server_CMDFX;
                         //CT = CT_ID;
                         //CARD = IDCARD;
                     }
@@ -1161,7 +1093,7 @@ namespace Save_Log_CT
 
                     if (Status == "สำนักงาน")
                     {
-                        connect = _Sever_CMDFX;
+                        connect = _Server_CMDFX;
                     }
                     else if (Status == "หน้าร้าน")
                     {
@@ -1245,6 +1177,7 @@ namespace Save_Log_CT
             {
                 BIRTHDATE.Value = DateTime.Now.Date;
                 GetSelectItems();
+                
                 GetGoto();
                 SaveData.Enabled = true;
                 Cancel.Enabled = true;
@@ -1259,7 +1192,9 @@ namespace Save_Log_CT
                     SaveTo.Enabled = false;
                 }
                 getVIP();
-               
+                pictureBox1.Visible = true;
+                bgWorkermember.RunWorkerAsync();
+                //GetMembersum();
                 GetPromotion();
 
                 if(getHBD())
@@ -1444,45 +1379,27 @@ namespace Save_Log_CT
             SqlConnection sqlConnection2 = new SqlConnection(_Server_COMSUP);
             try
             {
-                //string strconn = @"Data Source=192.168.1.10,1533;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-                string strconn = _Sever_CMDFX;
-                //string SELECT_WH = "WITH ANS AS( SELECT * FROM NV_MAS_WH UNION SELECT * FROM [192.168.1.24,1833].[CMD-BX].dbo.NV_MAS_WH UNION SELECT * FROM [192.168.1.53,1733].[CMD-BX].dbo.NV_MAS_WH) SELECT Brand FROM ANS WHERE WHCODE = '" + _WHCODE + "'";
-                //DataSet ds = k.libary.cData.getDataSetWithSqlCommand(strconn, SELECT_WH, 1000, true);
 
-                //string check = ds.Tables[0].Rows[0]["Brand"].ToString();
+                //string strconn = _Sever_CMDFX;
+                //string check = chkBrand;
 
-                string check = chkBrand;
 
-                //if (check == "BB")
-                //{
-                //    link_Server = "[192.168.1.10,1533]";
-                //}
-                //else if (check == "BC")
-                //{
-                //    link_Server = "[192.168.1.10,1533]";
-                //}
-                //else if (check == "BM")
-                //{
-                //    link_Server = "[192.168.1.10,1533]";
-                //}
+                //SqlCommand cmd = new SqlCommand();
+                //cmd.CommandType = CommandType.Text;
+                //cmd.CommandText = "INSERT INTO [" + link_Server + "].[dbBeautyCommSupport].[dbo].LOG_CT ([TYPE],[LOG_DATA],[SEARCH],[CARD_ID],[CT_ID],[WORKDATE],[STCODE],[WHCODE],[FLAG]) SELECT[TYPE],[LOG_DATA],[SEARCH],[CARD_ID],[CT_ID],[WORKDATE],[STCODE],[WHCODE],[FLAG] FROM LOG_CT WHERE FLAG = '0'";
 
-                
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = "INSERT INTO [" + link_Server + "].[dbBeautyCommSupport].[dbo].LOG_CT ([TYPE],[LOG_DATA],[SEARCH],[CARD_ID],[CT_ID],[WORKDATE],[STCODE],[WHCODE],[FLAG]) SELECT[TYPE],[LOG_DATA],[SEARCH],[CARD_ID],[CT_ID],[WORKDATE],[STCODE],[WHCODE],[FLAG] FROM LOG_CT WHERE FLAG = '0'";
+                //cmd.Connection = sqlConnection1;
+                //sqlConnection1.Open();
+                //cmd.ExecuteNonQuery();
 
-                cmd.Connection = sqlConnection1;
-                sqlConnection1.Open();
-                cmd.ExecuteNonQuery();
+                //SqlCommand cmd2 = new SqlCommand();
+                //cmd2.CommandType = CommandType.Text;
+                //cmd2.CommandText = "UPDATE LOG_CT SET FLAG = '1' WHERE FLAG = '0'";
 
-                SqlCommand cmd2 = new SqlCommand();
-                cmd2.CommandType = CommandType.Text;
-                cmd2.CommandText = "UPDATE LOG_CT SET FLAG = '1' WHERE FLAG = '0'";
+                //cmd2.Connection = sqlConnection2;
+                //sqlConnection2.Open();
+                //cmd2.ExecuteNonQuery();
 
-                cmd2.Connection = sqlConnection2;
-                sqlConnection2.Open();
-                cmd2.ExecuteNonQuery();
-               
             }
             catch (Exception ex)
             {
@@ -1493,7 +1410,7 @@ namespace Save_Log_CT
                 sqlConnection1.Close();
                 sqlConnection2.Close();
             }
-            
+
         }
 
         private void SaveTo_Click(object sender, EventArgs e)
@@ -1501,119 +1418,28 @@ namespace Save_Log_CT
             SqlConnection sqlConnection = new SqlConnection(_Local_CMDFX);
             try
             {
-                using (new cWaitIndicator())
-                {
+                //using (new cWaitIndicator())
+                //{
 
-                    //string strconn = _Sever_CMDFX;
-                    //string Select_CT = @"SELECT * FROM MAS_CT WHERE ID = '" + CT_ID + "'";
-                    //DataSet CT = k.libary.cData.getDataSetWithSqlCommand(strconn, Select_CT, 1000, true);
-                    ////CT.Tables[0].Rows[0]["ID"].ToString();
-                    //string INSERT_CT = @"INSERT INTO MAS_CT VALUES ( ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["ID"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["ID"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["CTCODE"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["TITLE"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["ABBNAME"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["FULLNAME"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["ADDR_ROW1"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["ADDR_ROW2"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["ADDR_PROVINCE"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["ADDR_ZIPCODE"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["ADDR_TEL"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["ADDR_FAX"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["ADDR_MOBILE"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["ADDR_EMAIL"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["ADDR_TROUBLE"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["BILL_ADDR"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["BILL_TO"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["BILL_ROW1"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["BILL_ROW2"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["BILL_PROVINCE"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["BILL_ZIPCODE"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["PEOPLEID"].ToString() + "', ";
 
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["BIRTHDATE"].ToString() + "', ";
-                    //INSERT_CT += "CONVERT(int,'" + CT.Tables[0].Rows[0]["AGE"].ToString() + "'), ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["SEX"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["WH_ET_ID"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["ENTRYDATE"].ToString() + "', ";
-                    //INSERT_CT += "CONVERT(int,'" + CT.Tables[0].Rows[0]["WH_ID_G"].ToString() + "'), ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["CTCAT"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["CTTYPE"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["GRADE"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["FOREIGNER"].ToString() + "', ";
-                    //INSERT_CT += "CONVERT(int,'" + CT.Tables[0].Rows[0]["ST_ID"].ToString() + "'), ";
-                    //INSERT_CT += "CONVERT(int,'" + CT.Tables[0].Rows[0]["PRICENO"].ToString() + "'), ";
-                    //INSERT_CT += "CONVERT(decimal,'" + CT.Tables[0].Rows[0]["DISCOUNT"].ToString() + "'), ";
-                    //INSERT_CT += "CONVERT(int,'" + CT.Tables[0].Rows[0]["CREDITTERM"].ToString() + "'), ";
-                    //INSERT_CT += "CONVERT(decimal,'" + CT.Tables[0].Rows[0]["FINANCEAMT"].ToString() + "'), ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["CONTACTNAME"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["ALERTMSG"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["FLAGS"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["QFLAG"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["IMPORT"].ToString() + "', ";
-                    //INSERT_CT += "CONVERT(int,'" + CT.Tables[0].Rows[0]["UPDATEBY"].ToString() + "'), ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["UPDATEDT"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["EX_MSG"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["EX_EDU"].ToString() + "', ";
-                    //INSERT_CT += "CONVERT(int,'" + CT.Tables[0].Rows[0]["EX_INC"].ToString() + "'), ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["EX_OCC"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["EX_OCC_O"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["EX_ACT"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["EX_ACT_O"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["EX_MAG"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["EX_MAG_O"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["EX_NEW"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["EX_NEW_O"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["EX_SRC"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["EX_SRC_O"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["EX_ADS"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["EX_ADS_O"].ToString() + "', ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["ONCE_PURC"].ToString() + "', ";
-                    //INSERT_CT += "CONVERT(int,'" + CT.Tables[0].Rows[0]["REASON_PURCH"].ToString() + "'), ";
-                    //INSERT_CT += "'" + CT.Tables[0].Rows[0]["GET_MSG"].ToString() + "')";
+                //    string check = chkBrand;
+                //    SqlCommand cmd = new SqlCommand();
+                //    cmd.CommandType = CommandType.Text;
+                //    cmd.CommandText = @"INSERT INTO MAS_CT
+                //                SELECT * FROM [" + link_Server + "].[CMD-BX].dbo.MAS_CT WHERE ID = '" + CT_ID + @"'
+                //                INSERT INTO MAS_CT_CD
+                //                SELECT * FROM [" + link_Server + "].[CMD-BX].dbo.MAS_CT_CD WHERE CT_ID = '" + CT_ID + @"'";
+                //    cmd.Connection = sqlConnection;
 
-                    //string strconn = @"Data Source=192.168.1.10,1533;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-                    //string SELECT_WH = @"WITH ANS AS( SELECT * FROM NV_MAS_WH UNION SELECT * FROM [192.168.1.24,1833].[CMD-BX].dbo.NV_MAS_WH UNION 
-                    //                 SELECT * FROM [192.168.1.53,1733].[CMD-BX].dbo.NV_MAS_WH) SELECT Brand FROM ANS WHERE WHCODE = '" + _WHCODE + "'";
-                    //DataSet ds = k.libary.cData.getDataSetWithSqlCommand(strconn, SELECT_WH, 1000, true);
+                //    sqlConnection.Open();
+                //    cmd.ExecuteNonQuery();
 
-                    //string check = ds.Tables[0].Rows[0]["Brand"].ToString();
-
-                    string check = chkBrand;
-
-                    //if (check == "BB")
-                    //{
-                    //    link_Server = "[192.168.1.10,1533]";
-                    //}
-                    //else if (check == "BC")
-                    //{
-                    //    link_Server = "[192.168.1.10,1533]";
-                    //}
-                    //else if (check == "BM")
-                    //{
-                    //    link_Server = "[192.168.1.10,1533]";
-                    //}
-
-                    //SqlConnection sqlConnection1 = new SqlConnection(connect);
-                   
-                    SqlCommand cmd = new SqlCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = @"INSERT INTO MAS_CT
-                                SELECT * FROM [" + link_Server + "].[CMD-BX].dbo.MAS_CT WHERE ID = '" + CT_ID + @"'
-                                INSERT INTO MAS_CT_CD
-                                SELECT * FROM [" + link_Server + "].[CMD-BX].dbo.MAS_CT_CD WHERE CT_ID = '" + CT_ID + @"'";
-                    cmd.Connection = sqlConnection;
-
-                    sqlConnection.Open();
-                    cmd.ExecuteNonQuery();
-                   
-                    lsvSearch.SelectedItems[0].SubItems[0].Text = "หน้าร้าน";
-                }
-                MessageBox.Show("ดึงข้อมูลเรียบร้อย");
+                //    lsvSearch.SelectedItems[0].SubItems[0].Text = "หน้าร้าน";
+                //}
+                //MessageBox.Show("ดึงข้อมูลเรียบร้อย");
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("เกิดข้อผิดพลาด\n" + ex.Message);
             }
@@ -1621,10 +1447,41 @@ namespace Save_Log_CT
             {
                 sqlConnection.Close();
             }
-            
+
         }
 
-        private void GetPromotion()
+        private void GetMembersum()
+        {
+            
+
+            string CT_CARDID = CARDID.Text;
+            string strSearch = CT_CARDID.Trim();
+
+            string sqlquery = @"exec WP_SUMMEMBER " + " " + strSearch;
+            SqlConnection conn = new SqlConnection(_Server_CMDFX);
+            SqlDataAdapter da = new SqlDataAdapter(sqlquery, conn);
+            TableMEM = new DataSet();
+            da.Fill(TableMEM, "tbl");
+            //for (int i = 0; i <= ds.Tables["tbl"].Rows.Count - 1; i++)
+            //{
+            //    ListViewItem lst = new ListViewItem();
+            //    lst = listViewMember.Items.Add(ds.Tables["tbl"].Rows[i]["CARDID"].ToString());
+            //    lst.SubItems.Add(DateTime.Parse(ds.Tables["tbl"].Rows[i]["S_COUNT"].ToString()).ToString("MM/dd/yyyy"));
+            //    lst.SubItems.Add(DateTime.Parse(ds.Tables["tbl"].Rows[i]["E_COUNT"].ToString()).ToString("MM/dd/yyyy"));
+            //    lst.SubItems.Add(DateTime.Parse(ds.Tables["tbl"].Rows[i]["UPDATEDT"].ToString()).ToString("MM/dd/yyyy"));
+            //    lst.SubItems.Add(ds.Tables["tbl"].Rows[i]["LOST"].ToString());
+            //    lst.SubItems.Add(ds.Tables["tbl"].Rows[i]["NET"].ToString());
+            //    //lst.SubItems.Add(ds.Tables["tbl"].Rows[i]["MEMBERTYPE"].ToString());
+            //    lst.SubItems.Add(ds.Tables["tbl"].Rows[i]["MEMBERNAME"].ToString());
+            //    lst.SubItems.Add(ds.Tables["tbl"].Rows[i]["UPLEVEL"].ToString());
+            //    lst.SubItems.Add(ds.Tables["tbl"].Rows[i]["DOWNLEVEL"].ToString());
+            //}
+            //listViewMember.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            //listViewMember.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            //listViewMember.FullRowSelect = true;
+        }
+
+            private void GetPromotion()
         {
             string CT_CARDID = CARDID.Text;
             string CT_HBDmt = GetThMonth(BIRTHDATE.Value.Month);
@@ -1642,19 +1499,6 @@ namespace Save_Log_CT
             clsServDataDataContext Cls_Serv = new clsServDataDataContext(_Sever_Point);
             clsHBDDataContext Cls_HBD = new clsHBDDataContext("data source=5cosmeda.homeunix.com,1433; initial catalog=dbmona;Integrated Security=false;User id=sa;Password=0211");
             int chbd = 0;
-
-            //if (chkBrand == "BB")
-            //{
-            //    string sqlc = "select count(*) cnt from [cmd-fx]..tmp_birthdate where cardid = '" + CT_CARDID + "' and getdate() between '2018.12.11 00:00:00' and '2018.12.31 23:59:00'";
-            //    SqlDataAdapter cda = new SqlDataAdapter(sqlc, _Local_CMDFX);
-            //    DataSet cds = new DataSet();
-               
-            //    cda.Fill(cds, "tbl");
-
-            //    chbd = Convert.ToInt32(cds.Tables["tbl"].Rows[0]["cnt"].ToString());
-            //}
-
-            
 
             if (chbd>0)
             {
@@ -2031,17 +1875,6 @@ namespace Save_Log_CT
             {
                 if (radProV8.Checked)
                 {
-                    //if(pr1000_500)
-                    //{
-                    //sql = "update pr_std_us set  cflag = 0 where prcode in ('V818090002','Q0180500710','Q0180501203','Q01808537','Q0180501512','Q018080580','Q01809050','V1180500071','Q018090188','Q318090002'); ";
-                    //sql = sql + "update pr_std_us set  cflag = 1 where prcode not in ('V818090002','Q0180500710','Q0180501203','Q01808537','Q0180501512','Q018080580','Q01809050','V1180500071','Q018090188','Q318090002');";
-
-                    //}
-                    //else
-                    //{
-                    //    sql = "update pr_std_us set  cflag = 0 where prcode = 'V818090001'; ";
-                    //    sql = sql + "update pr_std_us set  cflag = 1 where prcode <>'V818090001';";
-                    //}
                     if (chkBrand == "BB")
                     {
                         sql = "update pr_std_us set  cflag = 0 where prcode = 'Q019020207'; ";
@@ -2049,9 +1882,6 @@ namespace Save_Log_CT
                     }
                     else if (chkBrand == "BM")
                     {
-                        //sql = "update pr_std_us set  cflag = 0 where prcode = 'MD18100001'; ";
-                        //sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'MD18100001'";
-
                         sql = "update pr_std_us set  cflag = 0 where prcode = 'CC18100011'; ";
                         sql = sql + "update pr_std_us set  cflag = 1 where prcode <> 'CC18100011'";
                     }
@@ -2166,22 +1996,6 @@ namespace Save_Log_CT
                     bl = true;
                 }
             }
-            //if (BIRTHDATE.Value.Date != DateTime.Now.Date)
-            //{
-            //    if (BIRTHDATE.Value.Month == DateTime.Now.Month)
-            //    {
-            //        int cnt = Cls_HBD.MK_DOC_HBDs.Where(s => s.cardno == CT_CARDID && s.workdate.Year == DateTime.Now.Year).Count();
-
-            //        if (cnt == 0)
-            //        {
-            //            ListViewItem lst = new ListViewItem();
-            //            lst = lsvPromotion.Items.Add((lsvPromotion.Items.Count + 1).ToString());
-            //            lst.SubItems.Add("Happy Birthday");
-
-            //        }
-
-            //    }
-            //}
 
 
             return bl;
@@ -2297,6 +2111,11 @@ namespace Save_Log_CT
         }
 
         private void SeachText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LsvSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
