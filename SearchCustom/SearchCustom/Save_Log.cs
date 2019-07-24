@@ -515,15 +515,15 @@ namespace Save_Log_CT
 
                                 //--------------------- new ------------------------------
 
-                                sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
+                                sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.CT_STATUS
                                             FROM MAS_CT A (NOLOCK)      
                                             LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE CARDID = '" + Seach + @"' 
                                             AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' ORDER BY B.CARDID";
 
-                                sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
+                                sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.CT_STATUS
                                         FROM MAS_CT A (NOLOCK) 
                                         LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE CARDID = '" + Seach + @"' 
-                                        AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' ORDER BY B.CARDID";
+                                        AND B.CT_ID IS NOT NULL  ORDER BY B.CARDID";
 
                                 //--------------------- new ------------------------------
 
@@ -533,19 +533,21 @@ namespace Save_Log_CT
                                 DataTable dt = DsShop.Tables[0];
                                 DataTable dt2 = DsServer.Tables[0];
 
-                                if (dt.Rows.Count == 0)
-                                {
-                                    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
-                                                                  select qq);
 
-                                    DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                    boundTable.TableName = "Ans";
-                                    DataSet Ans = new DataSet();
-                                    Ans.Tables.Add(boundTable);
-                                    Table = Ans;
-                                }
-                                else
-                                {
+
+                            if (dt.Rows.Count == 0)
+                            {
+                                IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
+                                                              select qq);
+
+                                DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                boundTable.TableName = "Ans";
+                                DataSet Ans = new DataSet();
+                                Ans.Tables.Add(boundTable);
+                                Table = Ans;
+                            }
+                            else
+                            {
 
 
                                 //string sql_Union = @"SELECT Status,CARDID,FULLNAME,ID,MAX(UPDATEDT) AS UPDATEDT FROM (
@@ -567,28 +569,26 @@ namespace Save_Log_CT
                                 //                    ORDER BY Status DESC";
 
                                 string sql_Union = @"SELECT Status,CARDID,FULLNAME,ID,MAX(UPDATEDT) AS UPDATEDT FROM (
-                                                        SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
-                                                        FROM MAS_CT A (NOLOCK)      
-                                                        LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE CARDID = '" + Seach + @"' 
-                                                        AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' 
-                                                        ) A
-                                                        GROUP BY Status,CARDID,FULLNAME,ID
-                                                        ORDER BY Status DESC";
+                                                            SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
+                                                            FROM MAS_CT A (NOLOCK)      
+                                                            LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE CARDID = '" + Seach + @"' 
+                                                            AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' 
+                                                            ) A
+                                                            GROUP BY Status,CARDID,FULLNAME,ID
+                                                            ORDER BY Status DESC";
 
                                 DsUnion = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_Union, 1500, true);
-                                    DataTable dn = DsUnion.Tables[0];
-                                    IEnumerable<DataRow> query = (from qq in dn.AsEnumerable() select qq);
+                                DataTable dn = DsUnion.Tables[0];
+                                IEnumerable<DataRow> query = (from qq in dn.AsEnumerable() select qq);
 
-                                    DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                    boundTable.TableName = "Ans";
-                                    DataSet Ans = new DataSet();
-                                    Ans.Tables.Add(boundTable);
-                                    Table = Ans;
+                                DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                boundTable.TableName = "Ans";
+                                DataSet Ans = new DataSet();
+                                Ans.Tables.Add(boundTable);
+                                Table = Ans;
+                            }
 
-                                  
-                                }
-
-                                SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
+                            SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
 
                                 SqlCommand cmd = new SqlCommand();
                                 cmd.CommandType = CommandType.Text;
@@ -603,15 +603,15 @@ namespace Save_Log_CT
                             else if (Type == "ชื่อลูกค้า")
                             {
                                 
-                                sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
+                                sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.CT_STATUS
                                             FROM MAS_CT A (NOLOCK)      
                                             LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE FULLNAME LIKE '%" + Seach + @"%'
                                             AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' ORDER BY B.CARDID";
 
-                                sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
+                                sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.CT_STATUS
                                         FROM MAS_CT A (NOLOCK) 
                                         LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE FULLNAME LIKE '%" + Seach + @"%' 
-                                        AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' ORDER BY B.CARDID";
+                                        AND B.CT_ID IS NOT NULL   ORDER BY B.CARDID";
 
                                 DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
                                 DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
@@ -687,15 +687,15 @@ namespace Save_Log_CT
                             {
                                
 
-                                sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
+                                sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.CT_STATUS
                                             FROM MAS_CT A (NOLOCK)      
                                             LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.ADDR_MOBILE = '" + Seach + @"' 
                                             AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' ORDER BY B.CARDID";
 
-                                sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
+                                sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.CT_STATUS
                                         FROM MAS_CT A (NOLOCK) 
                                         LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.ADDR_MOBILE = '" + Seach + @"' 
-                                        AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' ORDER BY B.CARDID";
+                                        AND B.CT_ID IS NOT NULL   ORDER BY B.CARDID";
 
                                 DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
                                 DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
@@ -767,15 +767,15 @@ namespace Save_Log_CT
                             else if (Type == "บัตรประชาชน")
                             {
                         
-                                sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
+                                sql_local = @"SELECT 'หน้าร้าน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.CT_STATUS
                                             FROM MAS_CT A (NOLOCK)      
                                             LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.PEOPLEID = '" + Seach + @"' 
                                             AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' ORDER BY B.CARDID";
 
-                                sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT
+                                sql = @"SELECT 'สำนักงาน' AS Status,B.CARDID,A.FULLNAME,A.ID,A.UPDATEDT,A.CT_STATUS
                                         FROM MAS_CT A (NOLOCK) 
                                         LEFT JOIN MAS_CT_CD (NOLOCK) B ON B.CT_ID = A.ID WHERE A.PEOPLEID = '" + Seach + @"'
-                                        AND B.CT_ID IS NOT NULL AND a.CT_STATUS = 'A' ORDER BY B.CARDID";
+                                        AND B.CT_ID IS NOT NULL   ORDER BY B.CARDID";
 
                                 DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
                                 DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
@@ -851,7 +851,7 @@ namespace Save_Log_CT
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
                 lsvSearch.Items.Clear();
             }
         }
@@ -882,7 +882,7 @@ namespace Save_Log_CT
         private void GetGoto()
         {
             
-            string sql = "SELECT A.CARDID,B.TITLE,B.FULLNAME,B.ADDR_ROW1,B.ADDR_ROW2,ADDR_PROVINCE,B.ADDR_MOBILE,ADDR_EMAIL,B.PEOPLEID,BIRTHDATE,AGE,SEX,ENTRYDATE,A.CARDLV FROM MAS_CT_CD A LEFT JOIN MAS_CT B ON A.CT_ID = B.ID WHERE A.CT_ID = '" + CT_ID + "'";
+            string sql = "SELECT A.CARDID,B.TITLE,B.FULLNAME,B.ADDR_ROW1,B.ADDR_ROW2,ADDR_PROVINCE,B.ADDR_MOBILE,ADDR_EMAIL,B.PEOPLEID,BIRTHDATE,AGE,SEX,ENTRYDATE,A.CARDLV,B.CT_STATUS FROM MAS_CT_CD A LEFT JOIN MAS_CT B ON A.CT_ID = B.ID WHERE A.CT_ID = '" + CT_ID + "'";
 
             string connect = "";
             if (Status == "สำนักงาน")
@@ -913,6 +913,7 @@ namespace Save_Log_CT
                 CARDID.Text = " ";
                 AGE.Text = " ";
                 txtCardLV.Text = " ";
+                textStatus.Text = " ";
             }
 
             //cMessage.ErrorNoData();
@@ -934,7 +935,15 @@ namespace Save_Log_CT
             {
                 txtCardLV.Text = "Rosegold Member";
             }
-
+            string stmember = ds.Tables[0].Rows[0]["CT_STATUS"].ToString();
+            if (stmember == "A")
+            {
+                textStatus.Text = "ใช้งาน";
+            }
+            else if (stmember == "N")
+            {
+                textStatus.Text = "ยกเลิก";
+            }  
             CARDID.Text = ds.Tables[0].Rows[0]["CARDID"].ToString();
             CARDID.ReadOnly = true;
             AGE.Text = ds.Tables[0].Rows[0]["AGE"].ToString();
@@ -1154,7 +1163,9 @@ namespace Save_Log_CT
             PEOPLEID.Text = " ";
             CARDID.Text = " ";
             AGE.Text = " ";
-            
+            txtCardLV.Text = " ";
+            textStatus.Text = " ";
+
             BIRTHDATE.Text = DateTime.Today.ToString();
             ENTRYDATE.Text = DateTime.Today.ToString();
 

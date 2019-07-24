@@ -111,6 +111,8 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pb = new System.Windows.Forms.PictureBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textStatus = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -197,6 +199,8 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label17);
+            this.panel2.Controls.Add(this.textStatus);
             this.panel2.Controls.Add(this.label16);
             this.panel2.Controls.Add(this.txtCardLV);
             this.panel2.Controls.Add(this.button1);
@@ -457,7 +461,7 @@
             // 
             this.groupBox2.Controls.Add(this.lblPointExpire);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.groupBox2.Location = new System.Drawing.Point(383, 337);
+            this.groupBox2.Location = new System.Drawing.Point(383, 369);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -482,7 +486,7 @@
             // 
             this.groupBox1.Controls.Add(this.lblPoint);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.groupBox1.Location = new System.Drawing.Point(383, 267);
+            this.groupBox1.Location = new System.Drawing.Point(383, 299);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -521,10 +525,10 @@
             // 
             this.LbShow.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.LbShow.ForeColor = System.Drawing.Color.Red;
-            this.LbShow.Location = new System.Drawing.Point(387, 408);
+            this.LbShow.Location = new System.Drawing.Point(387, 440);
             this.LbShow.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LbShow.Name = "LbShow";
-            this.LbShow.Size = new System.Drawing.Size(354, 73);
+            this.LbShow.Size = new System.Drawing.Size(354, 41);
             this.LbShow.TabIndex = 241;
             this.LbShow.Text = "*";
             this.LbShow.Visible = false;
@@ -1023,6 +1027,26 @@
             this.pb.TabStop = false;
             this.pb.Visible = false;
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label17.Location = new System.Drawing.Point(378, 266);
+            this.label17.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(110, 25);
+            this.label17.TabIndex = 255;
+            this.label17.Text = "สถานะสมาชิก";
+            // 
+            // textStatus
+            // 
+            this.textStatus.Enabled = false;
+            this.textStatus.Location = new System.Drawing.Point(517, 268);
+            this.textStatus.Margin = new System.Windows.Forms.Padding(5);
+            this.textStatus.Name = "textStatus";
+            this.textStatus.Size = new System.Drawing.Size(215, 27);
+            this.textStatus.TabIndex = 254;
+            // 
             // Save_Log
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -1145,6 +1169,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader9;
         internal System.Windows.Forms.PictureBox pb2;
         internal System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox textStatus;
     }
 }
 

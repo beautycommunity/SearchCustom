@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{CDF67D31-EB92-4C96-BEDD-8EF35156EED7}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>ค้นหาข้อมูลสมาชิกลืมพกบัตร</RootNamespace>
     <AssemblyName>Save_Log_CT</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
