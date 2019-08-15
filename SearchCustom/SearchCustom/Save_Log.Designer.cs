@@ -37,6 +37,8 @@
             this.button_Select = new System.Windows.Forms.Button();
             this.SeachText = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textStatus = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.txtCardLV = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -111,8 +113,6 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pb = new System.Windows.Forms.PictureBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.textStatus = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -244,6 +244,26 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(793, 686);
             this.panel2.TabIndex = 214;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label17.Location = new System.Drawing.Point(378, 266);
+            this.label17.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(110, 25);
+            this.label17.TabIndex = 255;
+            this.label17.Text = "สถานะสมาชิก";
+            // 
+            // textStatus
+            // 
+            this.textStatus.Enabled = false;
+            this.textStatus.Location = new System.Drawing.Point(517, 268);
+            this.textStatus.Margin = new System.Windows.Forms.Padding(5);
+            this.textStatus.Name = "textStatus";
+            this.textStatus.Size = new System.Drawing.Size(215, 27);
+            this.textStatus.TabIndex = 254;
             // 
             // label16
             // 
@@ -1026,26 +1046,6 @@
             this.pb.TabIndex = 218;
             this.pb.TabStop = false;
             this.pb.Visible = false;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label17.Location = new System.Drawing.Point(378, 266);
-            this.label17.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(110, 25);
-            this.label17.TabIndex = 255;
-            this.label17.Text = "สถานะสมาชิก";
-            // 
-            // textStatus
-            // 
-            this.textStatus.Enabled = false;
-            this.textStatus.Location = new System.Drawing.Point(517, 268);
-            this.textStatus.Margin = new System.Windows.Forms.Padding(5);
-            this.textStatus.Name = "textStatus";
-            this.textStatus.Size = new System.Drawing.Size(215, 27);
-            this.textStatus.TabIndex = 254;
             // 
             // Save_Log
             // 

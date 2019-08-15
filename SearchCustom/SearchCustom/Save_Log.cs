@@ -76,7 +76,7 @@ namespace Save_Log_CT
             InitializeComponent();
 
             _STCODE = "8063";
-            _WHCODE = "1152";
+            _WHCODE = "5093";
 
             //_Local_CMDFX = @"Data Source=fash2.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
             //_Local_COMSUP = @"Data Source=fash2.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
@@ -84,17 +84,17 @@ namespace Save_Log_CT
             //_Local_CMDFX = @"Data Source=(local)\sqlexpress;Initial Catalog=CMD-FX_old;User ID=sa;Password=0000";
             //_Local_COMSUP = @"Data Source=(local)\sqlexpress;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
-            _Local_CMDFX = @"Data Source=fash2.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=fash2.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            _Local_CMDFX = @"Data Source=BCTPY.DYNDNS.INFO,1801;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=BCTPY.DYNDNS.INFO,1801;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
             //_Local_CMDFX = @"Data Source=.;Initial Catalog=CMD-FX;User ID=sa;Password=1Q2w3e4r@";
             //_Local_COMSUP = @"Data Source=.;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=1Q2w3e4r@";
             //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
             //string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
 
-            _Server_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-            _Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
-            _Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautybuffetpoint;User ID=sa;Password=0211";
+            _Server_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+            _Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
+            _Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=dbBeautybuffetpoint;User ID=sa;Password=0211";
             //link_Server = "5COSMEDA.HOMEUNIX.COM,1433";
             //DNS = "[" + link_Server + "].[CMD-BX].dbo.";
 
@@ -929,12 +929,18 @@ namespace Save_Log_CT
             string cardlvtext = ds.Tables[0].Rows[0]["CARDLV"].ToString();
             if (cardlvtext == "101" || cardlvtext == "501" || cardlvtext == "701")
             {
-                txtCardLV.Text = "Pink Member";
+                if (cardlvtext == "101") txtCardLV.Text = "Pink Member";
+                else if (cardlvtext == "501") txtCardLV.Text = "Silver Member";
+                else txtCardLV.Text = "ไม่มีระดับสมาชิก";
             }
             else if (cardlvtext == "102" || cardlvtext == "502" || cardlvtext == "702")
             {
-                txtCardLV.Text = "Rosegold Member";
+                if (cardlvtext == "102") txtCardLV.Text = "Rosegold Member";
+                else if (cardlvtext == "502") txtCardLV.Text = "Gold Member";
+                else txtCardLV.Text = "ไม่มีระดับสมาชิก";
             }
+            else txtCardLV.Text = "ไม่มีระดับสมาชิก";
+
             string stmember = ds.Tables[0].Rows[0]["CT_STATUS"].ToString();
             if (stmember == "A")
             {
@@ -1582,14 +1588,14 @@ namespace Save_Log_CT
 
                         //string sql = "select PRNAME from pr_setdate where (TIMELIMIT = 'F' or (TIMELIMIT = 'T' and convert(varchar(10),getdate(),102) between S_DATE and E_date)) and MEMBERONLY = 'T' and prtype not in ( 'V9','V3','V10')";
                         string sqlchekcard = "";
-                        if (txtCardLV.Text == "Pink Member")
+                        if (txtCardLV.Text == "Pink Member" || txtCardLV.Text == "Silver Member")
                         {
                             if(chkBrand == "BB") sqlchekcard = " AND B.CARDLV= '101'";
                             else if (chkBrand == "BC") sqlchekcard = " AND B.CARDLV= '501'";
                             else if (chkBrand == "BM") sqlchekcard = " AND B.CARDLV= '701'";
 
                         }
-                        else if (txtCardLV.Text == "Rosegold Member")
+                        else if (txtCardLV.Text == "Rosegold Member" || txtCardLV.Text == "Gold Member")
                         {
                             if (chkBrand == "BB") sqlchekcard = " AND B.CARDLV= '102'";
                             else if (chkBrand == "BC") sqlchekcard = " AND B.CARDLV= '502'";
