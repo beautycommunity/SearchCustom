@@ -172,6 +172,7 @@
             this.Type_ComboBox.Name = "Type_ComboBox";
             this.Type_ComboBox.Size = new System.Drawing.Size(215, 27);
             this.Type_ComboBox.TabIndex = 210;
+            //this.Type_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Type_ComboBox_SelectedIndexChanged);
             // 
             // button_Select
             // 
@@ -852,6 +853,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lsvSearch.FullRowSelect = true;
             this.lsvSearch.GridLines = true;
+            this.lsvSearch.HideSelection = false;
             this.lsvSearch.Location = new System.Drawing.Point(14, 230);
             this.lsvSearch.Margin = new System.Windows.Forms.Padding(4);
             this.lsvSearch.Name = "lsvSearch";
@@ -960,6 +962,7 @@
             this.listViewMember.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.listViewMember.FullRowSelect = true;
             this.listViewMember.GridLines = true;
+            this.listViewMember.HideSelection = false;
             this.listViewMember.Location = new System.Drawing.Point(0, 309);
             this.listViewMember.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listViewMember.Name = "listViewMember";
@@ -1014,6 +1017,7 @@
             this.lsvPromotion.Dock = System.Windows.Forms.DockStyle.Top;
             this.lsvPromotion.FullRowSelect = true;
             this.lsvPromotion.GridLines = true;
+            this.lsvPromotion.HideSelection = false;
             this.lsvPromotion.Location = new System.Drawing.Point(0, 0);
             this.lsvPromotion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lsvPromotion.Name = "lsvPromotion";

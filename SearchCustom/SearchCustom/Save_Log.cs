@@ -38,6 +38,7 @@ namespace Save_Log_CT
         public string _Server_CMDFX;
         public string _Sever_COMSUP;
         public string _Sever_Point;
+        public bool _flagCloud;
         //public string link_Server;
         //public string DNS;
         string Seach;
@@ -77,24 +78,32 @@ namespace Save_Log_CT
 
             _STCODE = "8063";
             _WHCODE = "5093";
-
+            _flagCloud = false;
+            if (_flagCloud)
+            {
+                _Server_CMDFX = @"Data Source=ns29.1baht.net;Initial Catalog=CMD-FX;User ID=beauty_sa;Password=Beauty99@";
+                _Sever_COMSUP = @"Data Source=ns29.1baht.net;Initial Catalog=CMD-FX;User ID=beauty_sa;Password=Beauty99@";
+                //cMessage.ErrorMessageNotCaption("ขณะนี้ ระบบทำงานบน Cloud จึงไม่สามารถใช้งานเมนูดังกล่าวได้!!! ");
+                //return;
+            }
             //_Local_CMDFX = @"Data Source=fash2.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
             //_Local_COMSUP = @"Data Source=fash2.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
             //_Local_CMDFX = @"Data Source=(local)\sqlexpress;Initial Catalog=CMD-FX_old;User ID=sa;Password=0000";
             //_Local_COMSUP = @"Data Source=(local)\sqlexpress;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
 
-            _Local_CMDFX = @"Data Source=BCTPY.DYNDNS.INFO,1801;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
-            _Local_COMSUP = @"Data Source=BCTPY.DYNDNS.INFO,1801;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
+            _Local_CMDFX = @"Data Source=FASH2.DYNDNS.INFO,1401;Initial Catalog=CMD-FX;User ID=sa;Password=0000";
+            _Local_COMSUP = @"Data Source=FASH2.DYNDNS.INFO,1401;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0000";
             //_Local_CMDFX = @"Data Source=.;Initial Catalog=CMD-FX;User ID=sa;Password=1Q2w3e4r@";
             //_Local_COMSUP = @"Data Source=.;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=1Q2w3e4r@";
             //_Sever_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
             //_Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
             //string strconn = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
 
-            _Server_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
-            _Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
-            _Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1833;Initial Catalog=dbBeautybuffetpoint;User ID=sa;Password=0211";
+            _Server_CMDFX = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=CMD-BX;User ID=sa;Password=0211";
+            _Sever_COMSUP = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautyCommSupport;User ID=sa;Password=0211";
+            _Sever_Point = @"Data Source=5COSMEDA.HOMEUNIX.COM,1433;Initial Catalog=dbBeautybuffetpoint;User ID=sa;Password=0211";
+    
             //link_Server = "5COSMEDA.HOMEUNIX.COM,1433";
             //DNS = "[" + link_Server + "].[CMD-BX].dbo.";
 
@@ -153,17 +162,28 @@ namespace Save_Log_CT
             //DNS = "[192.168.1.10,1533].[CMD-BX].dbo.";
         }
 
-        public Save_Log(string STCODE,string WHCODE,string Local_CMD,string Local_COMSUP, string Sever_CMDFX, string Sever_COMSUP , string Sever_Point, string LinkSever)
+        public Save_Log(string STCODE,string WHCODE,string Local_CMD,string Local_COMSUP, string Sever_CMDFX, string Sever_COMSUP , string Sever_Point, string LinkSever,bool flagCloud, string Cloud_CMDBX, string Cloud_COMSUP)
         {
             InitializeComponent();
+            _flagCloud = flagCloud;
 
-            _STCODE = STCODE;
+          
+                _STCODE = STCODE;
             _WHCODE = WHCODE;
             _Local_CMDFX = Local_CMD;
             _Local_COMSUP = Local_COMSUP;
-            _Server_CMDFX=Sever_CMDFX;
+            _Server_CMDFX= Sever_CMDFX;
             _Sever_COMSUP = Sever_COMSUP;
             _Sever_Point = Sever_Point;
+
+
+            if (_flagCloud)
+            {
+                _Server_CMDFX = Cloud_CMDBX;
+                _Sever_COMSUP = Cloud_COMSUP;
+                //cMessage.ErrorMessageNotCaption("ขณะนี้ ระบบทำงานบน Cloud จึงไม่สามารถใช้งานเมนูดังกล่าวได้!!! ");
+                //return;
+            } 
             //link_Server = LinkSever;
             //DNS = "[" + link_Server + "].[CMD-BX].dbo.";
 
@@ -376,6 +396,7 @@ namespace Save_Log_CT
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            
             Procss_Run();
         }
 
@@ -528,15 +549,18 @@ namespace Save_Log_CT
                                 //--------------------- new ------------------------------
 
                                 DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
-                                DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
+                               
 
                                 DataTable dt = DsShop.Tables[0];
-                                DataTable dt2 = DsServer.Tables[0];
+                                
 
 
 
                             if (dt.Rows.Count == 0)
                             {
+
+                                DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
+                                DataTable dt2 = DsServer.Tables[0];
                                 IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
                                                               select qq);
 
@@ -545,6 +569,24 @@ namespace Save_Log_CT
                                 DataSet Ans = new DataSet();
                                 Ans.Tables.Add(boundTable);
                                 Table = Ans;
+                                //if (_flagCloud)
+                                //{
+                                //    cMessage.ErrorMessageNotCaption("ขณะนี้ ระบบทำงานบน Cloud จึงไม่สามารถใช้งานเมนูดังกล่าวได้!!!  (ไม่สามารถหาข้อมูลลูกค้าจาก SERVER ได้)");
+                                //    return;
+                                //}
+                                //else {
+                                //    DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
+                                //    DataTable dt2 = DsServer.Tables[0];
+                                //    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
+                                //                                  select qq);
+
+                                //    DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                //    boundTable.TableName = "Ans";
+                                //    DataSet Ans = new DataSet();
+                                //    Ans.Tables.Add(boundTable);
+                                //    Table = Ans;
+                                //}
+
                             }
                             else
                             {
@@ -588,7 +630,14 @@ namespace Save_Log_CT
                                 Table = Ans;
                             }
 
-                            SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
+
+                            if (_flagCloud)
+                            {
+
+                            }
+                            else
+                            {
+                                SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
 
                                 SqlCommand cmd = new SqlCommand();
                                 cmd.CommandType = CommandType.Text;
@@ -598,8 +647,10 @@ namespace Save_Log_CT
                                 sqlConnection1.Open();
                                 cmd.ExecuteNonQuery();
                                 sqlConnection1.Close();
-
                             }
+
+
+                        }
                             else if (Type == "ชื่อลูกค้า")
                             {
                                 
@@ -614,23 +665,43 @@ namespace Save_Log_CT
                                         AND B.CT_ID IS NOT NULL   ORDER BY B.CARDID";
 
                                 DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
-                                DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
+                               
 
                                 DataTable dt = DsShop.Tables[0];
-                                DataTable dt2 = DsServer.Tables[0];
+                                
 
                                 if (dt.Rows.Count == 0)
                                 {
-                                    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
-                                                                  select qq);
+                                DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
+                                DataTable dt2 = DsServer.Tables[0];
+                                IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
+                                                              select qq);
 
-                                    DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                    boundTable.TableName = "Ans";
-                                    DataSet Ans = new DataSet();
-                                    Ans.Tables.Add(boundTable);
-                                    Table = Ans;
+                                DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                boundTable.TableName = "Ans";
+                                DataSet Ans = new DataSet();
+                                Ans.Tables.Add(boundTable);
+                                Table = Ans;
+                                //if (_flagCloud)
+                                //{
+                                //    cMessage.ErrorMessageNotCaption("ขณะนี้ ระบบทำงานบน Cloud จึงไม่สามารถใช้งานเมนูดังกล่าวได้!!! (ไม่สามารถหาข้อมูลลูกค้าจาก SERVER ได้)");
+                                //    return;
+                                //}
+                                //else {
+                                //    DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
+                                //    DataTable dt2 = DsServer.Tables[0];
+                                //    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
+                                //                                  select qq);
 
-                                }
+                                //    DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                //    boundTable.TableName = "Ans";
+                                //    DataSet Ans = new DataSet();
+                                //    Ans.Tables.Add(boundTable);
+                                //    Table = Ans;
+                                //}
+
+
+                            }
                                 else
                                 {
 
@@ -672,6 +743,13 @@ namespace Save_Log_CT
                                     Table = Ans;
                                 }
 
+
+                            if (_flagCloud)
+                            {
+                           
+                            }
+                            else
+                            {
                                 SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
 
                                 SqlCommand cmd = new SqlCommand();
@@ -682,8 +760,11 @@ namespace Save_Log_CT
                                 sqlConnection1.Open();
                                 cmd.ExecuteNonQuery();
                                 sqlConnection1.Close();
+
                             }
-                            else if (Type == "เบอร์โทรศัพท์")
+
+                        }
+                        else if (Type == "เบอร์โทรศัพท์")
                             {
                                
 
@@ -698,22 +779,44 @@ namespace Save_Log_CT
                                         AND B.CT_ID IS NOT NULL   ORDER BY B.CARDID";
 
                                 DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
-                                DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
+                               
 
                                 DataTable dt = DsShop.Tables[0];
-                                DataTable dt2 = DsServer.Tables[0];
+                                
 
                                 if (dt.Rows.Count == 0)
                                 {
-                                    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
-                                                                  select qq);
 
-                                    DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                    boundTable.TableName = "Ans";
-                                    DataSet Ans = new DataSet();
-                                    Ans.Tables.Add(boundTable);
-                                    Table = Ans;
-                                }
+                                DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
+                                DataTable dt2 = DsServer.Tables[0];
+                                IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
+                                                              select qq);
+
+                                DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                boundTable.TableName = "Ans";
+                                DataSet Ans = new DataSet();
+                                Ans.Tables.Add(boundTable);
+                                Table = Ans;
+                                //if (_flagCloud)
+                                //{
+                                //    cMessage.ErrorMessageNotCaption("ขณะนี้ ระบบทำงานบน Cloud จึงไม่สามารถใช้งานเมนูดังกล่าวได้!!! (ไม่สามารถหาข้อมูลลูกค้าจาก SERVER ได้)");
+                                //    return;
+                                //}
+                                //else
+                                //{
+                                //    DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
+                                //    DataTable dt2 = DsServer.Tables[0];
+                                //    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
+                                //                                  select qq);
+
+                                //    DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                //    boundTable.TableName = "Ans";
+                                //    DataSet Ans = new DataSet();
+                                //    Ans.Tables.Add(boundTable);
+                                //    Table = Ans;
+                                //}
+
+                            }
                                 else
                                 {
                                     //string sql_Union = @"SELECT Status,CARDID,FULLNAME,ID,MAX(UPDATEDT) AS UPDATEDT FROM (
@@ -752,8 +855,16 @@ namespace Save_Log_CT
                                     Ans.Tables.Add(boundTable);
                                     Table = Ans;
                                 }
-                                SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
+
+                           
+                            if (_flagCloud)
+                            {
                                 
+                            }
+                            else
+                            {
+                                SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
+
                                 SqlCommand cmd = new SqlCommand();
                                 cmd.CommandType = CommandType.Text;
                                 cmd.CommandText = "INSERT INTO LOG_CT (TYPE,LOG_DATA,SEARCH,WORKDATE,STCODE,WHCODE,FLAG) VALUES('1','SELECT FROM MOBILE','" + Seach + "','" + thisDay.ToString("yyyy/MM/dd", CultureInfo.GetCultureInfo("en-US")) + "','" + _STCODE + "','" + _WHCODE + "','0')";
@@ -762,8 +873,10 @@ namespace Save_Log_CT
                                 sqlConnection1.Open();
                                 cmd.ExecuteNonQuery();
                                 sqlConnection1.Close();
-
                             }
+
+
+                        }
                             else if (Type == "บัตรประชาชน")
                             {
                         
@@ -778,21 +891,43 @@ namespace Save_Log_CT
                                         AND B.CT_ID IS NOT NULL   ORDER BY B.CARDID";
 
                                 DsShop = cData.getDataSetWithSqlCommand(_Local_CMDFX, sql_local, 1000, true);
-                                DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
+                                
                             DataTable dt = DsShop.Tables[0];
-                                DataTable dt2 = DsServer.Tables[0];
+                               
 
                                 if (dt.Rows.Count == 0)
                                 {
-                                    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
-                                                                  select qq);
 
-                                    DataTable boundTable = query.CopyToDataTable<DataRow>();
-                                    boundTable.TableName = "Ans";
-                                    DataSet Ans = new DataSet();
-                                    Ans.Tables.Add(boundTable);
-                                    Table = Ans;
-                                }
+                                DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
+                                DataTable dt2 = DsServer.Tables[0];
+                                IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
+                                                              select qq);
+
+                                DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                boundTable.TableName = "Ans";
+                                DataSet Ans = new DataSet();
+                                Ans.Tables.Add(boundTable);
+                                Table = Ans;
+                                //if (_flagCloud)
+                                //{
+                                //    cMessage.ErrorMessageNotCaption("ขณะนี้ ระบบทำงานบน Cloud จึงไม่สามารถใช้งานเมนูดังกล่าวได้!!! (ไม่สามารถหาข้อมูลลูกค้าจาก SERVER ได้)");
+                                //    return;
+                                //}
+                                //else
+                                //{
+                                //    DsServer = cData.getDataSetWithSqlCommand(_Server_CMDFX, sql, 1000, true);
+                                //    DataTable dt2 = DsServer.Tables[0];
+                                //    IEnumerable<DataRow> query = (from qq in dt2.AsEnumerable()
+                                //                                  select qq);
+
+                                //    DataTable boundTable = query.CopyToDataTable<DataRow>();
+                                //    boundTable.TableName = "Ans";
+                                //    DataSet Ans = new DataSet();
+                                //    Ans.Tables.Add(boundTable);
+                                //    Table = Ans;
+                                //}
+
+                            }
                                 else
                                 {
                                
@@ -815,6 +950,12 @@ namespace Save_Log_CT
                                     Ans.Tables.Add(boundTable);
                                     Table = Ans;
                                 }
+                            if (_flagCloud)
+                            {
+                                
+                            }
+                            else
+                            {
                                 SqlConnection sqlConnection1 = new SqlConnection(_Sever_COMSUP);
 
                                 SqlCommand cmd = new SqlCommand();
@@ -825,6 +966,8 @@ namespace Save_Log_CT
                                 sqlConnection1.Open();
                                 cmd.ExecuteNonQuery();
                                 sqlConnection1.Close();
+                            }
+                               
 
                             }
                             else
@@ -832,9 +975,9 @@ namespace Save_Log_CT
                                 MessageBox.Show("กรุณาเลือกประเภท");
                             }
                         }
-                        catch
-                        {
-                            MessageBox.Show("ไม่พบข้อมูล");
+                        catch (Exception e)
+                    {
+                            MessageBox.Show("ไม่พบข้อมูล " + e.Message);
                             lsvSearch.Items.Clear();
                         }
                    // }
@@ -1212,7 +1355,17 @@ namespace Save_Log_CT
                 pictureBox1.Visible = true;
                 bgWorkermember.RunWorkerAsync();
                 //GetMembersum();
-                GetPromotion();
+
+                if (_flagCloud)
+                {
+                    cMessage.ErrorMessageNotCaption("ขณะนี้ ระบบทำงานบน Cloud จึงไม่สามารถใช้งานเมนูดังกล่าวได้!!! (ไม่สามารถดึงข้อมูลแต้มลูกค้าได้)");
+                    return;
+                }
+                else
+                {
+                    GetPromotion();
+                }
+                    
 
                 if(getHBD())
                 {
